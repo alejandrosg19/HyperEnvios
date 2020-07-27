@@ -1,0 +1,236 @@
+@font-face {
+    font-family: "futura";
+    src: url("../fonts/Futura_Book_font.ttf");
+}
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-family: "Montserrat", "Helvetica Neue", Arial, sans-serif;
+}
+.header{
+    width: 100%;
+    height: 100vh;
+    background-image: url('../img/web/bg1.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.shadow{
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.3);
+}
+.nav{
+    width: 100%;
+    height: 62px;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    position: fixed;
+}
+.nav-center{
+    width: 1100px;
+    height: auto;
+    display: flex;
+    flex-flow: row nowrap;
+}
+.nav-c-left{
+    width: 50%;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    align-items: flex-end;
+    padding-bottom: 4px;
+}
+.nav-c-right{
+    width: 50%;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-end;
+    align-items: flex-end;
+    padding-bottom: 4px;
+}
+.nav-c-left a{
+    display: block;
+    text-decoration: none;
+    color: #FFF;
+    padding: 5px 15px;
+    border-radius: 3px;
+    font-weight: 400;
+    font-size: 12px;
+    height: 40px;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    text-transform: uppercase;
+}
+.nav-c-right > div > a{
+    display: block;
+    text-decoration: none;
+    color: #FFF;
+    padding: 5px 15px;
+    border-radius: 3px;
+    font-weight: 400;
+    font-size: 10px;
+    height: 40px;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    text-transform: uppercase;
+    margin-right: 5px;
+}
+.nav-c-right > div > a:last-child{
+    margin: 0px;
+}
+
+.nav-c-right > div > a:hover{
+    background-color:rgba(256,256,256,0.3);
+    color: #FFF;
+}
+
+.icon-nav{
+    font-size: 15px;
+    margin-right: 5px;
+}
+.arrowDown{
+    font-size: 8px;
+    margin-left: 5px;
+}
+.main-view{
+    width: 100%;
+    height: calc( 100% - 62px );
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.main-view > div{
+    width: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    
+}
+.main-top{
+    height: 80%;
+    align-items: center;
+}
+.main-bottom{
+    height: 20%;
+    align-items: center;
+}
+.main-top > h3{
+    color: #FFF;
+}
+.main-bottom > h5{
+    font-size: 14px;
+    text-transform: uppercase;
+    color: #FFF;
+    opacity: 0.7;
+}
+/*DROP menu*/
+
+.dropdown-menu{
+    width: fit-content;
+    margin-top: 5px;
+    right: 0px !important;
+    top: 5px;
+    border-radius: 2px;
+    padding: 13px 0px;
+}
+.dropdown-item{
+    padding: 10px 24px;
+    font-size: 12px;
+    color: #3c3b3b;
+}
+.icon-dropdown{
+    font-size: 14px;
+    margin-right: 10px;
+}
+
+/*INFO*/
+.container-bg{
+    width: 100%;
+    height: 100vh;
+    background-color: #000;
+}
+.center{
+    width: 80%;
+    height: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-flow: column nowrap;
+    font-family: "futura";
+}
+.article1 > div{
+    width: 100%;
+}
+.article1-top{
+    height: 60%;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-end;
+    align-items: center;
+    color: #FFF;
+    text-align: center;
+}
+.article1-top-title{
+    font-size: 35px;
+}
+.article1-top-title-p1{
+    font-size: 25px;
+    margin-bottom: 40px;
+    font-weight: 100;
+    font-family: "futura";
+    opacity: 0.8;
+}
+.article1-top-title-p2{
+    width: 60%;
+    font-size: 20px;
+    margin-bottom: 30px;
+    font-family: "futura";
+    opacity: 0.8;
+}
+.article1-bottom{
+    height: 40%;
+    background-color: chocolate;
+}
+.center-articles{
+    width: 80%;
+    height: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-flow: column nowrap;
+    font-family: "futura";
+}
+.article2{
+    height: 80vh;
+    display: flex;
+    flex-flow: row nowrap;
+}
+.article2-left{
+    width: 40%;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+}
+.article2-right{
+    width: 60%;
+    background-image: url('../img/web/ipad.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    background-origin: content-box;
+    padding: 0px 50px;
+}
+.article2-subtitle{
+    font-size: 13px;
+    color: #cacaca;
+    font-weight: 900;
+}
+.article2-p{
+    font-family: "futura";
+    font-size: 18px;
+    margin-top: 45px;
+}
