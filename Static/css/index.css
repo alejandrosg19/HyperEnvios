@@ -267,5 +267,61 @@
 .article2-p {
     font-family: "futura";
     font-size: 18px;
+    color: #9A9A9A;
+
     margin-top: 45px;
+}
+
+/*NEW*/
+.articleText{
+    color: #FFF;
+}
+.columnEffect{
+    width: 300px;
+    perspective: 1000px;
+    position: relative;
+    /*transition: 1s;*/
+}
+/*.columnEffect:hover{
+    transform: translateY(-200px);
+}*/
+.imgEffectContainer{
+    padding-top: 200px;
+    transform-style: preserve-3d;
+    position: relative;
+}
+.imgEffect{
+    overflow: hidden;
+    transform: rotateY(-35deg);
+    border-radius: 15px;
+    box-shadow:  4px 14px rgba(0, 0, 0, 0.12);
+    transition: 1s;
+}
+.imgEffect img{
+    width: 300px;
+    position: relative;
+}
+
+.imgEffect:hover{
+    transform: translateY(-200px);
+}
+
+/*FOOTER Effect*/
+
+.footerEffect{  
+    position: relative;
+    height: fit-content;
+    box-shadow: 0px 5px 25px 0px rgba(0, 0, 0, 0.2);
+}
+.footerImageLeft{
+    right: -25px;
+    
+}
+.footerImageRight{
+    left: -25px;
+    z-index: -1;
+}
+.footerContainer h4, .footerContainer span, .footerContainer p{
+    font-family: "futura";
+    color: #FFF;
 }
