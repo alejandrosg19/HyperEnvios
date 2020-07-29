@@ -2,13 +2,15 @@
     font-family: "futura";
     src: url("../fonts/Futura_Book_font.ttf");
 }
-*{
+
+* {
     margin: 0px;
     padding: 0px;
     box-sizing: border-box;
     font-family: "Montserrat", "Helvetica Neue", Arial, sans-serif;
 }
-.header{
+
+.header {
     width: 100%;
     height: 100vh;
     background-image: url('../img/web/bg1.jpg');
@@ -16,12 +18,14 @@
     background-repeat: no-repeat;
     background-size: cover;
 }
-.shadow{
+
+.shadow {
     width: 100%;
     height: 100%;
-    background-color: rgba(0,0,0,0.3);
+    background-color: rgba(0, 0, 0, 0.3);
 }
-.nav{
+
+.nav {
     width: 100%;
     height: 62px;
     display: flex;
@@ -29,13 +33,15 @@
     justify-content: center;
     position: fixed;
 }
-.nav-center{
+
+.nav-center {
     width: 1100px;
     height: auto;
     display: flex;
     flex-flow: row nowrap;
 }
-.nav-c-left{
+
+.nav-c-left {
     width: 50%;
     display: flex;
     flex-flow: row nowrap;
@@ -43,7 +49,8 @@
     align-items: flex-end;
     padding-bottom: 4px;
 }
-.nav-c-right{
+
+.nav-c-right {
     width: 50%;
     display: flex;
     flex-flow: row nowrap;
@@ -51,7 +58,8 @@
     align-items: flex-end;
     padding-bottom: 4px;
 }
-.nav-c-left a{
+
+.nav-c-left a {
     display: block;
     text-decoration: none;
     color: #FFF;
@@ -65,7 +73,8 @@
     align-items: center;
     text-transform: uppercase;
 }
-.nav-c-right > div > a{
+
+.nav-c-right>div>a {
     display: block;
     text-decoration: none;
     color: #FFF;
@@ -80,58 +89,67 @@
     text-transform: uppercase;
     margin-right: 5px;
 }
-.nav-c-right > div > a:last-child{
+
+.nav-c-right>div>a:last-child {
     margin: 0px;
 }
 
-.nav-c-right > div > a:hover{
-    background-color:rgba(256,256,256,0.3);
+.nav-c-right>div>a:hover {
+    background-color: rgba(256, 256, 256, 0.3);
     color: #FFF;
 }
 
-.icon-nav{
+.icon-nav {
     font-size: 15px;
     margin-right: 5px;
 }
-.arrowDown{
+
+.arrowDown {
     font-size: 8px;
     margin-left: 5px;
 }
-.main-view{
+
+.main-view {
     width: 100%;
-    height: calc( 100% - 62px );
+    height: calc( 100% - 62px);
     display: flex;
     flex-flow: column nowrap;
     justify-content: space-evenly;
     align-items: center;
 }
-.main-view > div{
+
+.main-view>div {
     width: 100%;
     display: flex;
     flex-flow: row nowrap;
     justify-content: center;
-    
 }
-.main-top{
+
+.main-top {
     height: 80%;
     align-items: center;
 }
-.main-bottom{
+
+.main-bottom {
     height: 20%;
     align-items: center;
 }
-.main-top > h3{
+
+.main-top>h3 {
     color: #FFF;
 }
-.main-bottom > h5{
+
+.main-bottom>h5 {
     font-size: 14px;
     text-transform: uppercase;
     color: #FFF;
     opacity: 0.7;
 }
+
+
 /*DROP menu*/
 
-.dropdown-menu{
+.dropdown-menu {
     width: fit-content;
     margin-top: 5px;
     right: 0px !important;
@@ -139,23 +157,28 @@
     border-radius: 2px;
     padding: 13px 0px;
 }
-.dropdown-item{
+
+.dropdown-item {
     padding: 10px 24px;
     font-size: 12px;
     color: #3c3b3b;
 }
-.icon-dropdown{
+
+.icon-dropdown {
     font-size: 14px;
     margin-right: 10px;
 }
 
+
 /*INFO*/
-.container-bg{
+
+.container-bg {
     width: 100%;
     height: 100vh;
     background-color: #000;
 }
-.center{
+
+.center {
     width: 80%;
     height: 100%;
     margin: 0 auto;
@@ -163,10 +186,12 @@
     flex-flow: column nowrap;
     font-family: "futura";
 }
-.article1 > div{
+
+.article1>div {
     width: 100%;
 }
-.article1-top{
+
+.article1-top {
     height: 60%;
     display: flex;
     flex-flow: column nowrap;
@@ -175,28 +200,33 @@
     color: #FFF;
     text-align: center;
 }
-.article1-top-title{
+
+.article1-top-title {
     font-size: 35px;
 }
-.article1-top-title-p1{
+
+.article1-top-title-p1 {
     font-size: 25px;
     margin-bottom: 40px;
     font-weight: 100;
     font-family: "futura";
     opacity: 0.8;
 }
-.article1-top-title-p2{
+
+.article1-top-title-p2 {
     width: 60%;
     font-size: 20px;
     margin-bottom: 30px;
     font-family: "futura";
     opacity: 0.8;
 }
-.article1-bottom{
+
+.article1-bottom {
     height: 40%;
     background-color: chocolate;
 }
-.center-articles{
+
+.center-articles {
     width: 80%;
     height: 100%;
     margin: 0 auto;
@@ -204,18 +234,21 @@
     flex-flow: column nowrap;
     font-family: "futura";
 }
-.article2{
+
+.article2 {
     height: 80vh;
     display: flex;
     flex-flow: row nowrap;
 }
-.article2-left{
+
+.article2-left {
     width: 40%;
     display: flex;
     flex-flow: column nowrap;
     justify-content: center;
 }
-.article2-right{
+
+.article2-right {
     width: 60%;
     background-image: url('../img/web/ipad.png');
     background-repeat: no-repeat;
@@ -224,12 +257,14 @@
     background-origin: content-box;
     padding: 0px 50px;
 }
-.article2-subtitle{
+
+.article2-subtitle {
     font-size: 13px;
     color: #cacaca;
     font-weight: 900;
 }
-.article2-p{
+
+.article2-p {
     font-family: "futura";
     font-size: 18px;
     margin-top: 45px;
