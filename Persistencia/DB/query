@@ -1,0 +1,26 @@
+create database proyectoFinalAplicaciones;
+use proyectoFinalAplicaciones;
+
+create table Administrador(
+    idAdministrador int not null auto_increment,
+    nombre varchar(50) not null,
+    email varchar(80) not null unique,
+    clave varchar(100) not null,
+    foto varchar(80),
+    primary key(idAdministrador)
+);
+
+create table Cliente(
+    idCliente int not null auto_increment,
+    nombre varchar(50) not null,
+    email varchar(80) not null unique,
+    direccion varchar (100) not null,
+    clave varchar(100) not null,
+    foto varchar(80),
+    estado int not null,
+    codigoActivacion varchar(100),
+    primary key(idCliente)
+);
+
+insert into administrador (nombre, email, clave) values('Mateo Epalza', 'mateoepalzaramirez@gmail.com', md5('123'));
+insert into cliente (nombre, email, direccion, clave, estado) values('Mateo Epalza', 'mepalza972010@hotmail.com', 'calle 55 a sur # 78j - 41', md5('123'), 1);
