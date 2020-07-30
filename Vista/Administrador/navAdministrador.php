@@ -86,7 +86,7 @@ $administrador->getInfoNav();
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <a class="dropdown-item" href="index.php?pid=<?php echo base64_encode("Vista/Cliente/listarCliente.php") ?>">Cliente</a>
-                            <a class="dropdown-item" href="#">Conductor</a>
+                            <a class="dropdown-item" href="index.php?pid=<?php echo base64_encode("Vista/Conductor/listarConductor.php") ?>">Conductor</a>
                             <a class="dropdown-item" href="#">Despachador</a>
                         </div>
                     </li>

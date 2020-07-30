@@ -1,12 +1,12 @@
 <div class="container mt-5 mb-5">
     <div class="row justify-content-center">
-        <h1>Buscar Cliente</h1>
+        <h1>Buscar Conductor</h1>
     </div>
     <div class="row justify-content-center mt-5">
         <div class="col-12 col-md-12 col-lg-11 col-xl-11">
             <div class="card">
                 <div class="card-header bg-dark d-flex flex-row justify-content-between">
-                    <a href="index.php?pid=<?php echo base64_encode("Vista/Cliente/crearCliente.php") ?>"><button type="button" class="btn btn-outline-light">Crear nuevo</button></a>
+                    <a href="index.php?pid=<?php echo base64_encode("Vista/Conductor/crearConductor.php") ?>"><button type="button" class="btn btn-outline-light">Crear nuevo</button></a>
                     <select id="select-cantidad">
                         <option value="5">5</option>
                         <option value="10">10</option>
@@ -73,8 +73,8 @@
             "search": $("#search").val()
         };
 
-        $.post("indexAJAX.php?pid=<?php echo base64_encode("Vista/Cliente/Ajax/searchBarCliente.php") ?>", json, function(data) {
-
+        $.post("indexAJAX.php?pid=<?php echo base64_encode("Vista/Conductor/Ajax/searchBarConductor.php") ?>", json, function(data) {
+            console.log(data);
             res = JSON.parse(data);
             // Imprime los datos de la tabla
             tablePrint(res.DataT, res.DataL);
@@ -90,7 +90,7 @@
          * Info Cliente
          */
         $("#tabla").on('click', ".moreInfoBtn", function() {
-            $url = "indexAJAX.php?pid=<?php echo base64_encode("Vista/Cliente/Ajax/moreInfoCliente.php") ?>&idCliente=" + $(this).data("idcliente");
+            $url = "indexAJAX.php?pid=<?php echo base64_encode("Vista/Conductor/Ajax/moreInfoConductor.php") ?>&idConductor=" + $(this).data("idconductor");
             $(".modal-body").load($url);
         });
 
@@ -105,7 +105,7 @@
                 "search": $(this).val()
             };
 
-            $.post("indexAJAX.php?pid=<?php echo base64_encode("Vista/Cliente/Ajax/searchBarCliente.php") ?>", json, function(data) {
+            $.post("indexAJAX.php?pid=<?php echo base64_encode("Vista/Conductor/Ajax/searchBarConductor.php") ?>", json, function(data) {
                 res = JSON.parse(data);
                 // Imprime los datos de la tabla
                 tablePrint(res.DataT, res.DataL);
@@ -127,7 +127,7 @@
                     "search": $("#search").val()
                 };
 
-                $.post("indexAJAX.php?pid=<?php echo base64_encode("Vista/Cliente/Ajax/searchBarCliente.php") ?>", json, function(data) {
+                $.post("indexAJAX.php?pid=<?php echo base64_encode("Vista/Conductor/Ajax/searchBarConductor.php") ?>", json, function(data) {
                     res = JSON.parse(data);
 
                     if (res.status) {
@@ -152,7 +152,7 @@
                 "cantPag": $(this).val(),
                 "search": $("#search").val()
             };
-            $.post("indexAJAX.php?pid=<?php echo base64_encode("Vista/Cliente/Ajax/searchBarCliente.php") ?>", json, function(data) {
+            $.post("indexAJAX.php?pid=<?php echo base64_encode("Vista/Conductor/Ajax/searchBarConductor.php") ?>", json, function(data) {
                 res = JSON.parse(data);
                 //imprime los datos en la tabla
                 tablePrint(res.DataT, res.DataL);
@@ -166,10 +166,11 @@
          */
         $('.table').on('change', '.select-estado', function() {
             json = {
-                "idCliente": $(this).data('id'),
+                "idConductor": $(this).data('id'),
                 "estado": $(this).val(),
             };
-            $.post("indexAJAX.php?pid=<?php echo base64_encode("Vista/Cliente/Ajax/updateEstadoCliente.php") ?>", json, function(data) {
+            $.post("indexAJAX.php?pid=<?php echo base64_encode("Vista/Conductor/Ajax/updateEstadoConductor.php") ?>", json, function(data) {
+                console.log(data);
                 res = JSON.parse(data);
                 crearAlert(res.status, res.msj);
             });
@@ -199,14 +200,13 @@
                         <select class='select-estado form-control' data-id='${data[0]}'>
                             <option value='1' ${(data[3] == 1)?"selected":""}>Activado</option>
                             <option value='0' ${(data[3] == 0)?"selected":""} >Bloqueado</option>
-                            <option value='-1' ${(data[3] == -1)?"selected":""}>Desactivado</option>
                         </select>
                     </td>
                     <td style='display:flex; justify-content:center;'>
-                        <a href='index.php?pid=${DataL}&idCliente=${data[0]}'>
+                        <a href='index.php?pid=${DataL}&idConductor=${data[0]}'>
                             <i class='far fa-edit'></i>
                         </a>
-                        <a href='#' class="moreInfoBtn" data-idcliente="${data[0]}" data-toggle="modal" data-target="#moreInfo"><i class='fas fa-info-circle'></i></a>
+                        <a href='#' class="moreInfoBtn" data-idconductor="${data[0]}" data-toggle="modal" data-target="#moreInfo"><i class='fas fa-info-circle'></i></a>
                     </td>
                 </tr>`
             );
