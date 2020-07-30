@@ -1,3 +1,133 @@
+<?php 
+
+/**
+ * Registro de usuario
+ */
+
+if(isset($_POST['btn-registrar'])){
+
+    $correo = $_POST['email'];
+    $clave = $_POST['clave'];
+
+    $cliente = new Cliente("", "", "", $correo, $clave);
+    $administrador = new Administrador("", "", "", $correo);
+    $inventarista = new Inventarista("", "", "", $correo);
+
+    if($cliente -> existeCorreo() || $administrador -> existeCorreo() || $inventarista -> existeCorreo()){
+
+        $msj = "El correo proporcionado ya se encuentra en uso.";
+        $class = "alert-danger";
+
+    }else{
+
+        $res = $cliente -> registrar();
+
+        if($res == 1){
+            $msj = "El registro fue exitoso, por favor revise su cuenta de correo para activar la cuenta.";
+            $class = "alert-success";
+        }else{
+            $msj = "Ocurrió algo inesperado.";
+            $class = "alert-danger";
+        }
+    }
+
+    include "Vista/Main/error.php";
+
+    
+}
+/**
+ * Mensaje luego de la activación
+ */ 
+if(isset($_GET['activacion'])){
+
+    $activacion = $_GET['activacion'];
+
+    if($activacion == 1){
+        $msj = "Su cuenta ha sido activada.";
+        $class = "alert-success";
+    }else{
+        $msj = "Ocurrió algo inesperado.";
+        $class = "alert-danger";
+    }
+
+    include "Vista/Main/error.php";
+}
+
+/**
+ *  Muestra el mensaje de error
+ */
+
+if(isset($_GET['error'])){
+
+    $error = $_GET['error'];
+
+    if($error == 1){
+        $class = "alert-danger";
+        $msj = "El correo y la contraseña no coinciden, intente denuevo";
+    }else if($error == 2){
+        $class = "alert-warning";
+        $msj = "Su cuenta no ha sido activada, por favor revise su correo";
+    }else if($error == 3){
+        $class = "alert-danger";
+        $msj = "Su cuenta ha sido bloqueada, por favor contactese con el administrador";
+    }
+
+    include_once "Vista/Main/alert.php";
+}
+
+?>
+<link rel="stylesheet" href="Static/css/index.css">
+<script type="text/javascript" src="Static/js/index.js"></script>
+<div class="hidden">
+    <div class="form">
+        <form action="index.php?pid=<?php echo base64_encode("Vista/Auth/autenticar.php") ?>" method="post">
+            <div class="d-flex flex-row justify-content-center">
+                <img src="static/img/logo.png" width=50>
+            </div>
+            <div>
+                <h1>Log in</h1>
+            </div>
+            <div class="form-group">
+                <label>Email</label>
+                <input class="form-control" name="email" type="email" placeholder="Type your email">
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input class="form-control" name="pass" type="password" placeholder="Type your password">
+            </div>
+            <div class="form-group d-flex flex-column align-items-center">
+                <input class="form-control btn btn-outline-secondary" name="btn-send" type="submit">
+                <span class="mt-3">Don't have an account? <a href="#" class="registrarse">Sign In</a></span>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="hidden-registrar">
+    <div class="form">
+        <form action="index.php" method="POST">
+            <div class="d-flex flex-row justify-content-center">
+                <img src="static/img/logo.png" width=50>
+            </div>
+            <div>
+                <h1>Sign In</h1>
+            </div>
+            <div class="form-group">
+                <label>Email</label>
+                <input class="form-control" name="email" type="email" placeholder="Type your email">
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input class="form-control" name="clave" type="password" placeholder="Type your password">
+            </div>
+            <div class="form-group d-flex flex-column align-items-center">
+                <input class="form-control btn btn-outline-secondary" name="btn-registrar" type="submit">
+                <span class="mt-3">Already have an account? <a href="#" class="signIn">Log In</a></span>
+            </div>
+        </form>
+    </div>
+</div>
+
 <div class="container-m">
             <div class="header">
                 <div class="shadow">
@@ -10,8 +140,8 @@
                                 <div>
                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" > <span class="icon-nav"><i class="fas fa-cube"></i></span> Components</a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="#"><span class="icon-dropdown"><i class="fas fa-chart-pie"></i></span> All Components</a>
-                                        <a class="dropdown-item" href="#"><span class="icon-dropdown"><i class="far fa-file"></i></span> Documentation</a>
+                                        <a class="dropdown-item" href="#"><span class="icon-dropdown"><i class="fas fa-chart-pie"></i></span>Analytics</a>
+                                        <a class="dropdown-item" href="#"><span class="icon-dropdown"><i class="far fa-file"></i></span> CRM</a>
                                     </div>
                                 </div>
                                 <div>
@@ -25,9 +155,8 @@
                                 <div>
                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <span class="icon-nav"><i class="far fa-image"></i></span> Examples</a>  
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="#"> <span class="icon-dropdown"><i class="fas fa-chart-pie"></i></span>Action</a>
-                                        <a class="dropdown-item" href="#"> <span class="icon-dropdown"><i class="fas fa-chart-pie"></i></span>Another action</a>
-                                        <a class="dropdown-item" href="#"> <span class="icon-dropdown"><i class="fas fa-chart-pie"></i></span>Something else here</a>
+                                        <a class="dropdown-item signIn" href="#"> <span class="icon-dropdown"><i class="fas fa-sign-in-alt"></i></span>Log In</a>
+                                        <a class="dropdown-item registrarse" href="#"> <span class="icon-dropdown"><i class="fas fa-user-plus"></i></span>Sign Up</a>
                                     </div>
                                 </div>
                             </div>
