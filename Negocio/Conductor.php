@@ -130,5 +130,15 @@ class Conductor{
         $this -> Conexion -> cerrar();
     }
     
+    /**
+     * Buscar si un correo ya existe
+     */
+
+    public function existeCorreo(){
+        $this -> Conexion -> abrir();
+        $this -> Conexion -> ejecutar( $this -> ConductorDAO -> existeCorreo());
+        $this -> Conexion -> cerrar();
+        return $this -> Conexion -> numFilas();
+    }
 }
 ?>

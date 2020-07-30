@@ -5,6 +5,7 @@ $administrador = new Administrador($idAdministrador);
 $administrador->getInfoNav();
 ?>
 <link rel="stylesheet" href="Static/css/nav.css">
+<link rel="stylesheet" href="Static/css/table.css">
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid d-flex flex-row justify-content-center">
         <div class="col-10 d-flex p-2">
@@ -81,12 +82,12 @@ $administrador->getInfoNav();
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Components
+                            Users
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <a class="dropdown-item" href="#">Something else here</a>
+                            <a class="dropdown-item" href="index.php?pid=<?php echo base64_encode("Vista/Cliente/listarCliente.php") ?>">Cliente</a>
+                            <a class="dropdown-item" href="#">Conductor</a>
+                            <a class="dropdown-item" href="#">Despachador</a>
                         </div>
                     </li>
                 </ul>
@@ -94,3 +95,6 @@ $administrador->getInfoNav();
         </div>
     </div>
 </nav>
+<div id="alert-ajax">
+
+</div>

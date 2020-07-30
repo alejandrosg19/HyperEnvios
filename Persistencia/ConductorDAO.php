@@ -34,6 +34,11 @@ class ConductorDAO{
                 FROM conductor
                 WHERE idConductor = " . $this -> idConductor;
     }
+    public function existeCorreo(){
+        return "SELECT idConductor
+                FROM Conductor
+                WHERE email = '" . $this -> correo . "'";
+    }
 
     
 }

@@ -8,21 +8,23 @@ class Cliente{
     private $nombre;
     private $correo;
     private $clave;
+    private $direccion;
     private $foto;
     private $estado;
     private $codigoActivacion;
     private $ClienteDAO;
     private $Conexion;
 
-    public function Cliente($idCliente = "", $nombre = "", $correo = "", $clave = "", $foto = "", $estado = "", $codigoActivacion = ""){
+    public function Cliente($idCliente = "", $nombre = "", $correo = "", $clave = "", $direccion = "", $foto = "", $estado = "", $codigoActivacion = ""){
         $this -> idCliente = $idCliente;
         $this -> nombre = $nombre;
         $this -> correo = $correo;
         $this -> clave = $clave;
+        $this -> direccion = $direccion;
         $this -> foto = $foto;
         $this -> estado = $estado;
         $this -> codigoActivacion = $codigoActivacion;
-        $this -> ClienteDAO = new ClienteDAO($idCliente, $nombre, $correo, $clave, $foto, $estado, $codigoActivacion);
+        $this -> ClienteDAO = new ClienteDAO($idCliente, $nombre, $correo, $clave, $direccion, $foto, $estado, $codigoActivacion);
         $this -> Conexion = new Conexion();
     }
     /*
@@ -34,6 +36,10 @@ class Cliente{
 
     public function getNombre(){
         return $this -> nombre;
+    }
+
+    public function getDireccion(){
+        return $this -> direccion;
     }
 
     public function getCorreo(){
@@ -65,6 +71,10 @@ class Cliente{
 
     public function setNombre($nombre){
         $this -> nombre = $nombre;
+    }
+
+    public function SetDireccion($direccion){
+        $this -> direccion = $direccion;
     }
 
     public function setCorreo($correo){
@@ -122,6 +132,119 @@ class Cliente{
         $this -> Conexion -> cerrar();
     }
 
+
+    /*
+     * Función que busca por paginación, filtro de palabra y devuelve la información en un array
+     */
+    public function filtroPaginado($str, $pag, $cant){
+        $this -> Conexion -> abrir();
+        $this -> Conexion -> ejecutar( $this -> ClienteDAO -> filtroPaginado($str, $pag, $cant));
+        $resList = Array();
+        while($res = $this -> Conexion -> extraer()){
+            array_push($resList, $res);
+        }
+        $this -> Conexion -> cerrar();
+
+        return $resList;
+    }
+
+    /*
+     * Busca la cantidad de registros con filtro de palabra
+     */
+    public function filtroCantidad($str){
+        $this -> Conexion -> abrir();
+        $this -> Conexion -> ejecutar( $this -> ClienteDAO -> filtroCantidad($str));
+        $res = $this -> Conexion -> extraer();
+        $this -> Conexion -> cerrar();
+
+        return $res[0];
+    }
+
+    /**
+     * Buscar si un correo ya existe
+     */
+
+    public function existeCorreo(){
+        $this -> Conexion -> abrir();
+        $this -> Conexion -> ejecutar( $this -> ClienteDAO -> existeCorreo());
+        $this -> Conexion -> cerrar();
+        return $this -> Conexion -> numFilas();
+    }
+
+    /**
+     * Insertar un nuevo Cliente
+     */
+    public function insertar(){
+        $this -> Conexion -> abrir();
+        $this -> Conexion -> ejecutar( $this -> ClienteDAO -> insertar());
+        $res = $this -> Conexion -> filasAfectadas();
+        $this -> Conexion -> cerrar();
+        return $res;
+    }
+
+    /*
+     * Función que actualiza el estado de un cliente
+     */
+    public function updateEstado(){
+        $this -> Conexion -> abrir();
+        $this -> Conexion -> ejecutar( $this -> ClienteDAO -> updateEstado());
+        $res = $this -> Conexion -> filasAfectadas();
+        $this -> Conexion -> cerrar();
+        return $res;
+    }
+
+
+    /**
+     * Obtener información básica
+     */
+    public function getInfoBasic(){
+
+        $this -> Conexion -> abrir();
+        $this -> Conexion -> ejecutar( $this -> ClienteDAO -> getInfoBasic());
+        $res = $this -> Conexion -> extraer();
+        
+        $this -> nombre = $res[1];
+        $this -> direccion = $res[2];
+        $this -> correo = $res[3];
+        $this -> clave = $res[4];
+        $this -> foto = $res[5];
+        $this -> estado = $res[6];
+        
+        $this -> Conexion -> cerrar();
+    }
+
+    /**
+     * Busca si un correo enviado por parámetro ya existe
+     */
+
+    public function existeNuevoCorreo($correo){
+        $this -> Conexion -> abrir();
+        $this -> Conexion -> ejecutar( $this -> ClienteDAO -> existeNuevoCorreo($correo));
+        $this -> Conexion -> cerrar();
+        return $this -> Conexion -> numFilas();
+    }
+
+    /**
+     * Actualiza la información del objeto actualizando la contraseña
+     */
+    public function actualizarCClave(){
+        $this -> Conexion -> abrir();
+        $this -> Conexion -> ejecutar( $this -> ClienteDAO -> actualizarCClave());
+        $res = $this -> Conexion -> filasAfectadas();
+        $this -> Conexion -> cerrar();
+        return $res;
+    }
+
+    /*
+     * Actualiza la información del objeto sin actualizar la contraseña
+     */
+    public function actualizar(){
+        $this -> Conexion -> abrir();
+        $this -> Conexion -> ejecutar( $this -> ClienteDAO -> actualizar());
+        $res = $this -> Conexion -> filasAfectadas();
+        $this -> Conexion -> cerrar();
+        return $res;
+    }
     
 }
 ?>

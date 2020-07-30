@@ -30,6 +30,11 @@ class AdministradorDAO{
                 FROM administrador
                 WHERE idAdministrador = " . $this -> idAdministrador;
     }
+    public function existeCorreo(){
+        return "SELECT idAdministrador
+                FROM Administrador
+                WHERE email = '" . $this -> correo . "'";
+    }
 
 }
 

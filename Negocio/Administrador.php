@@ -100,6 +100,17 @@ class Administrador{
         $this -> foto = $res[2];
         $this -> Conexion -> cerrar();
     }
+
+    /**
+     * Buscar si un correo ya existe
+     */
+
+    public function existeCorreo(){
+        $this -> Conexion -> abrir();
+        $this -> Conexion -> ejecutar( $this -> AdministradorDAO -> existeCorreo());
+        $this -> Conexion -> cerrar();
+        return $this -> Conexion -> numFilas();
+    }
 }
 
 ?>

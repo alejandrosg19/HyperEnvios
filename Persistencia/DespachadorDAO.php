@@ -33,7 +33,11 @@ class DespachadorDAO{
                 FROM despachador
                 WHERE idDespchador = " . $this -> idDespachador;
     }
-
+    public function existeCorreo(){
+        return "SELECT idCliente
+                FROM Cliente
+                WHERE email = '" . $this -> correo . "'";
+    }
     
 }
 ?>

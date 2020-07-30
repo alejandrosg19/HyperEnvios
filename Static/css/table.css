@@ -1,0 +1,99 @@
+body{
+    background-color: #F3F5FA;
+}
+.bg-dark{
+    background-color: #323D4E !important;
+}
+
+.form-bg > .card{
+    padding: 25px 50px 50px 50px;
+    border-radius: 15px;
+    /*box-shadow: 5px 6px 5px 0px rgba(209,209,209,1);*/
+    border: 0px;
+
+}
+
+.form-title{
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 25px;
+    text-align: center;
+}
+.form-title  > h1{
+    color: #323D4E;
+}
+.ingredientesProducto{
+    background-color: white;
+    padding: 50px;
+    border: 1px solid #dee2e6;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    /*box-shadow: 5px 6px 5px 0px rgba(209,209,209,1);*/
+}
+
+.form-personal{
+    background-color: white;
+    border-radius: 15px;
+    padding: 50px 50px 50px 50px;
+    /*box-shadow: 5px 6px 5px 0px rgba(209,209,209,1);*/
+}
+
+.form-table{
+    border: 0px;
+    padding: 0px;
+}
+.card-footer{
+    background-color: #f8f9fa;
+}
+.form-table table tr:nth-child(odd) {
+    background-color: #f8f9fa;
+}
+
+.form-table table tr:hover{
+    background-color: #F5F9FC;
+}
+
+.form-table table tr th {
+    color: #495057;
+    font-weight: 500;
+}
+
+.form-table table tr td {
+    color: #495057;
+    font-size: 15px;
+    letter-spacing: .5px;
+}
+.form-table table td, .form-table table th{
+    padding: 1.2rem .75rem;
+}
+.form-table table thead tr{
+    background-color: #FFF !important;
+}
+@media only screen and (max-width: 992px) {
+    .form-bg > .card{
+        padding: 25px 35px 35px 35px;
+    }
+    .form-personal{
+        padding: 25px 35px 35px 35px;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .form-bg > .card{
+        padding: 25px 25px 25px 25px;
+    }
+    .form-personal{
+        padding: 25px 25px 25px 25px;
+    }
+}
+
+@media only screen and (max-width: 576px) {
+    .form-bg > .card{
+        padding: 25px 15px 15px 15px;
+    }
+    .form-personal{
+        padding: 25px 15px 15px 15px;
+    }
+}
