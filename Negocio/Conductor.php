@@ -1,35 +1,35 @@
 <?php 
 
 require_once "Persistencia/Conexion.php";
-require_once "Persistencia/ClienteDAO.php";
+require_once "Persistencia/ConductorDAO.php";
 
-class Cliente{
-    private $idCliente;
+class Conductor{
+    private $idConductor;
     private $nombre;
     private $correo;
     private $clave;
+    private $telefono;
     private $foto;
     private $estado;
-    private $codigoActivacion;
-    private $ClienteDAO;
+    private $ConductorDAO;
     private $Conexion;
 
-    public function Cliente($idCliente = "", $nombre = "", $correo = "", $clave = "", $foto = "", $estado = "", $codigoActivacion = ""){
-        $this -> idCliente = $idCliente;
+    public function Conductor($idConductor = "", $nombre = "", $correo = "",  $clave = "", $telefono = "", $foto = "", $estado = ""){
+        $this -> idConductor = $idConductor;
         $this -> nombre = $nombre;
         $this -> correo = $correo;
         $this -> clave = $clave;
+        $this -> telefono = $telefono;
         $this -> foto = $foto;
         $this -> estado = $estado;
-        $this -> codigoActivacion = $codigoActivacion;
-        $this -> ClienteDAO = new ClienteDAO($idCliente, $nombre, $correo, $clave, $foto, $estado, $codigoActivacion);
+        $this -> ConductorDAO = new ConductorDAO($idConductor, $nombre, $correo, $clave, $telefono, $foto, $estado);
         $this -> Conexion = new Conexion();
     }
     /*
     *   Getters
     */
-    public function getIdCliente(){
-        return $this -> idCliente;
+    public function getIdConductor(){
+        return $this -> idConductor;
     }
 
     public function getNombre(){
@@ -38,6 +38,10 @@ class Cliente{
 
     public function getCorreo(){
         return $this -> correo;
+    }
+
+    public function getTelefono(){
+        return $this -> telefono;
     }
 
     public function getClave(){
@@ -52,9 +56,6 @@ class Cliente{
         return $this -> estado;
     }
 
-    public function getCodigoActivacion(){
-        return $this -> codigoActivacion;
-    }
 
     /*
     *   Setters
@@ -71,6 +72,10 @@ class Cliente{
         $this -> correo = $correo;
     }
 
+    public function setTelefono($telefono){
+        $this -> telefono =  $telefono;
+    }
+
     public function setClave($clave){
         $this -> clave = $clave;
     }
@@ -83,20 +88,24 @@ class Cliente{
         $this -> Estado = $estado;
     }
 
-    public function setCodigoActivacion($codigoActivacion){
-        $this -> codigoActivacion = $codigoActivacion;
-    }
 
     /* 
     *   methods
     */
 
+    /**
+     * Metodo de autenticación en el sistema
+     * Devuelve True si el correo y la contraseña coinciden
+     * Devuelve False de lo contrario
+    */
+
     public function autenticar(){
         $this -> Conexion -> abrir();
-        $this -> Conexion -> ejecutar( $this -> ClienteDAO -> autenticar());
+        echo $this -> ConductorDAO -> autenticar();
+        $this -> Conexion -> ejecutar( $this -> ConductorDAO -> autenticar());
         if($this -> Conexion -> numFilas() == 1){
             $res = $this -> Conexion -> extraer();
-            $this -> idCliente = $res[0];
+            $this -> idConductor = $res[0];
             $this -> estado = $res[1];
             $this -> Conexion -> cerrar();
             return True;
@@ -111,17 +120,15 @@ class Cliente{
      * Actualizar Nav información
      * Busca por el nombre, el correo y la imagen que tenga el usuario
      */
-
     public function getInfoNav(){
         $this -> Conexion -> abrir();
-        $this -> Conexion -> ejecutar($this -> ClienteDAO -> getInfoNav());
+        $this -> Conexion -> ejecutar($this -> ConductorDAO -> getInfoNav());
         $res = $this -> Conexion -> extraer();
         $this -> nombre = $res[0];
         $this -> correo = $res[1];
         $this -> foto = $res[2];
         $this -> Conexion -> cerrar();
     }
-
     
 }
 ?>

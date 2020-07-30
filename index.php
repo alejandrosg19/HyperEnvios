@@ -4,6 +4,8 @@
 
     require_once "Negocio/Administrador.php";
     require_once "Negocio/Cliente.php";
+    require_once "Negocio/Conductor.php";
+    require_once "Negocio/Despachador.php";
     
     $pid = null;
 
@@ -30,7 +32,10 @@
                 include $pid;
                 include "Vista/Cliente/footerCliente.php";
             }else if($_SESSION['rol'] == 3){
-                include "Vista/Inventarista/navInventarista.php";
+                include "Vista/Conductor/navConductor.php";
+                include $pid;
+            }else if($_SESSION['rol'] == 4){
+                include "Vista/Despachador/navDespachador.php";
                 include $pid;
             }else{
                 include "Vista/Main/mainPage.php";/*Toca cambiarlo*/

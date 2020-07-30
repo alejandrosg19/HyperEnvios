@@ -86,6 +86,20 @@ class Administrador{
             return False;
         }
     }
+    /**
+     * Actualizar Nav información
+     * Busca por el nombre, el correo y la imagen que tenga el usuario
+     */
+
+    public function getInfoNav(){
+        $this -> Conexion -> abrir();
+        $this -> Conexion -> ejecutar($this -> AdministradorDAO -> getInfoNav());
+        $res = $this -> Conexion -> extraer();
+        $this -> nombre = $res[0];
+        $this -> correo = $res[1];
+        $this -> foto = $res[2];
+        $this -> Conexion -> cerrar();
+    }
 }
 
 ?>

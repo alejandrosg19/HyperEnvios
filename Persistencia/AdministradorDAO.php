@@ -25,6 +25,11 @@ class AdministradorDAO{
                 FROM Administrador
                 Where email = '" . $this -> correo . "' AND clave = '" . md5($this -> clave) . "'";
     }
+    public function getInfoNav(){
+        return "SELECT nombre, email, foto
+                FROM administrador
+                WHERE idAdministrador = " . $this -> idAdministrador;
+    }
 
 }
 

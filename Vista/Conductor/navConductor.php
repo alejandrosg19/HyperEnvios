@@ -1,9 +1,9 @@
 <?php
 
-    $idCliente = $_SESSION['id'];
+    $idConductor = $_SESSION['id'];
 
-    $cliente = new Cliente($idCliente);
-    $cliente -> getInfoNav();
+    $conductor = new Conductor($idConductor);
+    $conductor -> getInfoNav();
 
 
 ?>
@@ -21,12 +21,12 @@
                 </div>
             </div>
             <div class="nav-sides nav-right">
-            <div class="user">
-                    <div class="user-image" style="background-image: url(<?php echo ($cliente -> getFoto() != "")? $cliente -> getFoto(): "Static/img/web/user.png" ; ?>)">
+                <div class="user">
+                    <div class="user-image" style="background-image: url(<?php echo ($conductor -> getFoto() != "")? $conductor -> getFoto(): "Static/img/web/user.png" ; ?>)">
                     </div>
                     <div class="user-info">
-                        <span class="user-info-name"><?php echo ($cliente -> getNombre() != "")? $cliente -> getNombre() : $cliente -> getCorreo(); ?></span>
-                        <span class="user-info-rol">Cliente</span>
+                        <span class="user-info-name"><?php echo ($conductor -> getNombre() != "")? $conductor -> getNombre() : $conductor -> getCorreo(); ?></span>
+                        <span class="user-info-rol">Conductor</span>
                     </div>
                 </div>
                 <a href="index.php?cerrarSesion=1"><i class="fas fa-sign-out-alt icon-style"></i></a>
