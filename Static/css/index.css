@@ -268,60 +268,72 @@
     font-family: "futura";
     font-size: 18px;
     color: #9A9A9A;
-
     margin-top: 45px;
 }
 
+
 /*NEW*/
-.articleText{
+
+.articleText {
     color: #FFF;
 }
-.columnEffect{
+
+.columnEffect {
     width: 300px;
     perspective: 1000px;
     position: relative;
     /*transition: 1s;*/
 }
+
+
 /*.columnEffect:hover{
     transform: translateY(-200px);
 }*/
-.imgEffectContainer{
+
+.imgEffectContainer {
     padding-top: 200px;
     transform-style: preserve-3d;
     position: relative;
 }
-.imgEffect{
+
+.imgEffect {
     overflow: hidden;
     transform: rotateY(-35deg);
     border-radius: 15px;
-    box-shadow:  4px 14px rgba(0, 0, 0, 0.12);
+    box-shadow: 4px 14px rgba(0, 0, 0, 0.12);
     transition: 1s;
 }
-.imgEffect img{
+
+.imgEffect img {
     width: 300px;
     position: relative;
 }
 
-.imgEffect:hover{
+.imgEffect:hover {
     transform: translateY(-200px);
 }
 
+
 /*FOOTER Effect*/
 
-.footerEffect{  
+.footerEffect {
     position: relative;
     height: fit-content;
     box-shadow: 0px 5px 25px 0px rgba(0, 0, 0, 0.2);
 }
-.footerImageLeft{
+
+.footerImageLeft {
     right: -25px;
-    
 }
-.footerImageRight{
+
+.footerImageRight {
     left: -25px;
     z-index: -1;
 }
-.footerContainer h4, .footerContainer span, .footerContainer p{
+
+.footerContainer h4,
+.footerContainer span,
+.footerContainer p {
     font-family: "futura";
     color: #FFF;
 }
