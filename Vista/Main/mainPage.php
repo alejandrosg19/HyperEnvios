@@ -140,8 +140,8 @@ if(isset($_GET['error'])){
                                 <div>
                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" > <span class="icon-nav"><i class="fas fa-cube"></i></span> Components</a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="#"><span class="icon-dropdown"><i class="fas fa-chart-pie"></i></span> All Components</a>
-                                        <a class="dropdown-item" href="#"><span class="icon-dropdown"><i class="far fa-file"></i></span> Documentation</a>
+                                        <a class="dropdown-item" href="#"><span class="icon-dropdown"><i class="fas fa-chart-pie"></i></span>Analytics</a>
+                                        <a class="dropdown-item" href="#"><span class="icon-dropdown"><i class="far fa-file"></i></span> CRM</a>
                                     </div>
                                 </div>
                                 <div>

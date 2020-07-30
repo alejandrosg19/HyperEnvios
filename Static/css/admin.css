@@ -1,0 +1,104 @@
+@font-face {
+    font-family: "futura";
+    src: url("../fonts/Futura_Book_font.ttf");
+}
+*{
+    font-family: "futura";
+}
+body{
+    background-color: #fafbfe;
+}
+.nav-sides{
+    width: 50%;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+}
+
+.search{
+    display: flex;
+    flex-flow: row nowrap;
+    margin-left: 80px;
+}
+.search > input{
+    display: block;
+    width: 200px;
+    height: 40px;
+
+    border: 0px;
+    margin: 0px !important;
+    padding: 0px 10px 0px 40px;
+    color: #FFF;
+    background-color: #3c4655;
+}
+
+.search > input:focus{
+    border: 0px;
+    outline: 0px;
+}
+.search > input::placeholder{
+    color: #98a6ad;
+}
+.search > button{
+    width: 80px;
+    height: 40px;
+
+    display: block;
+
+    border: 0px;
+    border-radius: 0px 5px 5px 0px;
+
+    margin: 0px !important;
+    padding: 0px !important;
+
+    background-color: #3688fc;
+    color: #FFF;    
+}
+.search > button:hover{
+    background-color: #1072fb;
+}
+.nav-link{
+ color: #838f9c;
+}
+
+
+.nav-right{
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-end;
+    align-items: center;
+}
+.icon-style{
+    font-size: 20px;
+    color: #98a6ad;
+}
+.user{
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    padding: 0px 10px;
+}
+.user-image{
+    width: 30px;
+    height: 30px;
+    border-radius: 20px;
+    background-color: red;
+    margin-right: 10px;
+}
+.user-info{
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    color: #98a6ad;
+}
+.user-info > span{
+    display: block;
+}
+.user-info-name{
+    font-weight: bold;
+    height: 15px;
+}
+.user-info-rol{
+    font-size: 13px;
+    height: 13px;
+}
