@@ -1,49 +1,47 @@
 <?php 
 
 require_once "Persistencia/Conexion.php";
-require_once "Persistencia/ClienteDAO.php";
+require_once "Persistencia/ConductorDAO.php";
 
-class Cliente{
-    private $idCliente;
+class Conductor{
+    private $idConductor;
     private $nombre;
     private $correo;
     private $clave;
-    private $direccion;
+    private $telefono;
     private $foto;
     private $estado;
-    private $codigoActivacion;
-    private $ClienteDAO;
+    private $ConductorDAO;
     private $Conexion;
 
-    public function Cliente($idCliente = "", $nombre = "", $correo = "", $clave = "", $direccion = "", $foto = "", $estado = "", $codigoActivacion = ""){
-        $this -> idCliente = $idCliente;
+    public function Conductor($idConductor = "", $nombre = "", $correo = "",  $clave = "", $telefono = "", $foto = "", $estado = ""){
+        $this -> idConductor = $idConductor;
         $this -> nombre = $nombre;
         $this -> correo = $correo;
         $this -> clave = $clave;
-        $this -> direccion = $direccion;
+        $this -> telefono = $telefono;
         $this -> foto = $foto;
         $this -> estado = $estado;
-        $this -> codigoActivacion = $codigoActivacion;
-        $this -> ClienteDAO = new ClienteDAO($idCliente, $nombre, $correo, $clave, $direccion, $foto, $estado, $codigoActivacion);
+        $this -> ConductorDAO = new ConductorDAO($idConductor, $nombre, $correo, $clave, $telefono, $foto, $estado);
         $this -> Conexion = new Conexion();
     }
     /*
     *   Getters
     */
-    public function getIdCliente(){
-        return $this -> idCliente;
+    public function getIdConductor(){
+        return $this -> idConductor;
     }
 
     public function getNombre(){
         return $this -> nombre;
     }
 
-    public function getDireccion(){
-        return $this -> direccion;
-    }
-
     public function getCorreo(){
         return $this -> correo;
+    }
+
+    public function getTelefono(){
+        return $this -> telefono;
     }
 
     public function getClave(){
@@ -58,9 +56,6 @@ class Cliente{
         return $this -> estado;
     }
 
-    public function getCodigoActivacion(){
-        return $this -> codigoActivacion;
-    }
 
     /*
     *   Setters
@@ -73,12 +68,12 @@ class Cliente{
         $this -> nombre = $nombre;
     }
 
-    public function SetDireccion($direccion){
-        $this -> direccion = $direccion;
-    }
-
     public function setCorreo($correo){
         $this -> correo = $correo;
+    }
+
+    public function setTelefono($telefono){
+        $this -> telefono =  $telefono;
     }
 
     public function setClave($clave){
@@ -93,20 +88,24 @@ class Cliente{
         $this -> Estado = $estado;
     }
 
-    public function setCodigoActivacion($codigoActivacion){
-        $this -> codigoActivacion = $codigoActivacion;
-    }
 
     /* 
     *   methods
     */
 
+    /**
+     * Metodo de autenticación en el sistema
+     * Devuelve True si el correo y la contraseña coinciden
+     * Devuelve False de lo contrario
+    */
+
     public function autenticar(){
         $this -> Conexion -> abrir();
-        $this -> Conexion -> ejecutar( $this -> ClienteDAO -> autenticar());
+        echo $this -> ConductorDAO -> autenticar();
+        $this -> Conexion -> ejecutar( $this -> ConductorDAO -> autenticar());
         if($this -> Conexion -> numFilas() == 1){
             $res = $this -> Conexion -> extraer();
-            $this -> idCliente = $res[0];
+            $this -> idConductor = $res[0];
             $this -> estado = $res[1];
             $this -> Conexion -> cerrar();
             return True;
@@ -121,24 +120,33 @@ class Cliente{
      * Actualizar Nav información
      * Busca por el nombre, el correo y la imagen que tenga el usuario
      */
-
     public function getInfoNav(){
         $this -> Conexion -> abrir();
-        $this -> Conexion -> ejecutar($this -> ClienteDAO -> getInfoNav());
+        $this -> Conexion -> ejecutar($this -> ConductorDAO -> getInfoNav());
         $res = $this -> Conexion -> extraer();
         $this -> nombre = $res[0];
         $this -> correo = $res[1];
         $this -> foto = $res[2];
         $this -> Conexion -> cerrar();
     }
+    
+    /**
+     * Buscar si un correo ya existe
+     */
 
+    public function existeCorreo(){
+        $this -> Conexion -> abrir();
+        $this -> Conexion -> ejecutar( $this -> ConductorDAO -> existeCorreo());
+        $this -> Conexion -> cerrar();
+        return $this -> Conexion -> numFilas();
+    }
 
     /*
      * Función que busca por paginación, filtro de palabra y devuelve la información en un array
      */
     public function filtroPaginado($str, $pag, $cant){
         $this -> Conexion -> abrir();
-        $this -> Conexion -> ejecutar( $this -> ClienteDAO -> filtroPaginado($str, $pag, $cant));
+        $this -> Conexion -> ejecutar( $this -> ConductorDAO -> filtroPaginado($str, $pag, $cant));
         $resList = Array();
         while($res = $this -> Conexion -> extraer()){
             array_push($resList, $res);
@@ -153,7 +161,7 @@ class Cliente{
      */
     public function filtroCantidad($str){
         $this -> Conexion -> abrir();
-        $this -> Conexion -> ejecutar( $this -> ClienteDAO -> filtroCantidad($str));
+        $this -> Conexion -> ejecutar( $this -> ConductorDAO -> filtroCantidad($str));
         $res = $this -> Conexion -> extraer();
         $this -> Conexion -> cerrar();
 
@@ -161,22 +169,11 @@ class Cliente{
     }
 
     /**
-     * Buscar si un correo ya existe
-     */
-
-    public function existeCorreo(){
-        $this -> Conexion -> abrir();
-        $this -> Conexion -> ejecutar( $this -> ClienteDAO -> existeCorreo());
-        $this -> Conexion -> cerrar();
-        return $this -> Conexion -> numFilas();
-    }
-
-    /**
      * Insertar un nuevo Cliente
      */
     public function insertar(){
         $this -> Conexion -> abrir();
-        $this -> Conexion -> ejecutar( $this -> ClienteDAO -> insertar());
+        $this -> Conexion -> ejecutar( $this -> ConductorDAO -> insertar());
         $res = $this -> Conexion -> filasAfectadas();
         $this -> Conexion -> cerrar();
         return $res;
@@ -187,12 +184,11 @@ class Cliente{
      */
     public function updateEstado(){
         $this -> Conexion -> abrir();
-        $this -> Conexion -> ejecutar( $this -> ClienteDAO -> updateEstado());
+        $this -> Conexion -> ejecutar( $this -> ConductorDAO -> updateEstado());
         $res = $this -> Conexion -> filasAfectadas();
         $this -> Conexion -> cerrar();
         return $res;
     }
-
 
     /**
      * Obtener información básica
@@ -200,11 +196,11 @@ class Cliente{
     public function getInfoBasic(){
 
         $this -> Conexion -> abrir();
-        $this -> Conexion -> ejecutar( $this -> ClienteDAO -> getInfoBasic());
+        $this -> Conexion -> ejecutar( $this -> ConductorDAO -> getInfoBasic());
         $res = $this -> Conexion -> extraer();
         
         $this -> nombre = $res[1];
-        $this -> direccion = $res[2];
+        $this -> telefono = $res[2];
         $this -> correo = $res[3];
         $this -> clave = $res[4];
         $this -> foto = $res[5];
@@ -219,7 +215,7 @@ class Cliente{
 
     public function existeNuevoCorreo($correo){
         $this -> Conexion -> abrir();
-        $this -> Conexion -> ejecutar( $this -> ClienteDAO -> existeNuevoCorreo($correo));
+        $this -> Conexion -> ejecutar( $this -> ConductorDAO -> existeNuevoCorreo($correo));
         $this -> Conexion -> cerrar();
         return $this -> Conexion -> numFilas();
     }
@@ -229,7 +225,7 @@ class Cliente{
      */
     public function actualizarCClave(){
         $this -> Conexion -> abrir();
-        $this -> Conexion -> ejecutar( $this -> ClienteDAO -> actualizarCClave());
+        $this -> Conexion -> ejecutar( $this -> ConductorDAO -> actualizarCClave());
         $res = $this -> Conexion -> filasAfectadas();
         $this -> Conexion -> cerrar();
         return $res;
@@ -240,11 +236,10 @@ class Cliente{
      */
     public function actualizar(){
         $this -> Conexion -> abrir();
-        $this -> Conexion -> ejecutar( $this -> ClienteDAO -> actualizar());
+        $this -> Conexion -> ejecutar( $this -> ConductorDAO -> actualizar());
         $res = $this -> Conexion -> filasAfectadas();
         $this -> Conexion -> cerrar();
         return $res;
     }
-    
 }
 ?>

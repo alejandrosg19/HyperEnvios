@@ -1,7 +1,11 @@
 <?php
+$idAdministrador = $_SESSION['id'];
 
+$administrador = new Administrador($idAdministrador);
+$administrador->getInfoNav();
 ?>
-<link rel="stylesheet" href="Static/css/admin.css">
+<link rel="stylesheet" href="Static/css/nav.css">
+<link rel="stylesheet" href="Static/css/table.css">
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid d-flex flex-row justify-content-center">
         <div class="col-10 d-flex p-2">
@@ -16,14 +20,24 @@
             </div>
             <div class="nav-sides nav-right">
                 <div class="user">
-                    <div class="user-image">
+                    <div class="user-image" style="background-image: url(<?php echo ($administrador->getFoto() != "") ? $administrador->getFoto() : "Static/img/web/user.png"; ?>)">
                     </div>
                     <div class="user-info">
-                        <span class="user-info-name">Dominic Keller</span>
+                        <span class="user-info-name"><?php echo ($administrador->getNombre() != "") ? $administrador->getNombre() : $administrador->getCorreo(); ?></span>
                         <span class="user-info-rol">Administrador</span>
                     </div>
                 </div>
-                <a href="index.php?cerrarSesion=1"><i class="fas fa-sign-out-alt icon-style"></i></a>
+                <div class="dropdown">
+                    <a class="nav-link" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-th-large icon-style"></i>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="#">Action</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <a class="dropdown-item" href="index.php?cerrarSesion=1"><i class="fas fa-sign-out-alt"></i> Cerrar Sesion</a>
+                    </div>
+                </div>
+                <!--<a href="index.php?cerrarSesion=1"><i class="fas fa-sign-out-alt icon-style"></i></a>-->
             </div>
         </div>
     </div>
@@ -68,12 +82,12 @@
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Components
+                            Users
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <a class="dropdown-item" href="#">Something else here</a>
+                            <a class="dropdown-item" href="index.php?pid=<?php echo base64_encode("Vista/Cliente/listarCliente.php") ?>">Cliente</a>
+                            <a class="dropdown-item" href="index.php?pid=<?php echo base64_encode("Vista/Conductor/listarConductor.php") ?>">Conductor</a>
+                            <a class="dropdown-item" href="#">Despachador</a>
                         </div>
                     </li>
                 </ul>
@@ -81,3 +95,6 @@
         </div>
     </div>
 </nav>
+<div id="alert-ajax">
+
+</div>

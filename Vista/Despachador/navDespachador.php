@@ -1,11 +1,8 @@
 <?php
+    $idDespachador = $_SESSION['id'];
 
-    $idCliente = $_SESSION['id'];
-
-    $cliente = new Cliente($idCliente);
-    $cliente -> getInfoNav();
-
-
+    $despachador = new Cliente($idDespachador);
+    $despachador -> getInfoNav();
 ?>
 <link rel="stylesheet" href="Static/css/nav.css">
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -21,12 +18,12 @@
                 </div>
             </div>
             <div class="nav-sides nav-right">
-            <div class="user">
-                    <div class="user-image" style="background-image: url(<?php echo ($cliente -> getFoto() != "")? $cliente -> getFoto(): "Static/img/web/user.png" ; ?>)">
+                <div class="user">
+                    <div class="user-image" style="background-image: url(<?php echo ($despachador -> getFoto() != "") ? $despachador -> getFoto() : "Static/img/web/user.png"; ?>)">
                     </div>
                     <div class="user-info">
-                        <span class="user-info-name"><?php echo ($cliente -> getNombre() != "")? $cliente -> getNombre() : $cliente -> getCorreo(); ?></span>
-                        <span class="user-info-rol">Cliente</span>
+                        <span class="user-info-name"><?php echo ($despachador -> getNombre() != "") ? $despachador -> getNombre() : $despachador -> getCorreo(); ?></span>
+                        <span class="user-info-rol">Despachador</span>
                     </div>
                 </div>
                 <a href="index.php?cerrarSesion=1"><i class="fas fa-sign-out-alt icon-style"></i></a>

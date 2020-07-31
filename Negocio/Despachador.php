@@ -1,32 +1,35 @@
-
 <?php 
 
 require_once "Persistencia/Conexion.php";
-require_once "Persistencia/AdministradorDAO.php";
+require_once "Persistencia/DespachadorDAO.php";
 
-class Administrador{
-    private $idAdministrador;
+class Despachador{
+    private $idDespachador;
     private $nombre;
     private $correo;
     private $clave;
+    private $telefono;
     private $foto;
-    private $AdministradorDAO;
+    private $estado;
+    private $DespachadorDAO;
     private $Conexion;
 
-    public function Administrador($idAdministardor = "", $nombre = "", $correo = "", $clave = "", $foto = ""){
-        $this -> idAdministrador = $idAdministardor;
+    public function Despachador($idDespachador = "", $nombre = "", $correo = "", $clave = "", $telefono = "", $foto = "", $estado = ""){
+        $this -> idDespachador = $idDespachador;
         $this -> nombre = $nombre;
         $this -> correo = $correo;
         $this -> clave = $clave;
+        $this -> telefono = $telefono;
         $this -> foto = $foto;
-        $this -> AdministradorDAO = new AdministradorDAO($idAdministardor, $nombre, $correo, $clave, $foto);
+        $this -> estado = $estado;
+        $this -> DespachadorDAO = new DespachadorDAO($idDespachador, $nombre, $correo, $clave, $telefono, $foto, $estado);
         $this -> Conexion = new Conexion();
     }
     /*
     *   Getters
     */
-    public function getIdAdministrador(){
-        return $this -> idAdministrador;
+    public function getIdDespachador(){
+        return $this -> idDespachador;
     }
 
     public function getNombre(){
@@ -37,6 +40,10 @@ class Administrador{
         return $this -> correo;
     }
 
+    public function getTelefono(){
+        return $this -> telefono;
+    }
+
     public function getClave(){
         return $this -> clave;
     }
@@ -45,11 +52,16 @@ class Administrador{
         return $this -> foto;
     }
 
+    public function getEstado(){
+        return $this -> estado;
+    }
+
+
     /*
     *   Setters
     */
-    public function setIdAdministrador($idAdministardor){
-        $this -> idAdministrador = $idAdministardor;
+    public function setIdDespachador($idDespachador){
+        $this -> idDespachador = $idDespachador;
     }
 
     public function setNombre($nombre){
@@ -60,32 +72,49 @@ class Administrador{
         $this -> correo = $correo;
     }
 
+    public function setTelefono($telefono){
+        $this -> telefono =  $telefono;
+    }
+
     public function setClave($clave){
         $this -> clave = $clave;
     }
 
     public function setFoto($foto){
-        $this -> Foto = $foto;
+        $this -> foto = $foto;
     }
 
+    public function setEstado($estado){
+        $this -> Estado = $estado;
+    }
+
+
     /* 
-    *   Functions
+    *   methods
+    */
+
+    /**
+     * Metodo de autenticación en el sistema
+     * Devuelve True si el correo y la contraseña coinciden
+     * Devuelve False de lo contrario
     */
 
     public function autenticar(){
         $this -> Conexion -> abrir();
-        $this -> Conexion -> ejecutar( $this -> AdministradorDAO -> autenticar());
-
+        $this -> Conexion -> ejecutar( $this -> DespachadorDAO -> autenticar());
         if($this -> Conexion -> numFilas() == 1){
             $res = $this -> Conexion -> extraer();
-            $this -> idAdministrador = $res[0];
-            $res = $this -> Conexion -> cerrar();
+            $this -> idDespachador = $res[0];
+            $this -> estado = $res[1];
+            $this -> Conexion -> cerrar();
             return True;
         }else{
-            $res = $this -> Conexion -> cerrar();
+            $this -> Conexion -> cerrar();
             return False;
         }
+        
     }
+
     /**
      * Actualizar Nav información
      * Busca por el nombre, el correo y la imagen que tenga el usuario
@@ -93,7 +122,7 @@ class Administrador{
 
     public function getInfoNav(){
         $this -> Conexion -> abrir();
-        $this -> Conexion -> ejecutar($this -> AdministradorDAO -> getInfoNav());
+        $this -> Conexion -> ejecutar($this -> DespachadorDAO -> getInfoNav());
         $res = $this -> Conexion -> extraer();
         $this -> nombre = $res[0];
         $this -> correo = $res[1];
@@ -107,10 +136,10 @@ class Administrador{
 
     public function existeCorreo(){
         $this -> Conexion -> abrir();
-        $this -> Conexion -> ejecutar( $this -> AdministradorDAO -> existeCorreo());
+        $this -> Conexion -> ejecutar( $this -> DespachadorDAO -> existeCorreo());
         $this -> Conexion -> cerrar();
         return $this -> Conexion -> numFilas();
     }
+    
 }
-
 ?>
