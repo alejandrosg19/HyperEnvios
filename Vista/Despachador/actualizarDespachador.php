@@ -1,14 +1,13 @@
 <?php
-
-$idConductor = "";
-if(isset($_GET['idConductor'])){
-    $idConductor = $_GET['idConductor'];
+$idDespachador = "";
+if(isset($_GET['idDespachador'])){
+    $idDespachador = $_GET['idDespachador'];
 }else{
-    $idConductor = $_SESSION["id"];
+    $idDespachador = $_SESSION["id"];
 }
 
 
-if (isset($_POST['actualizarConductor'])) {
+if (isset($_POST['actualizarDespachador'])) {
 
     $nombreCompleto = trim($_POST['nombre']);
     $telefono = $_POST['telefono'];
@@ -19,25 +18,25 @@ if (isset($_POST['actualizarConductor'])) {
 
     $Cliente = new Cliente("", "", $email);
     $Administrador = new Administrador("", "", $email);
-    $Despachador = new Despachador("", "", $email);
-    $Conductor = new Conductor($idConductor);
-    $Conductor -> getInfoBasic();
+    $Despachador = new Despachador($idDespachador);
+    $Conductor = new Conductor("","",$email);
+    $Despachador -> getInfoBasic();
 
-    if ($Conductor -> getCorreo() != $email && ($Cliente -> existeCorreo() || $Administrador -> existeCorreo() || $Despachador -> existeCorreo() || $Conductor -> existeNuevoCorreo($email))) {
+    if ($Despachador -> getCorreo() != $email && ($Cliente -> existeCorreo() || $Administrador -> existeCorreo() || $Conductor -> existeCorreo() || $Despachador -> existeNuevoCorreo($email))) {
         $msj = "El correo proporcionado ya se encuentra en uso.";
         $class = "alert-danger";
     } else {
 
-        $Conductor = new Conductor($idConductor, $nombreCompleto, $email, $clave, $telefono, "", $estado);
+        $Despachador = new Despachador($idDespachador, $nombreCompleto, $email, $clave, $telefono, "", $estado);
 
         if ($clave != "") {
-            $res = $Conductor -> actualizarCClave();
+            $res = $Despachador -> actualizarCClave();
         } else {
-            $res = $Conductor -> actualizar();
+            $res = $Despachador -> actualizar();
         }
 
         if ($res == 1) {
-            $msj = "El conductor se ha actualizado satisfactoriamente.";
+            $msj = "El despachador se ha actualizado satisfactoriamente.";
             $class = "alert-success";
         } else if ($res == 0) {
             $msj = "No hubo ningún cambio.";
@@ -50,8 +49,8 @@ if (isset($_POST['actualizarConductor'])) {
 
     include "Vista/Main/alert.php";
 } else {
-    $Conductor = new Conductor($idConductor);
-    $Conductor->getInfoBasic();
+    $Despachador = new Despachador($idDespachador);
+    $Despachador->getInfoBasic();
 }
 ?>
 
@@ -61,13 +60,13 @@ if (isset($_POST['actualizarConductor'])) {
         <div class="col-11 col-md-12 col-lg-9 col-xl-8 form-bg">
             <div class="card">
                 <div class="card-body">
-                    <form class="needs-validation" novalidate action="index.php?pid=<?php echo base64_encode("Vista/Conductor/actualizarConductor.php") ?>&idConductor=<?php echo $Conductor->getIdConductor() ?>" method="POST">
+                    <form class="needs-validation" novalidate action="index.php?pid=<?php echo base64_encode("Vista/Despachador/actualizarDespachador.php") ?>&idDespachador=<?php echo $Despachador->getIdDespachador() ?>" method="POST">
                         <div class="form-title">
-                            <h1>Actualizar Conductor</h1>
+                            <h1>Actualizar Despachador</h1>
                         </div>
                         <div class="form-group">
                             <label>Nombre Completo</label>
-                            <input class="form-control" name="nombre" type="text" placeholder="Ingrese su nombre" value="<?php echo $Conductor -> getNombre() ?>" required>
+                            <input class="form-control" name="nombre" type="text" placeholder="Ingrese su nombre" value="<?php echo $Despachador -> getNombre() ?>" required>
                             <div class="invalid-feedback">
                                 Por favor ingrese el nombre.
                             </div>
@@ -77,7 +76,7 @@ if (isset($_POST['actualizarConductor'])) {
                         </div>
                         <div class="form-group">
                             <label>Teléfono</label>
-                            <input class="form-control" name="telefono" type="text" placeholder="Ingrese el teléfono de contacto" value="<?php echo $Conductor -> getTelefono() ?>" required>
+                            <input class="form-control" name="telefono" type="text" placeholder="Ingrese el teléfono de contacto" value="<?php echo $Despachador -> getTelefono() ?>" required>
                             <div class="invalid-feedback">
                                 Por favor ingrese el teléfono de contacto.
                             </div>
@@ -89,8 +88,8 @@ if (isset($_POST['actualizarConductor'])) {
                             <label>Estado</label>
                             <select name="estado" class="form-control" required>
                                 <option value="" selected disabled>-- Estado --</option>
-                                <option value="1" <?php echo ($Conductor -> getEstado() == 1) ? "selected" : ""; ?>>Activado</option>
-                                <option value="0" <?php echo ($Conductor -> getEstado() == 0) ? "selected" : ""; ?>>Bloqueado</option>
+                                <option value="1" <?php echo ($Despachador -> getEstado() == 1) ? "selected" : ""; ?>>Activado</option>
+                                <option value="0" <?php echo ($Despachador -> getEstado() == 0) ? "selected" : ""; ?>>Bloqueado</option>
                             </select>
                             <div class="invalid-feedback">
                                 Por favor seleccione un estado.
@@ -101,7 +100,7 @@ if (isset($_POST['actualizarConductor'])) {
                         </div>
                         <div class="form-group">
                             <label>Email</label>
-                            <input class="form-control" name="email" type="email" placeholder="Ingrese su correo" value="<?php echo $Conductor -> getCorreo() ?>" required>
+                            <input class="form-control" name="email" type="email" placeholder="Ingrese su correo" value="<?php echo $Despachador -> getCorreo() ?>" required>
                             <div class="invalid-feedback">
                                 Por favor ingrese el correo.
                             </div>
@@ -114,7 +113,7 @@ if (isset($_POST['actualizarConductor'])) {
                             <input class="form-control" name="clave" type="password" value="" placeholder="Ingrese su contraseña">
                         </div>
                         <div>
-                            <button class="btn btn-primary w-100" name="actualizarConductor" type="submit"> Actualizar conductor </button>
+                            <button class="btn btn-primary w-100" name="actualizarDespachador" type="submit"> Actualizar Despachador </button>
                         </div>
                     </form>
                 </div>

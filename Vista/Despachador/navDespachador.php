@@ -1,8 +1,8 @@
 <?php
-    $idDespachador = $_SESSION['id'];
+$idDespachador = $_SESSION['id'];
 
-    $despachador = new Cliente($idDespachador);
-    $despachador -> getInfoNav();
+$despachador = new Despachador($idDespachador);
+$despachador->getInfoNav();
 ?>
 <link rel="stylesheet" href="Static/css/nav.css">
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -19,14 +19,23 @@
             </div>
             <div class="nav-sides nav-right">
                 <div class="user">
-                    <div class="user-image" style="background-image: url(<?php echo ($despachador -> getFoto() != "") ? $despachador -> getFoto() : "Static/img/web/user.png"; ?>)">
+                    <div class="user-image" style="background-image: url(<?php echo ($despachador->getFoto() != "") ? $despachador->getFoto() : "Static/img/web/user.png"; ?>)">
                     </div>
                     <div class="user-info">
-                        <span class="user-info-name"><?php echo ($despachador -> getNombre() != "") ? $despachador -> getNombre() : $despachador -> getCorreo(); ?></span>
+                        <span class="user-info-name"><?php echo ($despachador->getNombre() != "") ? $despachador->getNombre() : $despachador->getCorreo(); ?></span>
                         <span class="user-info-rol">Despachador</span>
                     </div>
                 </div>
-                <a href="index.php?cerrarSesion=1"><i class="fas fa-sign-out-alt icon-style"></i></a>
+                <div class="dropdown">
+                    <a class="nav-link" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-th-large icon-style"></i>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="index.php?pid=<?php echo base64_encode("Vista/Despachador/actualizarDespachador.php")?>">Actualizar Información</a>
+                        <a class="dropdown-item" href="index.php?cerrarSesion=1"><i class="fas fa-sign-out-alt"></i> Cerrar Sesion</a>
+                    </div>
+                </div>
+                <!--<a href="index.php?cerrarSesion=1"><i class="fas fa-sign-out-alt icon-style"></i></a>-->
             </div>
         </div>
     </div>

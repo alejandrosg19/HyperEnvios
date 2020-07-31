@@ -1,6 +1,12 @@
 <?php
 
-$idCliente = $_GET['idCliente'];
+$idCliente = "";
+if(isset($_GET['idCliente'])){
+    $idCliente = $_GET['idCliente'];
+}else{
+    $idCliente = $_SESSION["id"];
+}
+
 
 if (isset($_POST['actualizarCliente'])) {
 

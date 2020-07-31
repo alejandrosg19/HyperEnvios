@@ -32,8 +32,7 @@ $administrador->getInfoNav();
                         <i class="fas fa-th-large icon-style"></i>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
+                        <a class="dropdown-item" href="index.php?pid=<?php echo base64_encode("Vista/Administrador/actualizarAdministrador.php") ?>">Actualizar Información</a>
                         <a class="dropdown-item" href="index.php?cerrarSesion=1"><i class="fas fa-sign-out-alt"></i> Cerrar Sesion</a>
                     </div>
                 </div>
@@ -87,7 +86,8 @@ $administrador->getInfoNav();
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <a class="dropdown-item" href="index.php?pid=<?php echo base64_encode("Vista/Cliente/listarCliente.php") ?>">Cliente</a>
                             <a class="dropdown-item" href="index.php?pid=<?php echo base64_encode("Vista/Conductor/listarConductor.php") ?>">Conductor</a>
-                            <a class="dropdown-item" href="#">Despachador</a>
+                            <a class="dropdown-item" href="index.php?pid=<?php echo base64_encode("Vista/Despachador/listarDespachador.php") ?>">Despachador</a>
+                            <a class="dropdown-item" href="index.php?pid=<?php echo base64_encode("Vista/Administrador/listarAdministrador.php") ?>">Administrador</a>
                         </div>
                     </li>
                 </ul>

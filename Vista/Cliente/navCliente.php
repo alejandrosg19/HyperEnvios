@@ -29,7 +29,16 @@
                         <span class="user-info-rol">Cliente</span>
                     </div>
                 </div>
-                <a href="index.php?cerrarSesion=1"><i class="fas fa-sign-out-alt icon-style"></i></a>
+                <div class="dropdown">
+                    <a class="nav-link" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-th-large icon-style"></i>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="index.phph?pid=<?php echo base64_encode("Vista/Cliente/actualizarCliente.php")?>">Actualizar Información</a>
+                        <a class="dropdown-item" href="index.php?cerrarSesion=1"><i class="fas fa-sign-out-alt"></i> Cerrar Sesion</a>
+                    </div>
+                </div>
+                <!--<a href="index.php?cerrarSesion=1"><i class="fas fa-sign-out-alt icon-style"></i></a>-->
             </div>
         </div>
     </div>

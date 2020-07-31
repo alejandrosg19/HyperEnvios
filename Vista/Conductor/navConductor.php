@@ -1,9 +1,9 @@
 <?php
 
-    $idConductor = $_SESSION['id'];
+$idConductor = $_SESSION['id'];
 
-    $conductor = new Conductor($idConductor);
-    $conductor -> getInfoNav();
+$conductor = new Conductor($idConductor);
+$conductor->getInfoNav();
 
 
 ?>
@@ -22,14 +22,23 @@
             </div>
             <div class="nav-sides nav-right">
                 <div class="user">
-                    <div class="user-image" style="background-image: url(<?php echo ($conductor -> getFoto() != "")? $conductor -> getFoto(): "Static/img/web/user.png" ; ?>)">
+                    <div class="user-image" style="background-image: url(<?php echo ($conductor->getFoto() != "") ? $conductor->getFoto() : "Static/img/web/user.png"; ?>)">
                     </div>
                     <div class="user-info">
-                        <span class="user-info-name"><?php echo ($conductor -> getNombre() != "")? $conductor -> getNombre() : $conductor -> getCorreo(); ?></span>
+                        <span class="user-info-name"><?php echo ($conductor->getNombre() != "") ? $conductor->getNombre() : $conductor->getCorreo(); ?></span>
                         <span class="user-info-rol">Conductor</span>
                     </div>
                 </div>
-                <a href="index.php?cerrarSesion=1"><i class="fas fa-sign-out-alt icon-style"></i></a>
+                <div class="dropdown">
+                    <a class="nav-link" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-th-large icon-style"></i>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="index.phph?pid=<?php echo base64_encode("Vista/Conductor/actualizarConductor.php") ?>">Actualizar Información</a>
+                        <a class="dropdown-item" href="index.php?cerrarSesion=1"><i class="fas fa-sign-out-alt"></i> Cerrar Sesion</a>
+                    </div>
+                </div>
+                <!--<a href="index.php?cerrarSesion=1"><i class="fas fa-sign-out-alt icon-style"></i></a>-->
             </div>
         </div>
     </div>
