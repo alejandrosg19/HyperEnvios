@@ -1,12 +1,12 @@
 <div class="container mt-5 mb-5">
     <div class="row justify-content-center">
-        <h1>Buscar Precio</h1>
+        <h1>Buscar Accion</h1>
     </div>
     <div class="row justify-content-center mt-5">
         <div class="col-12 col-md-12 col-lg-11 col-xl-11">
             <div class="card">
                 <div class="card-header bg-dark d-flex flex-row justify-content-between">
-                    <a href="index.php?pid=<?php echo base64_encode("Vista/Precio/crearPrecio.php") ?>"><button type="button" class="btn btn-outline-light">Crear nuevo</button></a>
+                    <a href="index.php?pid=<?php echo base64_encode("Vista/AccionEstado/crearAccionEstado.php") ?>"><button type="button" class="btn btn-outline-light">Crear nuevo</button></a>
                     <select id="select-cantidad">
                         <option value="5">5</option>
                         <option value="10">10</option>
@@ -23,9 +23,7 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Peso Minimo</th>
-                                    <th>Peso Maximo</th>
-                                    <th>Precio</th>
+                                    <th>Nombre</th>
                                     <th style='text-align:center;'>Servicios</th>
                                 </tr>
                             </thead>
@@ -51,6 +49,21 @@
         </div>
     </div>
 </div>
+<div id="moreInfo" class="modal fade show">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Información Log</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body p-5">
+
+            </div>
+        </div>
+    </div>
+</div>
 <script type="text/javascript">
     $(function() {
         json = {
@@ -59,7 +72,8 @@
             "search": $("#search").val()
         };
 
-        $.post("indexAJAX.php?pid=<?php echo base64_encode("Vista/Precio/Ajax/searchBarPrecio.php") ?>", json, function(data) {
+        $.post("indexAJAX.php?pid=<?php echo base64_encode("Vista/AccionEstado/Ajax/searchBarAccionEstado.php") ?>", json, function(data) {
+            console.log("ETYYYYY "+data);
             res = JSON.parse(data);
             // Imprime los datos de la tabla
             tablePrint(res.DataT, res.DataL);
@@ -70,6 +84,13 @@
     });
 
     $(function() {
+        /*
+         * Info AccionEstado
+         */
+        $("#tabla").on('click', ".moreInfoBtn", function() {
+            $url = "indexAJAX.php?pid=<?php echo base64_encode("Vista/AccionEstado/Ajax/moreInfoAccionEstado.php") ?>&idAccionEstado=" + $(this).data("idaccionestado");
+            $(".modal-body").load($url);
+        });
 
         /*
          * Evento de buscar en la tabla
@@ -82,7 +103,7 @@
                 "search": $(this).val()
             };
 
-            $.post("indexAJAX.php?pid=<?php echo base64_encode("Vista/Precio/Ajax/searchBarPrecio.php") ?>", json, function(data) {
+            $.post("indexAJAX.php?pid=<?php echo base64_encode("Vista/AccionEstado/Ajax/searchBarAccionEstado.php") ?>", json, function(data) {
                 res = JSON.parse(data);
                 // Imprime los datos de la tabla
                 tablePrint(res.DataT, res.DataL);
@@ -104,7 +125,7 @@
                     "search": $("#search").val()
                 };
 
-                $.post("indexAJAX.php?pid=<?php echo base64_encode("Vista/Precio/Ajax/searchBarPrecio.php") ?>", json, function(data) {
+                $.post("indexAJAX.php?pid=<?php echo base64_encode("Vista/AccionEstado/Ajax/searchBarAccionEstado.php") ?>", json, function(data) {
                     res = JSON.parse(data);
 
                     if (res.status) {
@@ -129,31 +150,12 @@
                 "cantPag": $(this).val(),
                 "search": $("#search").val()
             };
-            $.post("indexAJAX.php?pid=<?php echo base64_encode("Vista/Precio/Ajax/searchBarPrecio.php") ?>", json, function(data) {
+            $.post("indexAJAX.php?pid=<?php echo base64_encode("Vista/AccionEstado/Ajax/searchBarAccionEstado.php") ?>", json, function(data) {
                 res = JSON.parse(data);
                 //imprime los datos en la tabla
                 tablePrint(res.DataT, res.DataL);
                 //Imprime paginación
                 paginationPrint(res.DataP, parseInt(res.Cpage));
-            });
-        });
-
-        $("#tabla").on('click','.deletePrecio',function() {
-            json = {
-                "idPrecio": $(this).data('idprecio'),
-                "page": $("#escondido").val(),
-                "cantPag": $("#select-cantidad").val(),
-                "search": $("#search").val()
-            };
-
-            $.post("indexAjax.php?pid=<?php echo base64_encode("Vista/Precio/Ajax/deletePrecio.php") ?>", json, function(data) {
-                console.log("EYYYYY "+data);
-                res = JSON.parse(data);
-                //imprime los datos en la tabla
-                tablePrint(res.DataT, res.DataL);
-                //Imprime paginación
-                paginationPrint(res.DataP, parseInt(res.Cpage));
-                crearAlert(res.status, res.msj);
             });
         });
 
@@ -179,13 +181,11 @@
                 `<tr>
                     <td>${cont}</td>
                     <td>${data[1]}</td>
-                    <td>${data[2]}</td>
-                    <td>${data[3]}</td>
                     <td style='display:flex; justify-content:center;'>
-                        <a href='index.php?pid=${DataL}&idPrecio=${data[0]}'>
+                        <a href='index.php?pid=${DataL}&idAccionEstado=${data[0]}'>
                             <i class='far fa-edit'></i>
                         </a>
-                        <a href='#' class='deletePrecio' data-idprecio="${data[0]}"><i class="far fa-trash-alt"></i></a>
+                        <a href='#' class="moreInfoBtn" data-idaccionestado="${data[0]}" data-toggle="modal" data-target="#moreInfo"><i class='fas fa-info-circle'></i></a>
                     </td>
                 </tr>`
             );

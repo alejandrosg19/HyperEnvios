@@ -26,7 +26,6 @@ if (isset($_POST['actualizarCliente'])) {
         $msj = "El correo proporcionado ya se encuentra en uso.";
         $class = "alert-danger";
     } else {
-<<<<<<< HEAD
 
         $updateImg = 0;
         $rutaRemota = $Cliente->getFoto();
@@ -42,10 +41,8 @@ if (isset($_POST['actualizarCliente'])) {
                 $ClienteAUX = new Cliente($idCliente, $nombreCompleto, $email, $clave, $direccion, "", $estado);
                 copy($rutaLocal, $rutaRemota);
                 $ClienteAUX->getInfoBasic();
-=======
         $copyCliente = $cliente;
         $cliente = new Cliente($idCliente, $nombreCompleto, $email, $clave, $direccion, "", $estado);
->>>>>>> 69009d682230703c4e8f656ca71fd1f85874e18f
 
                 if ($ClienteAUX->getFoto() != "") {
                     unlink($ClienteAUX->getFoto());
@@ -72,9 +69,7 @@ if (isset($_POST['actualizarCliente'])) {
         }
 
         if ($res == 1) {
-<<<<<<< HEAD
             $msj = "El administrador se ha actualizado satisfactoriamente.";
-=======
 
             if ($_SESSION['rol'] == 1) {
                 /**
@@ -88,7 +83,6 @@ if (isset($_POST['actualizarCliente'])) {
             }
 
             $msj = "El cliente se ha actualizado satisfactoriamente.";
->>>>>>> 69009d682230703c4e8f656ca71fd1f85874e18f
             $class = "alert-success";
         } else if ($res == 0) {
             $msj = "No hubo ningún cambio.";

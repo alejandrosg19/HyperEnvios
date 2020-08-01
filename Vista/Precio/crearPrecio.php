@@ -3,20 +3,20 @@
 if (isset($_POST['crearPrecio'])) {
 
     $precioMinimo = $_POST['precioMin'];
-    $precioMaximo = $_POST['precioMan'];
+    $precioMaximo = $_POST['precioMax'];
     $precio = $_POST['precio'];
 
     $Precio = new Precio("", $precioMinimo, $precioMaximo, $precio);
 
-    if ($Cliente -> existeCorreo() || $Conductor -> existeCorreo() || $Administrador -> existeCorreo() || $Despachador -> existeCorreo()) {
+    if ($Precio -> existePeso()) {
 
-        $msj = "El correo proporcionado ya se encuentra en uso.";
+        $msj = "Alguno de los pesos suministrados o ambos ya se encuentran registrados.";
         $class = "alert-danger";
     } else {
-        $res = $Cliente -> insertar();
+        $res = $Precio -> insertar();
 
         if ($res == 1) {
-            $msj = "El cliente se ha creado satisfactoriamente";
+            $msj = "El precio se ha creado satisfactoriamente";
             $class = "alert-success";
         } else {
             $msj = "Ocurrió algo inesperado, intente de nuevo.";
@@ -39,7 +39,7 @@ if (isset($_POST['crearPrecio'])) {
                         </div>
                         <div class="form-group">
                             <label>Peso Minimo</label>
-                            <input class="form-control" name="precioMin" type="Number" min="1" placeholder="Ingrese el perso minimo" required>
+                            <input class="form-control" name="precioMin" type="Number" min="1" placeholder="Ingrese el peso minimo" required>
                             <div class="invalid-feedback">
                                 Por favor ingrese el peso minimo.
                             </div>
@@ -49,7 +49,7 @@ if (isset($_POST['crearPrecio'])) {
                         </div>
                         <div class="form-group">
                             <label>Peso Maximo</label>
-                            <input class="form-control" name="precioMax" type="Number" min="1" placeholder="Ingrese el perso maximo" required>
+                            <input class="form-control" name="precioMax" type="Number" min="1" placeholder="Ingrese el peso maximo" required>
                             <div class="invalid-feedback">
                                 Por favor ingrese el peso maximo.
                             </div>

@@ -13,7 +13,7 @@ class Accion{
     public function Accion($idAccion = "", $nombre = ""){
         $this -> idAccion = $idAccion;
         $this -> nombre = $nombre;
-
+        
         $this -> Conexion = new Conexion();
         $this -> AccionDAO = new AccionDAO($this -> idAccion, $this-> nombre);
     }
@@ -51,7 +51,6 @@ class Accion{
         $this -> nombre = $res[1];
         $this -> Conexion -> cerrar();
     }
-
 }
 
 
