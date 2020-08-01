@@ -25,7 +25,7 @@ if (isset($_POST['actualizarCliente'])) {
     } else {
         $copyCliente = $Cliente;
         $Cliente = new Cliente($idCliente, $nombreCompleto, $email, $clave, $direccion, "", $estado);
-
+        
         if ($clave != "") {
             $res = $Cliente->actualizarCClave();
         } else {
@@ -33,7 +33,6 @@ if (isset($_POST['actualizarCliente'])) {
         }
 
         if ($res == 1) {
-
             $msj = "El administrador se ha actualizado satisfactoriamente.";
 
             if ($_SESSION['rol'] == 1) {

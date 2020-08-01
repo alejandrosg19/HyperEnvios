@@ -32,7 +32,6 @@ if (isset($_POST['actualizarConductor'])) {
         }
 
         if ($res == 1) {
-
             $msj = "El administrador se ha actualizado satisfactoriamente.";
 
             if ($_SESSION['rol'] == 1) {

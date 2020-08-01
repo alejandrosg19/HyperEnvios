@@ -44,7 +44,6 @@ create table Conductor(
     primary key(idConductor)
 );
 
-<<<<<<< HEAD
 create table precio(
 idPrecio int not null AUTO_INCREMENT,
 pesoMinimo float not null,
@@ -53,12 +52,18 @@ precio int not null,
 primary key(idPrecio)
 );
 
-=======
 
 create table Accion(
     idAccion int not null,
     nombre varchar(50) not null,
     primary key (idAccion)
+);
+
+create table accionEstado(
+idAccion int not null AUTO_INCREMENT,
+nombre varchar(50) not null,
+descripcion varchar(100) not null,
+primary key(idAccion)
 );
 
 create table logAdministrador(
@@ -114,7 +119,8 @@ create table logDespachador(
 );
 
 
->>>>>>> 69009d682230703c4e8f656ca71fd1f85874e18f
+
+
 insert into administrador (nombre, email, clave) values('Mateo Epalza', 'mateoepalzaramirez@gmail.com', md5('123'));
 insert into cliente (nombre, email, direccion, clave, estado) values('Mateo Epalza', 'mepalza972010@hotmail.com', 'calle 55 a sur # 78j - 41', md5('123'), 1);
 
@@ -140,3 +146,13 @@ insert into Accion values (10, 'Actualizar estado despachador');
 insert into Accion values (11, 'Actualizar información despachador');
 insert into Accion values (12, 'Actualizar información personal');
 insert into Accion values (13, 'Cambiar contraseña');
+<<<<<<< HEAD
+=======
+
+insert into accionEstado(nombre,descripcion) values("Recoleccion","Se recogen todos los paquetes de los clientes que se enviaran");
+insert into accionEstado(nombre,descripcion) values("Recibido","El paquete llego a la bodega");
+insert into accionEstado(nombre,descripcion) values("En Bodega","El paquete esta en bodega y esta siendo registrado para el envio");
+insert into accionEstado(nombre,descripcion) values("Despachado","El paquete ya fue enviadp a su destino");
+insert into accionEstado(nombre,descripcion) values("En camino","El paquete va en camino a su destino");
+insert into accionEstado(nombre,descripcion) values("Entregado","El paquete ya fue entreagdo al destinatario");
+>>>>>>> origin/master
