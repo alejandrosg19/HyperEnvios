@@ -32,7 +32,7 @@ $administrador->getInfoNav();
                         <i class="fas fa-th-large icon-style"></i>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="index.php?pid=<?php echo base64_encode("Vista/Administrador/actualizarAdministrador.php") ?>">Actualizar Información</a>
+                        <a class="dropdown-item" href="index.php?pid=<?php echo base64_encode("Vista/Administrador/actualizarInfoAdministrador.php") ?>">Actualizar Información</a>
                         <a class="dropdown-item" href="index.php?cerrarSesion=1"><i class="fas fa-sign-out-alt"></i> Cerrar Sesion</a>
                     </div>
                 </div>

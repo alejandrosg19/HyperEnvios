@@ -1,11 +1,8 @@
 <?php
 
 $idCliente = "";
-if (isset($_GET['idCliente'])) {
-    $idCliente = $_GET['idCliente'];
-} else {
-    $idCliente = $_SESSION["id"];
-}
+$idCliente = $_GET['idCliente'];
+
 
 if (isset($_POST['actualizarCliente'])) {
 
@@ -26,55 +23,18 @@ if (isset($_POST['actualizarCliente'])) {
         $msj = "El correo proporcionado ya se encuentra en uso.";
         $class = "alert-danger";
     } else {
-<<<<<<< HEAD
+        $copyCliente = $Cliente;
+        $Cliente = new Cliente($idCliente, $nombreCompleto, $email, $clave, $direccion, "", $estado);
 
-        $updateImg = 0;
-        $rutaRemota = $Cliente->getFoto();
-        if ($_FILES["imagen"]["name"] != "") {
-            $updateImg = 1;
-            if ($_FILES["imagen"]["type"] == "image/png" or $_FILES["imagen"]["type"] == "image/jpeg") {
-                $updateImg = 2;
-                $rutaLocal = $_FILES["imagen"]["tmp_name"];
-                $tipo = $_FILES["imagen"]["type"];
-                $tiempo = new DateTime();
-                $rutaRemota = "Static/img/users/" . $tiempo->getTimestamp() . (($tipo == "image/png") ? ".png" : ".jpeg");
-
-                $ClienteAUX = new Cliente($idCliente, $nombreCompleto, $email, $clave, $direccion, "", $estado);
-                copy($rutaLocal, $rutaRemota);
-                $ClienteAUX->getInfoBasic();
-=======
-        $copyCliente = $cliente;
-        $cliente = new Cliente($idCliente, $nombreCompleto, $email, $clave, $direccion, "", $estado);
->>>>>>> 69009d682230703c4e8f656ca71fd1f85874e18f
-
-                if ($ClienteAUX->getFoto() != "") {
-                    unlink($ClienteAUX->getFoto());
-                }
-            }
-        }
-        if ($updateImg == 1) {
-            $Cliente = new Cliente($idCliente);
-            $Cliente->getInfoBasic();
-        } else {
-            $Cliente = new Cliente($idCliente, $nombreCompleto, $email, $clave, $direccion, $rutaRemota, $estado);
-        }
-
-        if ($clave != "" and $updateImg != 1) {
+        if ($clave != "") {
             $res = $Cliente->actualizarCClave();
-        } else if ($updateImg != 1) {
+        } else {
             $res = $Cliente->actualizar();
         }
 
-        if ($updateImg == 1) {
-            $res = 2;
-        } else if ($updateImg == 2) {
-            $res = 1;
-        }
-
         if ($res == 1) {
-<<<<<<< HEAD
+
             $msj = "El administrador se ha actualizado satisfactoriamente.";
-=======
 
             if ($_SESSION['rol'] == 1) {
                 /**
@@ -88,22 +48,26 @@ if (isset($_POST['actualizarCliente'])) {
             }
 
             $msj = "El cliente se ha actualizado satisfactoriamente.";
->>>>>>> 69009d682230703c4e8f656ca71fd1f85874e18f
             $class = "alert-success";
+
         } else if ($res == 0) {
+
             $msj = "No hubo ningún cambio.";
             $class = "alert-warning";
-        } else if ($res == 2) {
-            $msj = "Error en el tipo de archivo.";
-            $class = "alert-danger";
+
         } else {
             $msj = "Ocurrió algo inesperado, intente de nuevo.";
             $class = "alert-danger";
         }
+
+        $Cliente = new Cliente($idCliente);
+        $Cliente->getInfoBasic();
     }
 
     include "Vista/Main/alert.php";
+
 } else {
+
     $Cliente = new Cliente($idCliente);
     $Cliente->getInfoBasic();
 }
@@ -166,15 +130,6 @@ if (isset($_POST['actualizarCliente'])) {
                             </div>
                             <div class="valid-feedback">
                                 ¡Enhorabuena!
-                            </div>
-                        </div>
-                        <div class="form-group border-0">
-                            <label for="foto">Cargar Foto</label>
-                            <div class="input-group mb-3">
-                                <div class="custom-file">
-                                    <input name="imagen" type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
-                                    <label class="custom-file-label" for="inputGroupFile01">Cargar</label>
-                                </div>
                             </div>
                         </div>
                         <div class="form-group">

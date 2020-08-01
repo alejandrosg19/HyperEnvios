@@ -148,4 +148,55 @@ function actualizarDespachador($idDespachadorC, $nombreC, $telefonoC, $emailC, $
     return $str;
 }
 
+function actualizarInfoDespachador($idDespachadorC, $nombreC, $telefonoC, $emailC, $claveC, $fotoC, $idDespachador, $nombre, $telefono, $email, $clave, $foto){
+    $str = "idDespachador:::" . $idDespachadorC .
+    ";;;Nombre:::" . $nombreC . 
+    ";;;Teléfono:::" . $telefonoC . 
+    ";;;Correo:::" . $emailC . 
+    ";;;Clave:::" . $claveC . 
+    ";;;Foto:::" . $fotoC . 
+    "&&&idDespachador:::" . $idDespachador .
+    ";;;Nombre:::" . $nombre . 
+    ";;;Telefono:::" . $telefono . 
+    ";;;Correo:::" . $email . 
+    ";;;Clave:::" . $clave . 
+    ";;;Foto:::" . $foto;
+
+    return $str;
+}
+
+function actualizarInfoConductor($idConductorC, $nombreC, $telefonoC, $emailC, $claveC, $fotoC, $idConductor, $nombre, $telefono, $email, $clave, $foto){
+    $str = "idConductor:::" . $idConductorC .
+    ";;;Nombre:::" . $nombreC . 
+    ";;;Teléfono:::" . $telefonoC . 
+    ";;;Correo:::" . $emailC . 
+    ";;;Clave:::" . $claveC . 
+    ";;;Foto:::" . $fotoC . 
+    "&&&idConductor:::" . $idConductor .
+    ";;;Nombre:::" . $nombre . 
+    ";;;Telefono:::" . $telefono . 
+    ";;;Correo:::" . $email . 
+    ";;;Clave:::" . $clave . 
+    ";;;Foto:::" . $foto;
+
+    return $str;
+}
+
+function actualizarInfoCliente($idConductorC, $nombreC, $direccionC, $emailC, $claveC, $fotoC, $idConductor, $nombre, $direccion, $email, $clave, $foto){
+    $str = "idCliente:::" . $idConductorC .
+    ";;;Nombre:::" . $nombreC . 
+    ";;;Dirección:::" . $direccionC . 
+    ";;;Correo:::" . $emailC . 
+    ";;;Clave:::" . $claveC . 
+    ";;;Foto:::" . $fotoC . 
+    "&&&idCliente:::" . $idConductor .
+    ";;;Nombre:::" . $nombre . 
+    ";;;Dirección:::" . $direccion . 
+    ";;;Correo:::" . $email . 
+    ";;;Clave:::" . $clave . 
+    ";;;Foto:::" . $foto;
+
+    return $str;
+}
+
 ?>

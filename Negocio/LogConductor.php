@@ -24,7 +24,6 @@ class LogConductor extends Log{
     
     public function insertar(){
         $this -> Conexion -> abrir();
-        echo $this -> LogConductorDAO -> insertar();
         $this -> Conexion -> ejecutar( $this -> LogConductorDAO -> insertar());
         $this -> Conexion -> cerrar();
     }

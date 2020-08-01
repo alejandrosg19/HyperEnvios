@@ -74,6 +74,27 @@ class DespachadorDAO{
                 WHERE email = '" . $correo . "'";
     }
 
+    public function actualizarCClave(){
+        return "UPDATE Despachador
+                SET
+                    nombre = '" . $this -> nombre . "',
+                    telefono = '" . $this -> telefono . "',
+                    email = '" . $this -> correo . "',
+                    estado = '" . $this -> estado . "',
+                    clave = '" . md5($this -> clave) . "'
+                WHERE idDespachador = ". $this -> idDespachador;
+    }
+
+    public function actualizar(){
+        return "UPDATE Despachador
+                SET
+                    nombre = '" . $this -> nombre . "',
+                    telefono = '" . $this -> telefono . "',
+                    email = '" . $this -> correo . "',
+                    estado = '" . $this -> estado . "'
+                WHERE idDespachador = ". $this -> idDespachador;
+    }
+    
     public function actualizarBasic(){
         return "UPDATE Despachador
                 SET
@@ -84,27 +105,14 @@ class DespachadorDAO{
                 WHERE idDespachador = ". $this -> idDespachador;
     }
 
-    public function actualizarCClave(){
+    public function actualizarBasicClave(){
         return "UPDATE Despachador
                 SET
                     nombre = '" . $this -> nombre . "',
                     telefono = '" . $this -> telefono . "',
                     email = '" . $this -> correo . "',
-                    estado = '" . $this -> estado . "',
                     clave = '" . md5($this -> clave) . "',
                     foto = '" . $this -> foto . "'
                 WHERE idDespachador = ". $this -> idDespachador;
     }
-
-    public function actualizar(){
-        return "UPDATE Despachador
-                SET
-                    nombre = '" . $this -> nombre . "',
-                    telefono = '" . $this -> telefono . "',
-                    email = '" . $this -> correo . "',
-                    estado = '" . $this -> estado . "',
-                    foto = '" . $this -> foto . "'
-                WHERE idDespachador = ". $this -> idDespachador;
-    }
-    
 }

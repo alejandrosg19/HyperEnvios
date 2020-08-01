@@ -24,7 +24,6 @@ class LogDespachador extends Log{
     
     public function insertar(){
         $this -> Conexion -> abrir();
-        echo $this -> LogDespachadorDAO -> insertar();
         $this -> Conexion -> ejecutar( $this -> LogDespachadorDAO -> insertar());
         $this -> Conexion -> cerrar();
     }

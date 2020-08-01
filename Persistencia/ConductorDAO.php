@@ -75,6 +75,27 @@ class ConductorDAO{
                 WHERE email = '" . $correo . "'";
     }
 
+    public function actualizarCClave(){
+        return "UPDATE Conductor
+                SET
+                    nombre = '" . $this -> nombre . "',
+                    telefono = '" . $this -> telefono . "',
+                    email = '" . $this -> correo . "',
+                    estado = '" . $this -> estado . "',
+                    clave = '" . md5($this -> clave) . "'
+                WHERE idConductor = ". $this -> idConductor;
+    }
+
+    public function actualizar(){
+        return "UPDATE Conductor
+                SET
+                    nombre = '" . $this -> nombre . "',
+                    telefono = '" . $this -> telefono . "',
+                    email = '" . $this -> correo . "',
+                    estado = '" . $this -> estado . "'
+                WHERE idConductor = ". $this -> idConductor;
+    }
+
     public function actualizarBasic(){
         return "UPDATE Conductor
                 SET
@@ -85,25 +106,13 @@ class ConductorDAO{
                 WHERE idConductor = ". $this -> idConductor;
     }
 
-    public function actualizarCClave(){
+    public function actualizarBasicClave(){
         return "UPDATE Conductor
                 SET
                     nombre = '" . $this -> nombre . "',
                     telefono = '" . $this -> telefono . "',
                     email = '" . $this -> correo . "',
-                    estado = '" . $this -> estado . "',
                     clave = '" . md5($this -> clave) . "',
-                    foto = '" . $this -> foto . "'
-                WHERE idConductor = ". $this -> idConductor;
-    }
-
-    public function actualizar(){
-        return "UPDATE Conductor
-                SET
-                    nombre = '" . $this -> nombre . "',
-                    telefono = '" . $this -> telefono . "',
-                    email = '" . $this -> correo . "',
-                    estado = '" . $this -> estado . "',
                     foto = '" . $this -> foto . "'
                 WHERE idConductor = ". $this -> idConductor;
     }

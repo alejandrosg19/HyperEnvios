@@ -75,16 +75,6 @@ class ClienteDAO{
                 WHERE email = '" . $correo . "'";
     }
 
-    public function actualizarBasic(){
-        return "UPDATE Cliente
-                SET
-                    nombre = '" . $this -> nombre . "',
-                    direccion = '" . $this -> direccion . "',
-                    email = '" . $this -> correo . "',
-                    foto = '" . $this -> foto . "'
-                WHERE idCliente = ". $this -> idCliente;
-    }
-
     public function actualizarCClave(){
         return "UPDATE Cliente
                 SET
@@ -92,8 +82,7 @@ class ClienteDAO{
                     direccion = '" . $this -> direccion . "',
                     email = '" . $this -> correo . "',
                     estado = '" . $this -> estado . "',
-                    clave = '" . md5($this -> clave) . "',
-                    foto = '" . $this -> foto . "'
+                    clave = '" . md5($this -> clave) . "'
                 WHERE idCliente = ". $this -> idCliente;
     }
 
@@ -103,7 +92,27 @@ class ClienteDAO{
                     nombre = '" . $this -> nombre . "',
                     direccion = '" . $this -> direccion . "',
                     email = '" . $this -> correo . "',
-                    estado = '" . $this -> estado . "',
+                    estado = '" . $this -> estado . "'
+                WHERE idCliente = ". $this -> idCliente;
+    }
+
+    public function actualizarBasic(){
+        return "UPDATE Cliente
+                SET
+                    nombre = '" . $this -> nombre . "',
+                    direccion = '" . $this -> direccion . "',
+                    email = '" . $this -> correo . "'
+                    foto = '" . $this -> foto . "'
+                WHERE idCliente = ". $this -> idCliente;
+    }
+
+    public function actualizarBasicClave(){
+        return "UPDATE Cliente
+                SET
+                    nombre = '" . $this -> nombre . "',
+                    direccion = '" . $this -> direccion . "',
+                    email = '" . $this -> correo . "',
+                    clave = '" . md5($this -> clave) . "',
                     foto = '" . $this -> foto . "'
                 WHERE idCliente = ". $this -> idCliente;
     }

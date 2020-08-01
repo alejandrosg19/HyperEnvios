@@ -24,7 +24,6 @@ class LogCliente extends Log{
     
     public function insertar(){
         $this -> Conexion -> abrir();
-        echo $this -> LogClienteDAO -> insertar();
         $this -> Conexion -> ejecutar( $this -> LogClienteDAO -> insertar());
         $this -> Conexion -> cerrar();
     }

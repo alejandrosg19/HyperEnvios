@@ -245,6 +245,25 @@ class Cliente{
         $this -> Conexion -> cerrar();
         return $res;
     }
+
+    /*
+     * Actualiza la información básica del objeto sin actualizar la contraseña
+     */
+    public function actualizarBasic(){
+        $this -> Conexion -> abrir();
+        $this -> Conexion -> ejecutar( $this -> ClienteDAO -> actualizarBasic());
+        $res = $this -> Conexion -> filasAfectadas();
+        $this -> Conexion -> cerrar();
+        return $res;
+    }
+
+    public function actualizarBasicClave(){
+        $this -> Conexion -> abrir();
+        $this -> Conexion -> ejecutar( $this -> ClienteDAO -> actualizarBasicClave());
+        $res = $this -> Conexion -> filasAfectadas();
+        $this -> Conexion -> cerrar();
+        return $res;
+    }
     
 }
 ?>

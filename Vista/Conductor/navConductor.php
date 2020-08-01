@@ -8,6 +8,7 @@ $conductor->getInfoNav();
 
 ?>
 <link rel="stylesheet" href="Static/css/nav.css">
+<link rel="stylesheet" href="Static/css/table.css">
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid d-flex flex-row justify-content-center">
         <div class="col-10 d-flex p-2">
@@ -34,7 +35,7 @@ $conductor->getInfoNav();
                         <i class="fas fa-th-large icon-style"></i>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="index.phph?pid=<?php echo base64_encode("Vista/Conductor/actualizarConductor.php") ?>">Actualizar Información</a>
+                        <a class="dropdown-item" href="index.php?pid=<?php echo base64_encode("Vista/Conductor/actualizarInfoConductor.php") ?>">Actualizar Información</a>
                         <a class="dropdown-item" href="index.php?cerrarSesion=1"><i class="fas fa-sign-out-alt"></i> Cerrar Sesion</a>
                     </div>
                 </div>

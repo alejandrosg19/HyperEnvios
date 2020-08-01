@@ -1,10 +1,7 @@
 <?php
 $idDespachador = "";
-if (isset($_GET['idDespachador'])) {
-    $idDespachador = $_GET['idDespachador'];
-} else {
-    $idDespachador = $_SESSION["id"];
-}
+
+$idDespachador = $_GET['idDespachador'];
 
 
 if (isset($_POST['actualizarDespachador'])) {
@@ -18,65 +15,26 @@ if (isset($_POST['actualizarDespachador'])) {
 
     $Cliente = new Cliente("", "", $email);
     $Administrador = new Administrador("", "", $email);
-    $Despachador = new Despachador($idDespachador);
     $Conductor = new Conductor("", "", $email);
+    $Despachador = new Despachador($idDespachador);
     $Despachador->getInfoBasic();
 
     if ($Despachador->getCorreo() != $email && ($Cliente->existeCorreo() || $Administrador->existeCorreo() || $Conductor->existeCorreo() || $Despachador->existeNuevoCorreo($email))) {
         $msj = "El correo proporcionado ya se encuentra en uso.";
         $class = "alert-danger";
     } else {
-<<<<<<< HEAD
 
-        $updateImg = 0;
-        $rutaRemota = $Despachador->getFoto();
-        if ($_FILES["imagen"]["name"] != "") {
-            $updateImg = 1;
-            if ($_FILES["imagen"]["type"] == "image/png" or $_FILES["imagen"]["type"] == "image/jpeg") {
-                $updateImg = 2;
-                $rutaLocal = $_FILES["imagen"]["tmp_name"];
-                $tipo = $_FILES["imagen"]["type"];
-                $tiempo = new DateTime();
-                $rutaRemota = "Static/img/users/" . $tiempo->getTimestamp() . (($tipo == "image/png") ? ".png" : ".jpeg");
-=======
         $copyDespachador = $Despachador;
         $Despachador = new Despachador($idDespachador, $nombreCompleto, $email, $clave, $telefono, "", $estado);
->>>>>>> 69009d682230703c4e8f656ca71fd1f85874e18f
 
-                $DespachadorAUX = new Despachador($idDespachador, $nombreCompleto, $email, $clave, $telefono, "", $estado);
-                copy($rutaLocal, $rutaRemota);
-                $DespachadorAUX->getInfoBasic();
-
-                if ($DespachadorAUX->getFoto() != "") {
-                    unlink($DespachadorAUX->getFoto());
-                }
-            }
-        }
-
-        if ($updateImg == 1) {
-            $Despachador = new Despachador($idDespachador);
-            $Despachador->getInfoBasic();
+        if ($clave != "" ) {
+            $res = $Despachador -> actualizarCClave();
         } else {
-            $Despachador = new Despachador($idDespachador, $nombreCompleto, $email, $clave, $telefono, $rutaRemota, $estado);
-        }
-
-
-        if ($clave != "" and $updateImg != 1) {
-            $res = $Despachador->actualizarCClave();
-        } else if($updateImg != 1){
-            $res = $Despachador->actualizar();
-        }
-
-        if ($updateImg == 1) {
-            $res = 2;
-        } else if ($updateImg == 2) {
-            $res = 1;
+            $res = $Despachador -> actualizar();
         }
 
         if ($res == 1) {
-<<<<<<< HEAD
-            $msj = "El administrador se ha actualizado satisfactoriamente.";
-=======
+            $msj = "El despachador se ha actualizado satisfactoriamente.";
 
             if ($_SESSION['rol'] == 1) {
                 /**
@@ -89,25 +47,26 @@ if (isset($_POST['actualizarDespachador'])) {
                 $logAdministrador -> insertar();
             }
 
-            $msj = "El despachador se ha actualizado satisfactoriamente.";
->>>>>>> 69009d682230703c4e8f656ca71fd1f85874e18f
             $class = "alert-success";
         } else if ($res == 0) {
             $msj = "No hubo ningún cambio.";
             $class = "alert-warning";
-        } else if ($res == 2) {
-            $msj = "Error en el tipo de archivo.";
-            $class = "alert-danger";
         } else {
             $msj = "Ocurrió algo inesperado, intente de nuevo.";
             $class = "alert-danger";
         }
+
+        $Despachador = new Despachador($idDespachador);
+        $Despachador->getInfoBasic();
     }
 
     include "Vista/Main/alert.php";
+
 } else {
+
     $Despachador = new Despachador($idDespachador);
     $Despachador->getInfoBasic();
+
 }
 ?>
 
@@ -167,15 +126,6 @@ if (isset($_POST['actualizarDespachador'])) {
                             </div>
                             <div class="valid-feedback">
                                 ¡Enhorabuena!
-                            </div>
-                        </div>
-                        <div class="form-group border-0">
-                            <label for="foto">Cargar Foto</label>
-                            <div class="input-group mb-3">
-                                <div class="custom-file">
-                                    <input name="imagen" type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
-                                    <label class="custom-file-label" for="inputGroupFile01">Cargar</label>
-                                </div>
                             </div>
                         </div>
                         <div class="form-group">

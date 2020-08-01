@@ -121,13 +121,12 @@ insert into cliente (nombre, email, direccion, clave, estado) values('Mateo Epal
 insert into Conductor (nombre, email, telefono, clave, estado) values('Juana Gomez', 'conductor@gmail.com', '7793395', md5('123'), 1);
 insert into Despachador (nombre, email, telefono, clave, estado) values('Pedro Pineda', 'despachador@gmail.com', '7793395', md5('123'), 1);
 
-<<<<<<< HEAD
 insert into precio(pesoMinimo, pesoMaximo, precio) values (0.1,1,5000);
 insert into precio(pesoMinimo, pesoMaximo, precio) values (1.1,3,10000);
 insert into precio(pesoMinimo, pesoMaximo, precio) values (3.1,5,20000);
 insert into precio(pesoMinimo, pesoMaximo, precio) values (5.1,10,50000);
 insert into precio(pesoMinimo, pesoMaximo, precio) values (10.1,30,80000);
-=======
+
 insert into Accion values (1, 'Inicio de sesion');
 insert into Accion values (2, 'Cierre de sesion');
 insert into Accion values (3, 'Crear cliente');
@@ -141,4 +140,3 @@ insert into Accion values (10, 'Actualizar estado despachador');
 insert into Accion values (11, 'Actualizar información despachador');
 insert into Accion values (12, 'Actualizar información personal');
 insert into Accion values (13, 'Cambiar contraseña');
->>>>>>> 69009d682230703c4e8f656ca71fd1f85874e18f
