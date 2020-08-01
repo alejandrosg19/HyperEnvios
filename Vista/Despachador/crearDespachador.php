@@ -21,6 +21,18 @@ if (isset($_POST['crearDespachador'])) {
         $res = $Despachador -> insertar();
 
         if ($res == 1) {
+
+            if ($_SESSION['rol'] == 1) {
+                /**
+                 * Creo el objeto de log
+                 */
+                $logAdministrador = new LogAdministrador("", getDateTime(), getBrowser(), getOS(), crearDespachadorNormal($nombreCompleto, $email, $telefono, md5($clave), "", $estado), $_SESSION['id'], 6);
+                /**
+                 * Inserto el registro del log
+                 */
+                $logAdministrador -> insertar();
+            }
+
             $msj = "El despachador se ha creado satisfactoriamente";
             $class = "alert-success";
         } else {

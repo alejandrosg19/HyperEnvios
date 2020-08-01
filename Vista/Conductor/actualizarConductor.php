@@ -27,7 +27,7 @@ if (isset($_POST['actualizarConductor'])) {
         $msj = "El correo proporcionado ya se encuentra en uso.";
         $class = "alert-danger";
     } else {
-
+        $copyConductor = $Conductor;
         $Conductor = new Conductor($idConductor, $nombreCompleto, $email, $clave, $telefono, "", $estado);
 
         if ($clave != "") {
@@ -37,6 +37,18 @@ if (isset($_POST['actualizarConductor'])) {
         }
 
         if ($res == 1) {
+
+            if ($_SESSION['rol'] == 1) {
+                /**
+                 * Creo el objeto de log
+                 */
+                $logAdministrador = new LogAdministrador("", getDateTime(), getBrowser(), getOS(), actualizarConductor($copyConductor -> getIdConductor(), $copyConductor -> getNombre(), $copyConductor -> getTelefono(), $copyConductor -> getCorreo(), $copyConductor -> getClave(), $copyConductor -> getEstado(), $idConductor, $nombreCompleto, $telefono, $email, md5($clave), $estado), $_SESSION['id'], 8);
+                /**
+                 * Inserto el registro del log
+                 */
+                $logAdministrador -> insertar();
+            }
+
             $msj = "El conductor se ha actualizado satisfactoriamente.";
             $class = "alert-success";
         } else if ($res == 0) {

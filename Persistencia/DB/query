@@ -44,8 +44,82 @@ create table Conductor(
     primary key(idConductor)
 );
 
+
+create table Accion(
+    idAccion int not null,
+    nombre varchar(50) not null,
+    primary key (idAccion)
+);
+
+create table logAdministrador(
+    idLogAdministrador int not null auto_increment,
+    fecha datetime not null,
+    browser varchar(50) not null,
+    os varchar(50) not null,
+    informacion text,
+    FK_idAdministrador int not null,
+    FK_idAccion int not null,
+    primary key(idLogAdministrador),
+    Foreign key (FK_idAdministrador) references administrador(idAdministrador),
+    Foreign key (FK_idAccion) references Accion(idAccion)
+);
+
+create table logCliente(
+    idLogCliente int not null auto_increment,
+    fecha datetime not null,
+    browser varchar(50) not null,
+    os varchar(50) not null,
+    informacion text,
+    FK_idCliente int not null,
+    FK_idAccion int not null,
+    primary key(idLogCliente),
+    Foreign key (FK_idCliente) references Cliente(idCliente),
+    Foreign key (FK_idAccion) references Accion(idAccion)
+);
+
+create table logConductor(
+    idLogConductor int not null auto_increment,
+    fecha datetime not null,
+    browser varchar(50) not null,
+    os varchar(50) not null,
+    informacion text,
+    FK_idConductor int not null,
+    FK_idAccion int not null,
+    primary key(idLogConductor),
+    Foreign key (FK_idConductor) references Conductor(idConductor),
+    Foreign key (FK_idAccion) references Accion(idAccion)
+);
+
+create table logDespachador(
+    idLogDespachador int not null auto_increment,
+    fecha datetime not null,
+    browser varchar(50) not null,
+    os varchar(50) not null,
+    informacion text,
+    FK_idDespachador int not null,
+    FK_idAccion int not null,
+    primary key(idLogDespachador),
+    Foreign key (FK_idDespachador) references Despachador(idDespachador),
+    Foreign key (FK_idAccion) references Accion(idAccion)
+);
+
+
 insert into administrador (nombre, email, clave) values('Mateo Epalza', 'mateoepalzaramirez@gmail.com', md5('123'));
 insert into cliente (nombre, email, direccion, clave, estado) values('Mateo Epalza', 'mepalza972010@hotmail.com', 'calle 55 a sur # 78j - 41', md5('123'), 1);
 
 insert into Conductor (nombre, email, telefono, clave, estado) values('Juana Gomez', 'conductor@gmail.com', '7793395', md5('123'), 1);
 insert into Despachador (nombre, email, telefono, clave, estado) values('Pedro Pineda', 'despachador@gmail.com', '7793395', md5('123'), 1);
+
+insert into Accion values (1, 'Inicio de sesion');
+insert into Accion values (2, 'Cierre de sesion');
+insert into Accion values (3, 'Crear cliente');
+insert into Accion values (4, 'Actualizar estado cliente');
+insert into Accion values (5, 'Actualizar información cliente');
+insert into Accion values (6, 'Crear conductor');
+insert into Accion values (7, 'Actualizar estado conductor');
+insert into Accion values (8, 'Actualizar información conductor');
+insert into Accion values (9, 'Crear despachador');
+insert into Accion values (10, 'Actualizar estado despachador');
+insert into Accion values (11, 'Actualizar información despachador');
+insert into Accion values (12, 'Actualizar información personal');
+insert into Accion values (13, 'Cambiar contraseña');

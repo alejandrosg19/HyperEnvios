@@ -26,7 +26,7 @@ if (isset($_POST['actualizarDespachador'])) {
         $msj = "El correo proporcionado ya se encuentra en uso.";
         $class = "alert-danger";
     } else {
-
+        $copyDespachador = $Despachador;
         $Despachador = new Despachador($idDespachador, $nombreCompleto, $email, $clave, $telefono, "", $estado);
 
         if ($clave != "") {
@@ -36,6 +36,18 @@ if (isset($_POST['actualizarDespachador'])) {
         }
 
         if ($res == 1) {
+
+            if ($_SESSION['rol'] == 1) {
+                /**
+                 * Creo el objeto de log
+                 */
+                $logAdministrador = new LogAdministrador("", getDateTime(), getBrowser(), getOS(), actualizarDespachador($copyDespachador -> getIdDespachador(), $copyDespachador -> getNombre(), $copyDespachador -> getTelefono(), $copyDespachador -> getCorreo(), $copyDespachador -> getClave(), $copyDespachador -> getEstado(), $idDespachador, $nombreCompleto, $telefono, $email, md5($clave), $estado), $_SESSION['id'], 11);
+                /**
+                 * Inserto el registro del log
+                 */
+                $logAdministrador -> insertar();
+            }
+
             $msj = "El despachador se ha actualizado satisfactoriamente.";
             $class = "alert-success";
         } else if ($res == 0) {

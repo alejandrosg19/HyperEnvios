@@ -27,7 +27,7 @@ if (isset($_POST['actualizarCliente'])) {
         $msj = "El correo proporcionado ya se encuentra en uso.";
         $class = "alert-danger";
     } else {
-
+        $copyCliente = $cliente;
         $cliente = new Cliente($idCliente, $nombreCompleto, $email, $clave, $direccion, "", $estado);
 
         if ($clave != "") {
@@ -37,6 +37,18 @@ if (isset($_POST['actualizarCliente'])) {
         }
 
         if ($res == 1) {
+
+            if ($_SESSION['rol'] == 1) {
+                /**
+                 * Creo el objeto de log
+                 */
+                $logAdministrador = new LogAdministrador("", getDateTime(), getBrowser(), getOS(), actualizarCliente($copyCliente -> getIdCliente(), $copyCliente -> getNombre(), $copyCliente -> getDireccion(), $copyCliente -> getCorreo(), $copyCliente -> getClave(), $copyCliente -> getEstado(), $idCliente, $nombreCompleto, $direccion, $email, md5($clave), $estado), $_SESSION['id'], 5);
+                /**
+                 * Inserto el registro del log
+                 */
+                $logAdministrador -> insertar();
+            }
+
             $msj = "El cliente se ha actualizado satisfactoriamente.";
             $class = "alert-success";
         } else if ($res == 0) {
