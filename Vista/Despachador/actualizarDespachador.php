@@ -26,6 +26,7 @@ if (isset($_POST['actualizarDespachador'])) {
         $msj = "El correo proporcionado ya se encuentra en uso.";
         $class = "alert-danger";
     } else {
+<<<<<<< HEAD
 
         $updateImg = 0;
         $rutaRemota = $Despachador->getFoto();
@@ -37,6 +38,10 @@ if (isset($_POST['actualizarDespachador'])) {
                 $tipo = $_FILES["imagen"]["type"];
                 $tiempo = new DateTime();
                 $rutaRemota = "Static/img/users/" . $tiempo->getTimestamp() . (($tipo == "image/png") ? ".png" : ".jpeg");
+=======
+        $copyDespachador = $Despachador;
+        $Despachador = new Despachador($idDespachador, $nombreCompleto, $email, $clave, $telefono, "", $estado);
+>>>>>>> 69009d682230703c4e8f656ca71fd1f85874e18f
 
                 $DespachadorAUX = new Despachador($idDespachador, $nombreCompleto, $email, $clave, $telefono, "", $estado);
                 copy($rutaLocal, $rutaRemota);
@@ -69,7 +74,23 @@ if (isset($_POST['actualizarDespachador'])) {
         }
 
         if ($res == 1) {
+<<<<<<< HEAD
             $msj = "El administrador se ha actualizado satisfactoriamente.";
+=======
+
+            if ($_SESSION['rol'] == 1) {
+                /**
+                 * Creo el objeto de log
+                 */
+                $logAdministrador = new LogAdministrador("", getDateTime(), getBrowser(), getOS(), actualizarDespachador($copyDespachador -> getIdDespachador(), $copyDespachador -> getNombre(), $copyDespachador -> getTelefono(), $copyDespachador -> getCorreo(), $copyDespachador -> getClave(), $copyDespachador -> getEstado(), $idDespachador, $nombreCompleto, $telefono, $email, md5($clave), $estado), $_SESSION['id'], 11);
+                /**
+                 * Inserto el registro del log
+                 */
+                $logAdministrador -> insertar();
+            }
+
+            $msj = "El despachador se ha actualizado satisfactoriamente.";
+>>>>>>> 69009d682230703c4e8f656ca71fd1f85874e18f
             $class = "alert-success";
         } else if ($res == 0) {
             $msj = "No hubo ningún cambio.";

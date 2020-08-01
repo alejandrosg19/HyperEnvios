@@ -27,6 +27,7 @@ if (isset($_POST['actualizarConductor'])) {
         $msj = "El correo proporcionado ya se encuentra en uso.";
         $class = "alert-danger";
     } else {
+<<<<<<< HEAD
 
         $updateImg = 0;
         $rutaRemota = $Conductor->getFoto();
@@ -38,6 +39,10 @@ if (isset($_POST['actualizarConductor'])) {
                 $tipo = $_FILES["imagen"]["type"];
                 $tiempo = new DateTime();
                 $rutaRemota = "Static/img/users/" . $tiempo->getTimestamp() . (($tipo == "image/png") ? ".png" : ".jpeg");
+=======
+        $copyConductor = $Conductor;
+        $Conductor = new Conductor($idConductor, $nombreCompleto, $email, $clave, $telefono, "", $estado);
+>>>>>>> 69009d682230703c4e8f656ca71fd1f85874e18f
 
                 $ConductorAUX = new Conductor($idConductor, $nombreCompleto, $email, $clave, $telefono, "", $estado);
                 copy($rutaLocal, $rutaRemota);
@@ -70,7 +75,23 @@ if (isset($_POST['actualizarConductor'])) {
         }
 
         if ($res == 1) {
+<<<<<<< HEAD
             $msj = "El administrador se ha actualizado satisfactoriamente.";
+=======
+
+            if ($_SESSION['rol'] == 1) {
+                /**
+                 * Creo el objeto de log
+                 */
+                $logAdministrador = new LogAdministrador("", getDateTime(), getBrowser(), getOS(), actualizarConductor($copyConductor -> getIdConductor(), $copyConductor -> getNombre(), $copyConductor -> getTelefono(), $copyConductor -> getCorreo(), $copyConductor -> getClave(), $copyConductor -> getEstado(), $idConductor, $nombreCompleto, $telefono, $email, md5($clave), $estado), $_SESSION['id'], 8);
+                /**
+                 * Inserto el registro del log
+                 */
+                $logAdministrador -> insertar();
+            }
+
+            $msj = "El conductor se ha actualizado satisfactoriamente.";
+>>>>>>> 69009d682230703c4e8f656ca71fd1f85874e18f
             $class = "alert-success";
         } else if ($res == 0) {
             $msj = "No hubo ningún cambio.";

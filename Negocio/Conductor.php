@@ -100,8 +100,7 @@ class Conductor{
     */
 
     public function autenticar(){
-        $this -> Conexion -> abrir();
-        echo $this -> ConductorDAO -> autenticar();
+        $this -> Conexion -> abrir();   
         $this -> Conexion -> ejecutar( $this -> ConductorDAO -> autenticar());
         if($this -> Conexion -> numFilas() == 1){
             $res = $this -> Conexion -> extraer();

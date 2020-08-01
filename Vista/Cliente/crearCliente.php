@@ -21,6 +21,18 @@ if (isset($_POST['crearCliente'])) {
         $res = $Cliente -> insertar();
 
         if ($res == 1) {
+
+            if ($_SESSION['rol'] == 1) {
+                /**
+                 * Creo el objeto de log
+                 */
+                $logAdministrador = new LogAdministrador("", getDateTime(), getBrowser(), getOS(), crearClienteNormal($nombreCompleto, $email, $direccion, md5($clave), "", $estado), $_SESSION['id'], 3);
+                /**
+                 * Inserto el registro del log
+                 */
+                $logAdministrador -> insertar();
+            }
+
             $msj = "El cliente se ha creado satisfactoriamente";
             $class = "alert-success";
         } else {
