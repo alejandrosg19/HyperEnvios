@@ -91,7 +91,8 @@ class DespachadorDAO{
                     telefono = '" . $this -> telefono . "',
                     email = '" . $this -> correo . "',
                     estado = '" . $this -> estado . "',
-                    clave = '" . md5($this -> clave) . "'
+                    clave = '" . md5($this -> clave) . "',
+                    foto = '" . $this -> foto . "'
                 WHERE idDespachador = ". $this -> idDespachador;
     }
 
@@ -101,7 +102,8 @@ class DespachadorDAO{
                     nombre = '" . $this -> nombre . "',
                     telefono = '" . $this -> telefono . "',
                     email = '" . $this -> correo . "',
-                    estado = '" . $this -> estado . "'
+                    estado = '" . $this -> estado . "',
+                    foto = '" . $this -> foto . "'
                 WHERE idDespachador = ". $this -> idDespachador;
     }
     

@@ -44,8 +44,22 @@ create table Conductor(
     primary key(idConductor)
 );
 
+create table precio(
+idPrecio int not null AUTO_INCREMENT,
+pesoMinimo float not null,
+pesoMaximo float not null,
+precio int not null,
+primary key(idPrecio)
+);
+
 insert into administrador (nombre, email, clave) values('Mateo Epalza', 'mateoepalzaramirez@gmail.com', md5('123'));
 insert into cliente (nombre, email, direccion, clave, estado) values('Mateo Epalza', 'mepalza972010@hotmail.com', 'calle 55 a sur # 78j - 41', md5('123'), 1);
 
 insert into Conductor (nombre, email, telefono, clave, estado) values('Juana Gomez', 'conductor@gmail.com', '7793395', md5('123'), 1);
 insert into Despachador (nombre, email, telefono, clave, estado) values('Pedro Pineda', 'despachador@gmail.com', '7793395', md5('123'), 1);
+
+insert into precio(pesoMinimo, pesoMaximo, precio) values (0.1,1,5000);
+insert into precio(pesoMinimo, pesoMaximo, precio) values (1.1,3,10000);
+insert into precio(pesoMinimo, pesoMaximo, precio) values (3.1,5,20000);
+insert into precio(pesoMinimo, pesoMaximo, precio) values (5.1,10,50000);
+insert into precio(pesoMinimo, pesoMaximo, precio) values (10.1,30,80000);

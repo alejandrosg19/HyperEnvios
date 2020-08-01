@@ -27,6 +27,7 @@ if (isset($_POST['actualizarAdministrador'])) {
         $class = "alert-danger";
     } else {
         $updateImg = 0;
+        $rutaRemota = $Administrador->getFoto();
         if ($_FILES["imagen"]["name"] != "") {
             $updateImg = 1;
             if ($_FILES["imagen"]["type"] == "image/png" or $_FILES["imagen"]["type"] == "image/jpeg") {
@@ -35,21 +36,28 @@ if (isset($_POST['actualizarAdministrador'])) {
                 $tipo = $_FILES["imagen"]["type"];
                 $tiempo = new DateTime();
                 $rutaRemota = "Static/img/users/" . $tiempo->getTimestamp() . (($tipo == "image/png") ? ".png" : ".jpeg");
-                
-                $AdministradorAUX = new Administrador($idAdministrador, $nombreCompleto, $email, $clave,"");
+
+                $AdministradorAUX = new Administrador($idAdministrador, $nombreCompleto, $email, $clave, "");
                 copy($rutaLocal, $rutaRemota);
                 $AdministradorAUX->getInfoBasic();
 
                 if ($AdministradorAUX->getFoto() != "") {
                     unlink($AdministradorAUX->getFoto());
                 }
-                $Administrador = new Administrador($idAdministrador, $nombreCompleto, $email, $clave,$rutaRemota);
-
             }
         }
-        if ($clave != "") {
-            $res = $Administrador->actualizarCClave();
+
+        if ($updateImg == 1) {
+            $Administrador = new Administrador($idAdministrador);
+            $Administrador->getInfoBasic();
         } else {
+            $Administrador = new Administrador($idAdministrador, $nombreCompleto, $email, $clave, $rutaRemota);
+        }
+
+
+        if ($clave != "" and $updateImg != 1) {
+            $res = $Administrador->actualizarCClave();
+        } else if ($updateImg != 1) {
             $res = $Administrador->actualizar();
         }
 
@@ -115,13 +123,18 @@ if (isset($_POST['actualizarAdministrador'])) {
                                 ¡Enhorabuena!
                             </div>
                         </div>
+                        <div class="form-group border-0">
+                            <label for="foto">Cargar Foto</label>
+                            <div class="input-group mb-3">
+                                <div class="custom-file">
+                                    <input name="imagen" type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+                                    <label class="custom-file-label" for="inputGroupFile01">Cargar</label>
+                                </div>
+                            </div>
+                        </div>
                         <div class="form-group">
                             <label>Contraseña</label>
                             <input class="form-control" name="clave" type="password" value="" placeholder="Ingrese su contraseña">
-                        </div>
-                        <div class="form-group border-0">
-                            <label for="foto">Cargar Foto</label>
-                            <input type="file" class="form-control border-0" name="imagen">
                         </div>
                         <div>
                             <button class="btn btn-primary w-100" name="actualizarAdministrador" type="submit"> Actualizar administrador </button>

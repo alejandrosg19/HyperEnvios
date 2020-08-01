@@ -1,12 +1,11 @@
 <?php
 
 $idCliente = "";
-if(isset($_GET['idCliente'])){
+if (isset($_GET['idCliente'])) {
     $idCliente = $_GET['idCliente'];
-}else{
+} else {
     $idCliente = $_SESSION["id"];
 }
-
 
 if (isset($_POST['actualizarCliente'])) {
 
@@ -20,28 +19,62 @@ if (isset($_POST['actualizarCliente'])) {
     $Conductor = new Conductor("", "", $email);
     $Administrador = new Administrador("", "", $email);
     $Despachador = new Despachador("", "", $email);
-    $cliente = new Cliente($idCliente);
-    $cliente->getInfoBasic();
+    $Cliente = new Cliente($idCliente);
+    $Cliente->getInfoBasic();
 
-    if ($cliente->getCorreo() != $email && ($Conductor -> existeCorreo() || $Administrador -> existeCorreo() || $Despachador -> existeCorreo() || $cliente -> existeNuevoCorreo($email))) {
+    if ($Cliente->getCorreo() != $email && ($Conductor->existeCorreo() || $Administrador->existeCorreo() || $Despachador->existeCorreo() || $Cliente->existeNuevoCorreo($email))) {
         $msj = "El correo proporcionado ya se encuentra en uso.";
         $class = "alert-danger";
     } else {
 
-        $cliente = new Cliente($idCliente, $nombreCompleto, $email, $clave, $direccion, "", $estado);
+        $updateImg = 0;
+        $rutaRemota = $Cliente->getFoto();
+        if ($_FILES["imagen"]["name"] != "") {
+            $updateImg = 1;
+            if ($_FILES["imagen"]["type"] == "image/png" or $_FILES["imagen"]["type"] == "image/jpeg") {
+                $updateImg = 2;
+                $rutaLocal = $_FILES["imagen"]["tmp_name"];
+                $tipo = $_FILES["imagen"]["type"];
+                $tiempo = new DateTime();
+                $rutaRemota = "Static/img/users/" . $tiempo->getTimestamp() . (($tipo == "image/png") ? ".png" : ".jpeg");
 
-        if ($clave != "") {
-            $res = $cliente -> actualizarCClave();
+                $ClienteAUX = new Cliente($idCliente, $nombreCompleto, $email, $clave, $direccion, "", $estado);
+                copy($rutaLocal, $rutaRemota);
+                $ClienteAUX->getInfoBasic();
+
+                if ($ClienteAUX->getFoto() != "") {
+                    unlink($ClienteAUX->getFoto());
+                }
+            }
+        }
+        if ($updateImg == 1) {
+            $Cliente = new Cliente($idCliente);
+            $Cliente->getInfoBasic();
         } else {
-            $res = $cliente -> actualizar();
+            $Cliente = new Cliente($idCliente, $nombreCompleto, $email, $clave, $direccion, $rutaRemota, $estado);
+        }
+
+        if ($clave != "" and $updateImg != 1) {
+            $res = $Cliente->actualizarCClave();
+        } else if ($updateImg != 1) {
+            $res = $Cliente->actualizar();
+        }
+
+        if ($updateImg == 1) {
+            $res = 2;
+        } else if ($updateImg == 2) {
+            $res = 1;
         }
 
         if ($res == 1) {
-            $msj = "El cliente se ha actualizado satisfactoriamente.";
+            $msj = "El administrador se ha actualizado satisfactoriamente.";
             $class = "alert-success";
         } else if ($res == 0) {
             $msj = "No hubo ningún cambio.";
             $class = "alert-warning";
+        } else if ($res == 2) {
+            $msj = "Error en el tipo de archivo.";
+            $class = "alert-danger";
         } else {
             $msj = "Ocurrió algo inesperado, intente de nuevo.";
             $class = "alert-danger";
@@ -50,8 +83,8 @@ if (isset($_POST['actualizarCliente'])) {
 
     include "Vista/Main/alert.php";
 } else {
-    $cliente = new Cliente($idCliente);
-    $cliente->getInfoBasic();
+    $Cliente = new Cliente($idCliente);
+    $Cliente->getInfoBasic();
 }
 ?>
 
@@ -61,13 +94,17 @@ if (isset($_POST['actualizarCliente'])) {
         <div class="col-11 col-md-12 col-lg-9 col-xl-8 form-bg">
             <div class="card">
                 <div class="card-body">
-                    <form class="needs-validation" novalidate action="index.php?pid=<?php echo base64_encode("Vista/Cliente/actualizarCliente.php") ?>&idCliente=<?php echo $cliente->getIdCliente() ?>" method="POST">
-                        <div class="form-title">
-                            <h1>Actualizar Cliente</h1>
+                    <div class="form-title">
+                        <h1>Actualizar Cliente</h1>
+                    </div>
+                    <div class="row d-flex flex-row justify-content-center mb-4">
+                        <div style="border-radius: 500px; overflow:hidden; width: 200px; height: 200px; background-image: url('<?php echo ($Cliente->getFoto() != "") ? $Cliente->getFoto() : "static/img/web/basic.png"; ?>'); background-repeat: no-repeat; background-position: center; background-size: cover;">
                         </div>
+                    </div>
+                    <form class="needs-validation" novalidate action="index.php?pid=<?php echo base64_encode("Vista/Cliente/actualizarCliente.php") ?>&idCliente=<?php echo $Cliente->getIdCliente() ?>" method="POST" enctype="multipart/form-data">
                         <div class="form-group">
                             <label>Nombre Completo</label>
-                            <input class="form-control" name="nombre" type="text" placeholder="Ingrese su nombre" value="<?php echo $cliente->getNombre() ?>" required>
+                            <input class="form-control" name="nombre" type="text" placeholder="Ingrese su nombre" value="<?php echo $Cliente->getNombre() ?>" required>
                             <div class="invalid-feedback">
                                 Por favor ingrese el nombre.
                             </div>
@@ -77,7 +114,7 @@ if (isset($_POST['actualizarCliente'])) {
                         </div>
                         <div class="form-group">
                             <label>Dirección</label>
-                            <input class="form-control" name="direcc" type="text" placeholder="Ingrese la dirección de residencia" value="<?php echo $cliente->getDireccion() ?>" required>
+                            <input class="form-control" name="direcc" type="text" placeholder="Ingrese la dirección de residencia" value="<?php echo $Cliente->getDireccion() ?>" required>
                             <div class="invalid-feedback">
                                 Por favor ingrese la dirección de residencia.
                             </div>
@@ -89,9 +126,9 @@ if (isset($_POST['actualizarCliente'])) {
                             <label>Estado</label>
                             <select name="estado" class="form-control" required>
                                 <option value="" selected disabled>-- Estado --</option>
-                                <option value="1" <?php echo ($cliente->getEstado() == 1) ? "selected" : ""; ?>>Activado</option>
-                                <option value="0" <?php echo ($cliente->getEstado() == 0) ? "selected" : ""; ?>>Bloqueado</option>
-                                <option value="-1" <?php echo ($cliente->getEstado() == -1) ? "selected" : ""; ?>>Desactivado</option>
+                                <option value="1" <?php echo ($Cliente->getEstado() == 1) ? "selected" : ""; ?>>Activado</option>
+                                <option value="0" <?php echo ($Cliente->getEstado() == 0) ? "selected" : ""; ?>>Bloqueado</option>
+                                <option value="-1" <?php echo ($Cliente->getEstado() == -1) ? "selected" : ""; ?>>Desactivado</option>
                             </select>
                             <div class="invalid-feedback">
                                 Por favor seleccione un estado.
@@ -102,12 +139,21 @@ if (isset($_POST['actualizarCliente'])) {
                         </div>
                         <div class="form-group">
                             <label>Email</label>
-                            <input class="form-control" name="email" type="email" placeholder="Ingrese su correo" value="<?php echo $cliente->getCorreo() ?>" required>
+                            <input class="form-control" name="email" type="email" placeholder="Ingrese su correo" value="<?php echo $Cliente->getCorreo() ?>" required>
                             <div class="invalid-feedback">
                                 Por favor ingrese el correo.
                             </div>
                             <div class="valid-feedback">
                                 ¡Enhorabuena!
+                            </div>
+                        </div>
+                        <div class="form-group border-0">
+                            <label for="foto">Cargar Foto</label>
+                            <div class="input-group mb-3">
+                                <div class="custom-file">
+                                    <input name="imagen" type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+                                    <label class="custom-file-label" for="inputGroupFile01">Cargar</label>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group">

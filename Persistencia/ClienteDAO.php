@@ -92,7 +92,8 @@ class ClienteDAO{
                     direccion = '" . $this -> direccion . "',
                     email = '" . $this -> correo . "',
                     estado = '" . $this -> estado . "',
-                    clave = '" . md5($this -> clave) . "'
+                    clave = '" . md5($this -> clave) . "',
+                    foto = '" . $this -> foto . "'
                 WHERE idCliente = ". $this -> idCliente;
     }
 
@@ -102,7 +103,8 @@ class ClienteDAO{
                     nombre = '" . $this -> nombre . "',
                     direccion = '" . $this -> direccion . "',
                     email = '" . $this -> correo . "',
-                    estado = '" . $this -> estado . "'
+                    estado = '" . $this -> estado . "',
+                    foto = '" . $this -> foto . "'
                 WHERE idCliente = ". $this -> idCliente;
     }
 }
