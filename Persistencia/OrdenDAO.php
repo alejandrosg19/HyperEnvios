@@ -28,5 +28,41 @@ class OrdenDAO{
         $this -> idEnvio = $idEnvio;
         $this -> idDespachador = $idDespachador;
     }
+    /*
+    *   Getters
+    */
+    public function getIdOrden(){
+        return $this -> idOrden;
+    }
+    public function getFecha(){
+        return $this -> fecha;
+    }
+    public function getFechaEstimacion(){
+        return $this -> fechaEstimacion;
+    }
+    public function getDireccionDestino(){
+        return $this -> direccionDestino;
+    }
+    public function getContaco(){
+        return $this -> contacto;
+    }
+    public function getNumeroContacto(){
+        return  $this -> numeroContacto;
+    }
+    public function getFechaLlegada(){
+        return $this -> fechaLlegada;
+    }
+    public function getIdCliente(){
+        return $this -> idCliente;
+    }
+    public function getIdCita(){
+        return $this -> idCita;
+    }
+    public function getIdEnvio(){
+        return $this -> idEnvio;
+    }
+    public function getIdDespachador(){
+        return $this -> idDespachador;
+    }
 }
 ?>
