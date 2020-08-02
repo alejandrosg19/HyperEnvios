@@ -12,6 +12,13 @@ body{
     border: 0px;
 
 }
+.form-bg-orden > .card{
+    padding: 25px 50px 50px 50px;
+    border-radius: 15px;
+    /*box-shadow: 5px 6px 5px 0px rgba(209,209,209,1);*/
+    border: 0px;
+
+}
 
 .form-title{
     display: flex;
@@ -71,6 +78,22 @@ body{
 .form-table table thead tr{
     background-color: #FFF !important;
 }
+
+.btn-style{
+    background-color: #3688fc;
+    height: 40px;
+    border: 0px;
+    border-radius: 5px 5px 5px 5px;
+    color: #FFF;
+}
+.btn-style:hover{
+    background-color: #1072fb;
+}
+
+.btn-orden{
+    width: 150px;
+}
+
 @media only screen and (max-width: 992px) {
     .form-bg > .card{
         padding: 25px 35px 35px 35px;
