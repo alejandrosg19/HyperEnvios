@@ -23,12 +23,13 @@ if (isset($_POST['actualizarConductor'])) {
         $class = "alert-danger";
     } else {
         $copyConductor = $Conductor;
-        $Conductor = new Conductor($idConductor, $nombreCompleto, $email, $clave, $telefono, "", $estado);
+        $Conductor = new Conductor($idConductor, $nombreCompleto, $email, md5($clave), $telefono, "", $estado);
 
         if ($clave != "") {
             $res = $Conductor->actualizarCClave();
         } else {
             $res = $Conductor->actualizar();
+            $Conductor -> setClave($copyConductor -> getClave());
         }
 
         if ($res == 1) {
@@ -38,7 +39,7 @@ if (isset($_POST['actualizarConductor'])) {
                 /**
                  * Creo el objeto de log
                  */
-                $logAdministrador = new LogAdministrador("", getDateTime(), getBrowser(), getOS(), actualizarConductor($copyConductor -> getIdConductor(), $copyConductor -> getNombre(), $copyConductor -> getTelefono(), $copyConductor -> getCorreo(), $copyConductor -> getClave(), $copyConductor -> getEstado(), $idConductor, $nombreCompleto, $telefono, $email, md5($clave), $estado), $_SESSION['id'], 8);
+                $logAdministrador = new LogAdministrador("", getDateTime(), getBrowser(), getOS(), actualizarConductor($copyConductor -> getIdConductor(), $copyConductor -> getNombre(), $copyConductor -> getTelefono(), $copyConductor -> getCorreo(), $copyConductor -> getClave(), $copyConductor -> getEstado(), $Conductor -> getIdConductor(), $Conductor -> getNombre(), $Conductor -> getTelefono(), $Conductor -> getCorreo(), $Conductor -> getClave(), $Conductor -> getEstado()), $_SESSION['id'], 8);
                 /**
                  * Inserto el registro del log
                  */

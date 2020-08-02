@@ -24,12 +24,13 @@ if (isset($_POST['actualizarCliente'])) {
         $class = "alert-danger";
     } else {
         $copyCliente = $Cliente;
-        $Cliente = new Cliente($idCliente, $nombreCompleto, $email, $clave, $direccion, "", $estado);
+        $Cliente = new Cliente($idCliente, $nombreCompleto, $email, md5($clave), $direccion, "", $estado);
         
         if ($clave != "") {
             $res = $Cliente->actualizarCClave();
         } else {
             $res = $Cliente->actualizar();
+            $Cliente -> setClave($copyCliente -> getClave());
         }
 
         if ($res == 1) {
@@ -39,7 +40,7 @@ if (isset($_POST['actualizarCliente'])) {
                 /**
                  * Creo el objeto de log
                  */
-                $logAdministrador = new LogAdministrador("", getDateTime(), getBrowser(), getOS(), actualizarCliente($copyCliente -> getIdCliente(), $copyCliente -> getNombre(), $copyCliente -> getDireccion(), $copyCliente -> getCorreo(), $copyCliente -> getClave(), $copyCliente -> getEstado(), $idCliente, $nombreCompleto, $direccion, $email, md5($clave), $estado), $_SESSION['id'], 5);
+                $logAdministrador = new LogAdministrador("", getDateTime(), getBrowser(), getOS(), actualizarCliente($copyCliente -> getIdCliente(), $copyCliente -> getNombre(), $copyCliente -> getDireccion(), $copyCliente -> getCorreo(), $copyCliente -> getClave(), $copyCliente -> getEstado(), $Cliente -> getIdCliente(), $Cliente -> getNombre(), $Cliente -> getDireccion(), $Cliente -> getCorreo(), $Cliente -> getClave(), $Cliente -> getEstado()), $_SESSION['id'], 5);
                 /**
                  * Inserto el registro del log
                  */
