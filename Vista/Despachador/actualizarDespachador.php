@@ -25,12 +25,13 @@ if (isset($_POST['actualizarDespachador'])) {
     } else {
 
         $copyDespachador = $Despachador;
-        $Despachador = new Despachador($idDespachador, $nombreCompleto, $email, $clave, $telefono, "", $estado);
+        $Despachador = new Despachador($idDespachador, $nombreCompleto, $email, md5($clave), $telefono, "", $estado);
 
         if ($clave != "" ) {
             $res = $Despachador -> actualizarCClave();
         } else {
             $res = $Despachador -> actualizar();
+            $Despachador -> setClave($copyDespachador -> getClave());
         }
 
         if ($res == 1) {
@@ -40,7 +41,7 @@ if (isset($_POST['actualizarDespachador'])) {
                 /**
                  * Creo el objeto de log
                  */
-                $logAdministrador = new LogAdministrador("", getDateTime(), getBrowser(), getOS(), actualizarDespachador($copyDespachador -> getIdDespachador(), $copyDespachador -> getNombre(), $copyDespachador -> getTelefono(), $copyDespachador -> getCorreo(), $copyDespachador -> getClave(), $copyDespachador -> getEstado(), $idDespachador, $nombreCompleto, $telefono, $email, md5($clave), $estado), $_SESSION['id'], 11);
+                $logAdministrador = new LogAdministrador("", getDateTime(), getBrowser(), getOS(), actualizarDespachador($copyDespachador -> getIdDespachador(), $copyDespachador -> getNombre(), $copyDespachador -> getTelefono(), $copyDespachador -> getCorreo(), $copyDespachador -> getClave(), $copyDespachador -> getEstado(), $Despachador -> getIdDespachador(), $Despachador -> getNombre(), $Despachador -> getTelefono(), $Despachador -> getCorreo(), $Despachador ->getClave(), $Despachador -> getEstado()), $_SESSION['id'], 11);
                 /**
                  * Inserto el registro del log
                  */

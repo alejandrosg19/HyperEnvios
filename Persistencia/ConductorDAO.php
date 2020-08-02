@@ -82,7 +82,7 @@ class ConductorDAO{
                     telefono = '" . $this -> telefono . "',
                     email = '" . $this -> correo . "',
                     estado = '" . $this -> estado . "',
-                    clave = '" . md5($this -> clave) . "'
+                    clave = '" . $this -> clave . "'
                 WHERE idConductor = ". $this -> idConductor;
     }
 
@@ -112,7 +112,7 @@ class ConductorDAO{
                     nombre = '" . $this -> nombre . "',
                     telefono = '" . $this -> telefono . "',
                     email = '" . $this -> correo . "',
-                    clave = '" . md5($this -> clave) . "',
+                    clave = '" . $this -> clave . "',
                     foto = '" . $this -> foto . "'
                 WHERE idConductor = ". $this -> idConductor;
     }

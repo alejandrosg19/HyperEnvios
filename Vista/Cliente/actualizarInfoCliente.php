@@ -45,12 +45,13 @@ if (isset($_POST['actualizarInfoCliente'])) {
                     }
 
                     $copyCliente = $Cliente;
-                    $Cliente = new Cliente($idCliente, $nombreCompleto, $email, $clave, $direcc, $url);
+                    $Cliente = new Cliente($idCliente, $nombreCompleto, $email, md5($clave), $direcc, $url);
 
                     if ($clave != "") {
                         $resInsert = $Cliente->actualizarBasicClave();
                     } else {
                         $resInsert = $Cliente->actualizarBasic();
+                        $Cliente -> setClave($copyCliente -> getClave()); 
                     }
 
                     if ($resInsert == 1) {
@@ -61,7 +62,7 @@ if (isset($_POST['actualizarInfoCliente'])) {
                              * Creo el objeto de log
                              */
 
-                            $logCliente = new LogCliente("", getDateTime(), getBrowser(), getOS(), actualizarInfoCliente($copyCliente->getIdCliente(), $copyCliente->getNombre(), $copyCliente->getDireccion(), $copyCliente->getCorreo(), $copyCliente->getClave(), $copyCliente->getFoto(), $Cliente->getIdCliente(), $Cliente->getNombre(), $Cliente->getDireccion(), $Cliente->getCorreo(), md5($Cliente->getClave()), $Cliente->getFoto()), $_SESSION['id'], 12);
+                            $logCliente = new LogCliente("", getDateTime(), getBrowser(), getOS(), actualizarInfoCliente($copyCliente->getIdCliente(), $copyCliente->getNombre(), $copyCliente->getDireccion(), $copyCliente->getCorreo(), $copyCliente->getClave(), $copyCliente->getFoto(), $Cliente->getIdCliente(), $Cliente->getNombre(), $Cliente->getDireccion(), $Cliente->getCorreo(), $Cliente->getClave(), $Cliente->getFoto()), $_SESSION['id'], 12);
                             /**
                              * Inserto el registro del log
                              */
@@ -85,12 +86,13 @@ if (isset($_POST['actualizarInfoCliente'])) {
         } else {
 
             $copyCliente = $Cliente;
-            $Cliente = new Cliente($idCliente, $nombreCompleto, $email, $clave, $direcc, $oldUrl);
+            $Cliente = new Cliente($idCliente, $nombreCompleto, $email, md5($clave), $direcc, $oldUrl);
 
             if ($clave != "") {
                 $resInsert = $Cliente->actualizarBasicClave();
             } else {
                 $resInsert = $Cliente->actualizarBasic();
+                $Cliente -> setClave($copyCliente -> getClave()); 
             }
 
             if ($resInsert == 1) {
@@ -101,7 +103,7 @@ if (isset($_POST['actualizarInfoCliente'])) {
                      * Creo el objeto de log
                      */
 
-                    $logCliente = new LogCliente("", getDateTime(), getBrowser(), getOS(), actualizarInfoCliente($copyCliente->getIdCliente(), $copyCliente->getNombre(), $copyCliente->getDireccion(), $copyCliente->getCorreo(), $copyCliente->getClave(), $copyCliente->getFoto(), $Cliente->getIdCliente(), $Cliente->getNombre(), $Cliente->getDireccion(), $Cliente->getCorreo(), md5($Cliente->getClave()), $Cliente->getFoto()), $_SESSION['id'], 12);
+                    $logCliente = new LogCliente("", getDateTime(), getBrowser(), getOS(), actualizarInfoCliente($copyCliente->getIdCliente(), $copyCliente->getNombre(), $copyCliente->getDireccion(), $copyCliente->getCorreo(), $copyCliente->getClave(), $copyCliente->getFoto(), $Cliente->getIdCliente(), $Cliente->getNombre(), $Cliente->getDireccion(), $Cliente->getCorreo(), $Cliente->getClave(), $Cliente->getFoto()), $_SESSION['id'], 12);
                     /**
                      * Inserto el registro del log
                      */
@@ -121,6 +123,7 @@ if (isset($_POST['actualizarInfoCliente'])) {
     }
 
     include "Vista/Main/alert.php";
+    
 } else {
     $Cliente = new Cliente($idCliente);
     $Cliente -> getInfoBasic();

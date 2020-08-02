@@ -45,12 +45,13 @@ if (isset($_POST['actualizarInfoConductor'])) {
                     }
 
                     $copyConductor = $Conductor;
-                    $Conductor = new Conductor($idConductor, $nombreCompleto, $email, $clave, $telefono, $url);
+                    $Conductor = new Conductor($idConductor, $nombreCompleto, $email, md5($clave), $telefono, $url);
 
                     if ($clave != "") {
                         $resInsert = $Conductor->actualizarBasicClave();
                     } else {
                         $resInsert = $Conductor->actualizarBasic();
+                        $Conductor -> setClave($copyConductor -> getClave());
                     }
 
                     if ($resInsert == 1) {
@@ -61,7 +62,7 @@ if (isset($_POST['actualizarInfoConductor'])) {
                              * Creo el objeto de log
                              */
 
-                            $logConductor = new LogConductor("", getDateTime(), getBrowser(), getOS(), actualizarInfoConductor($copyConductor->getIdConductor(), $copyConductor->getNombre(), $copyConductor->getTelefono(), $copyConductor->getCorreo(), $copyConductor->getClave(), $copyConductor->getFoto(), $Conductor->getIdConductor(), $Conductor->getNombre(), $Conductor->getTelefono(), $Conductor->getCorreo(), md5($Conductor->getClave()), $Conductor->getFoto()), $_SESSION['id'], 12);
+                            $logConductor = new LogConductor("", getDateTime(), getBrowser(), getOS(), actualizarInfoConductor($copyConductor->getIdConductor(), $copyConductor->getNombre(), $copyConductor->getTelefono(), $copyConductor->getCorreo(), $copyConductor->getClave(), $copyConductor->getFoto(), $Conductor->getIdConductor(), $Conductor->getNombre(), $Conductor->getTelefono(), $Conductor->getCorreo(), $Conductor->getClave(), $Conductor->getFoto()), $_SESSION['id'], 12);
                             /**
                              * Inserto el registro del log
                              */
@@ -85,12 +86,13 @@ if (isset($_POST['actualizarInfoConductor'])) {
         } else {
 
             $copyConductor = $Conductor;
-            $Conductor = new Conductor($idConductor, $nombreCompleto, $email, $clave, $telefono, $oldUrl);
+            $Conductor = new Conductor($idConductor, $nombreCompleto, $email, md5($clave), $telefono, $oldUrl);
 
             if ($clave != "") {
                 $resInsert = $Conductor->actualizarBasicClave();
             } else {
                 $resInsert = $Conductor->actualizarBasic();
+                $Conductor -> setClave($copyConductor -> getClave());
             }
 
             if ($resInsert == 1) {
@@ -101,7 +103,7 @@ if (isset($_POST['actualizarInfoConductor'])) {
                      * Creo el objeto de log
                      */
 
-                    $logConductor = new LogConductor("", getDateTime(), getBrowser(), getOS(), actualizarInfoConductor($copyConductor->getIdConductor(), $copyConductor->getNombre(), $copyConductor->getTelefono(), $copyConductor->getCorreo(), $copyConductor->getClave(), $copyConductor->getFoto(), $Conductor->getIdConductor(), $Conductor->getNombre(), $Conductor->getTelefono(), $Conductor->getCorreo(), md5($Conductor->getClave()), $Conductor->getFoto()), $_SESSION['id'], 12);
+                    $logConductor = new LogConductor("", getDateTime(), getBrowser(), getOS(), actualizarInfoConductor($copyConductor->getIdConductor(), $copyConductor->getNombre(), $copyConductor->getTelefono(), $copyConductor->getCorreo(), $copyConductor->getClave(), $copyConductor->getFoto(), $Conductor->getIdConductor(), $Conductor->getNombre(), $Conductor->getTelefono(), $Conductor->getCorreo(), $Conductor->getClave(), $Conductor->getFoto()), $_SESSION['id'], 12);
                     /**
                      * Inserto el registro del log
                      */

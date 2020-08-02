@@ -65,21 +65,12 @@ class AdministradorDAO{
                 WHERE email = '" . $correo . "'";
     }
 
-    public function actualizarBasic(){
-        return "UPDATE Administrador
-                SET
-                    nombre = '" . $this -> nombre . "',
-                    email = '" . $this -> correo . "',
-                    foto = '" . $this -> foto . "'
-                WHERE idAdministrador = ". $this -> idAdministrador;
-    }
-
     public function actualizarCClave(){
         return "UPDATE Administrador
                 SET
                     nombre = '" . $this -> nombre . "',
                     email = '" . $this -> correo . "',
-                    clave = '" . md5($this -> clave) . "',
+                    clave = '" . $this -> clave . "',
                     foto =  '" . $this -> foto. "'
                 WHERE idAdministrador = ". $this -> idAdministrador;
     }
@@ -90,6 +81,24 @@ class AdministradorDAO{
                     nombre = '" . $this -> nombre . "',
                     email = '" . $this -> correo . "',
                     foto =  '" . $this -> foto. "'
+                WHERE idAdministrador = ". $this -> idAdministrador;
+    }
+    public function actualizarBasic(){
+        return "UPDATE Administrador
+                SET
+                    nombre = '" . $this -> nombre . "',
+                    email = '" . $this -> correo . "',
+                    foto = '" . $this -> foto . "'
+                WHERE idAdministrador = ". $this -> idAdministrador;
+    }
+
+    public function actualizarBasicClave(){
+        return "UPDATE Administrador
+                SET
+                    nombre = '" . $this -> nombre . "',
+                    email = '" . $this -> correo . "',
+                    clave = '" . $this -> clave . "',
+                    foto = '" . $this -> foto . "'
                 WHERE idAdministrador = ". $this -> idAdministrador;
     }
 

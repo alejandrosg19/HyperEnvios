@@ -199,4 +199,20 @@ function actualizarInfoCliente($idConductorC, $nombreC, $direccionC, $emailC, $c
     return $str;
 }
 
+
+function actualizarInfoAdministrador($idAdministradorC, $nombreC, $emailC, $claveC, $fotoC, $idAdministrador, $nombre, $email, $clave, $foto){
+    $str = "idAdministrador:::" . $idAdministradorC .
+    ";;;Nombre:::" . $nombreC .  
+    ";;;Correo:::" . $emailC . 
+    ";;;Clave:::" . $claveC . 
+    ";;;Foto:::" . $fotoC . 
+    "&&&idAdministrador:::" . $idAdministrador .
+    ";;;Nombre:::" . $nombre . 
+    ";;;Correo:::" . $email . 
+    ";;;Clave:::" . $clave . 
+    ";;;Foto:::" . $foto;
+
+    return $str;
+}
+
 ?>

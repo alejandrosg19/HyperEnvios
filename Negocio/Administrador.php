@@ -200,6 +200,25 @@ class Administrador{
         $this -> Conexion -> cerrar();
         return $res;
     }
+
+    /*
+     * Actualiza la información básica del objeto sin actualizar la contraseña
+     */
+    public function actualizarBasic(){
+        $this -> Conexion -> abrir();
+        $this -> Conexion -> ejecutar( $this -> AdministradorDAO -> actualizarBasic());
+        $res = $this -> Conexion -> filasAfectadas();
+        $this -> Conexion -> cerrar();
+        return $res;
+    }
+
+    public function actualizarBasicClave(){
+        $this -> Conexion -> abrir();
+        $this -> Conexion -> ejecutar( $this -> AdministradorDAO -> actualizarBasicClave());
+        $res = $this -> Conexion -> filasAfectadas();
+        $this -> Conexion -> cerrar();
+        return $res;
+    }
 }
 
 ?>

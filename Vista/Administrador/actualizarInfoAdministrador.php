@@ -1,84 +1,123 @@
 <?php
 
-$idAdministrador = "";
-if (isset($_GET['idAdministrador'])) {
-    $idAdministrador = $_GET['idAdministrador'];
-} else {
-    $idAdministrador = $_SESSION["id"];
-}
 
+$idAdministrador = $_SESSION['id'];
 
-if (isset($_POST['actualizarAdministrador'])) {
+if (isset($_POST['actualizarInfoAdministrador'])) {
 
     $nombreCompleto = trim($_POST['nombre']);
     $email = $_POST['email'];
     $clave = $_POST['clave'];
+    $oldUrl = trim($_POST['url_hidden']);
+    $archivo = $_FILES['imagen']['name'];
 
 
-
-    $Conductor = new Conductor("", "", $email);
+    $Cliente = new Cliente("", "", $email);
     $Administrador = new Administrador($idAdministrador);
     $Despachador = new Despachador("", "", $email);
-    $cliente = new Cliente("", "", $email);
+    $Conductor = new Conductor("", "", $email);
     $Administrador->getInfoBasic();
 
-    if ($Administrador->getCorreo() != $email && ($Conductor->existeCorreo() || $cliente->existeCorreo() || $Despachador->existeCorreo() || $Administrador->existeNuevoCorreo($email))) {
+    if ($Administrador->getCorreo() != $email && ($Conductor->existeCorreo() || $Cliente->existeCorreo() || $Despachador->existeCorreo() || $Administrador->existeNuevoCorreo($email))) {
         $msj = "El correo proporcionado ya se encuentra en uso.";
         $class = "alert-danger";
     } else {
-        $updateImg = 0;
-        $rutaRemota = $Administrador->getFoto();
-        if ($_FILES["imagen"]["name"] != "") {
-            $updateImg = 1;
-            if ($_FILES["imagen"]["type"] == "image/png" or $_FILES["imagen"]["type"] == "image/jpeg") {
-                $updateImg = 2;
-                $rutaLocal = $_FILES["imagen"]["tmp_name"];
-                $tipo = $_FILES["imagen"]["type"];
-                $tiempo = new DateTime();
-                $rutaRemota = "Static/img/users/" . $tiempo->getTimestamp() . (($tipo == "image/png") ? ".png" : ".jpeg");
 
-                $AdministradorAUX = new Administrador($idAdministrador, $nombreCompleto, $email, $clave, "");
-                copy($rutaLocal, $rutaRemota);
-                $AdministradorAUX->getInfoBasic();
+        if (isset($archivo) && $archivo != "") {
 
-                if ($AdministradorAUX->getFoto() != "") {
-                    unlink($AdministradorAUX->getFoto());
+            $archivo = date("Y_m_d_H_i_s_") . $archivo;
+
+            $tipo = $_FILES['imagen']['type'];
+            $tamano = $_FILES['imagen']['size'];
+            $temp = $_FILES['imagen']['tmp_name'];
+            $url = trim('static/img/users/' . $archivo);
+
+            if (!((strpos($tipo, "gif") || strpos($tipo, "jpeg") || strpos($tipo, "jpg") || strpos($tipo, "png")) && ($tamano < 9000000))) {
+
+                $class = "alert-danger";
+                $msj = "El tipo de archivo no es valido o el tamañano es demasiado grande";
+            } else {
+                if (move_uploaded_file($temp, $url)) {
+
+                    if (file_exists($oldUrl)) {
+                        unlink(trim($oldUrl));
+                    }
+
+                    $copyAdministrador = $Administrador;
+                    $Administrador = new Administrador($idAdministrador, $nombreCompleto, $email, md5($clave), $url);
+
+                    if ($clave != "") {
+                        $resInsert = $Administrador->actualizarBasicClave();
+                    } else {
+                        $resInsert = $Administrador->actualizarBasic();
+                        $Administrador->setClave($copyAdministrador->getClave());
+                    }
+
+                    if ($resInsert == 1) {
+
+                        if ($_SESSION['rol'] == 1) {
+
+                            /**
+                             * Creo el objeto de log
+                             */
+
+                            $logAdministrador = new LogAdministrador("", getDateTime(), getBrowser(), getOS(), actualizarInfoAdministrador($copyAdministrador->getIdAdministrador(), $copyAdministrador->getNombre(), $copyAdministrador->getCorreo(), $copyAdministrador->getClave(), $copyAdministrador->getFoto(), $Administrador->getIdAdministrador(), $Administrador->getNombre(), $Administrador->getCorreo(), $Administrador->getClave(), $Administrador->getFoto()), $_SESSION['id'], 12);
+                            /**
+                             * Inserto el registro del log
+                             */
+                            $logAdministrador->insertar();
+                        }
+
+                        $class = "alert-success";
+                        $msj = "La información se ha actualizado correctamente.";
+                    } else if ($resInsert == 0) {
+                        $class = "alert-warning";
+                        $msj = "No se ha modificado ningún valor.";
+                    } else {
+                        $class = "alert-danger";
+                        $msj = "Ocurrió algo inesperado";
+                    }
+                } else {
+                    $class = "alert-danger";
+                    $msj = "Ocurrió algo inesperado";
                 }
             }
-        }
-
-        if ($updateImg == 1) {
-            $Administrador = new Administrador($idAdministrador);
-            $Administrador->getInfoBasic();
         } else {
-            $Administrador = new Administrador($idAdministrador, $nombreCompleto, $email, $clave, $rutaRemota);
-        }
 
+            $copyAdministrador = $Administrador;
+            $Administrador = new Administrador($idAdministrador, $nombreCompleto, $email, md5($clave), $oldUrl);
 
-        if ($clave != "" and $updateImg != 1) {
-            $res = $Administrador->actualizarCClave();
-        } else if ($updateImg != 1) {
-            $res = $Administrador->actualizar();
-        }
+            if ($clave != "") {
+                $resInsert = $Administrador->actualizarBasicClave();
+            } else {
+                $resInsert = $Administrador->actualizarBasic();
+                $Administrador->setClave($copyAdministrador->getClave());
+            }
 
-        if ($updateImg == 1) {
-            $res = 2;
-        } else if ($updateImg == 2) {
-            $res = 1;
-        }
+            if ($resInsert == 1) {
 
-        if ($res == 1) {
-            $msj = "El administrador se ha actualizado satisfactoriamente.";
-            $class = "alert-success";
-        } else if ($res == 0) {
-            $msj = "No hubo ningún cambio.";
-            $class = "alert-warning";
-        } else if ($res == 2) {
-            $msj = "Error en el tipo de archivo.";
-            $class = "alert-danger";
-        } else {
-            $msj = "Ocurrió algo inesperado, intente de nuevo.";
-            $class = "alert-danger";
+                if ($_SESSION['rol'] == 1) {
+
+                    /**
+                     * Creo el objeto de log
+                     */
+
+                    $logAdministrador = new LogAdministrador("", getDateTime(), getBrowser(), getOS(), actualizarInfoAdministrador($copyAdministrador->getIdAdministrador(), $copyAdministrador->getNombre(), $copyAdministrador->getCorreo(), $copyAdministrador->getClave(), $copyAdministrador->getFoto(), $Administrador->getIdAdministrador(), $Administrador->getNombre(), $Administrador->getCorreo(), $Administrador->getClave(), $Administrador->getFoto()), $_SESSION['id'], 12);
+                    /**
+                     * Inserto el registro del log
+                     */
+                    $logAdministrador->insertar();
+                }
+
+                $class = "alert-success";
+                $msj = "La información se ha actualizado correctamente.";
+            } else if ($resInsert == 0) {
+                $class = "alert-warning";
+                $msj = "No se ha modificado ningún valor.";
+            } else {
+                $class = "alert-danger";
+                $msj = "Ocurrió algo inesperado";
+            }
         }
     }
 
@@ -96,13 +135,13 @@ if (isset($_POST['actualizarAdministrador'])) {
             <div class="card">
                 <div class="card-body">
                     <div class="form-title">
-                        <h1>Actualizar Administrador</h1>
+                        <h1>Actualizar información personal</h1>
                     </div>
                     <div class="row d-flex flex-row justify-content-center mb-4">
                         <div style="border-radius: 500px; overflow:hidden; width: 200px; height: 200px; background-image: url('<?php echo ($Administrador->getFoto() != "") ? $Administrador->getFoto() : "static/img/web/basic.png"; ?>'); background-repeat: no-repeat; background-position: center; background-size: cover;">
                         </div>
                     </div>
-                    <form class="needs-validation" novalidate action="index.php?pid=<?php echo base64_encode("Vista/Administrador/actualizarAdministrador.php") ?>&idAdministrador=<?php echo $Administrador->getIdAdministrador() ?>" method="POST" enctype="multipart/form-data">
+                    <form class="needs-validation" novalidate action="index.php?pid=<?php echo base64_encode("Vista/Administrador/actualizarInfoAdministrador.php") ?>&idAdministrador=<?php echo $Administrador->getIdAdministrador() ?>" method="POST" enctype="multipart/form-data">
                         <div class="form-group">
                             <label>Nombre Completo</label>
                             <input class="form-control" name="nombre" type="text" placeholder="Ingrese su nombre" value="<?php echo $Administrador->getNombre() ?>" required>
@@ -125,6 +164,7 @@ if (isset($_POST['actualizarAdministrador'])) {
                         </div>
                         <div class="form-group border-0">
                             <label for="foto">Cargar Foto</label>
+                            <input type="hidden" name="url_hidden" value="<?php echo $Administrador->getFoto() ?> ">
                             <div class="input-group mb-3">
                                 <div class="custom-file">
                                     <input name="imagen" type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
@@ -137,7 +177,7 @@ if (isset($_POST['actualizarAdministrador'])) {
                             <input class="form-control" name="clave" type="password" value="" placeholder="Ingrese su contraseña">
                         </div>
                         <div>
-                            <button class="btn btn-primary w-100" name="actualizarAdministrador" type="submit"> Actualizar administrador </button>
+                            <button class="btn btn-primary w-100" name="actualizarInfoAdministrador" type="submit"> Actualizar información </button>
                         </div>
                     </form>
                 </div>
