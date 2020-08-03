@@ -16,6 +16,9 @@
     require_once "Negocio/Orden.php";
     require_once "Negocio/Precio.php";
     require_once "Negocio/AccionEstado.php";
+    require_once "Negocio/Precio.php";
+    require_once "Negocio/Cita.php";
+    require_once "Negocio/Item.php";
     
     $pid = null;
 

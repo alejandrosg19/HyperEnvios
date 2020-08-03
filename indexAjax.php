@@ -17,6 +17,9 @@ require_once "Helpers/logHelper.php";
 require_once "Negocio/Orden.php";
 require_once "Negocio/Precio.php";
 require_once "Negocio/AccionEstado.php";
+require_once "Negocio/Precio.php";
+require_once "Negocio/Cita.php";
+require_once "Negocio/Item.php";
 
 if ($_GET['pid']) {
     $pid = base64_decode($_GET['pid']);

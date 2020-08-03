@@ -47,8 +47,8 @@ create table Conductor(
 
 create table precio(
     idPrecio int not null auto_increment,
-    pesoMinimo float not null,
-    pesoMaximo float not null,
+    pesoMinimo double not null,
+    pesoMaximo double not null,
     precio int not null,
     primary key(idPrecio)
 );
@@ -228,11 +228,11 @@ insert into cliente (nombre, email, direccion, clave, estado) values('Cliente Cl
 insert into Conductor (nombre, email, telefono, clave, estado) values('Conductor Conductor', 'conductor@gmail.com', '7793395', md5('123'), 1);
 insert into Despachador (nombre, email, telefono, clave, estado) values('Despachador Despachador', 'despachador@gmail.com', '7793395', md5('123'), 1);
 
-insert into precio(pesoMinimo, pesoMaximo, precio) values (1, 0.1,1,5000);
-insert into precio(pesoMinimo, pesoMaximo, precio) values (2, 1.1,3,10000);
-insert into precio(pesoMinimo, pesoMaximo, precio) values (3, 3.1,5,20000);
-insert into precio(pesoMinimo, pesoMaximo, precio) values (4, 5.1,10,50000);
-insert into precio(pesoMinimo, pesoMaximo, precio) values (5, 10.1,30,80000);
+insert into precio values (1, 0.1,1,5000);
+insert into precio values (2, 1.1,3,10000);
+insert into precio values (3, 3.1,5,20000);
+insert into precio values (4, 5.1,10,50000);
+insert into precio values (5, 10.1,30,80000);
 
 insert into Accion values (1, 'Inicio de sesion');
 insert into Accion values (2, 'Cierre de sesion');
@@ -263,3 +263,7 @@ insert into accionEstado(nombre,descripcion) values('No Entregado','El paquete n
 insert into accionEstado(nombre,descripcion) values('Devolucion','El paquete no ha sido entregado al destinatario');
 
 */
+
+require_once "Negocio/Precio.php";
+
+select precio from precio where 1.1 >= pesoMinimo and 1.1 <= pesoMaximo; 

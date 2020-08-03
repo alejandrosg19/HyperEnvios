@@ -56,5 +56,18 @@ class PrecioDAO{
                 FROM precio 
                 WHERE idPrecio = " . $this -> idPrecio;
     }
+
+    public function getPrecioPeso($peso){
+        return "SELECT precio 
+                FROM precio 
+                WHERE '" . $peso . "' >= pesoMinimo AND '" . $peso . "' <= pesoMaximo";
+    }
+    
+    public function getMaxPeso(){
+        return "SELECT pesoMaximo 
+                FROM precio 
+                ORDER BY pesoMaximo DESC LIMIT 1;";
+    }
+
 }
 ?>

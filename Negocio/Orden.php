@@ -120,5 +120,13 @@ class Orden{
     public function setIdDespachador($idDespachador){
         $this -> idDespachador = $idDespachador;
     }
+
+    function insertar(){
+        $this -> Conexion -> abrir();
+        $this -> Conexion -> ejecutar($this -> OrdenDAO -> insertar());
+        $res =  $this -> Conexion -> getLastID();
+        $this -> Conexion -> cerrar();
+        return $res;
+    }
 }
 ?>
