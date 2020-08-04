@@ -66,7 +66,7 @@
                             Orden
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="index.php?pid=<?php echo base64_encode("Vista/Cliente/crearOrden.php") ?>">Generar Orden</a>
+                            <a class="dropdown-item" href="index.php?pid=<?php echo base64_encode("Vista/Orden/crearOrden.php") ?>">Generar Orden</a>
                             <a class="dropdown-item" href="#">Another action</a>
                             <a class="dropdown-item" href="#">Something else here</a>
                         </div>
@@ -96,3 +96,6 @@
         </div>
     </div>
 </nav>
+<div id="alert-ajax">
+
+</div>

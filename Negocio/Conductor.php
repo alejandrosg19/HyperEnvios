@@ -259,5 +259,28 @@ class Conductor{
         $this -> Conexion -> cerrar();
         return $res;
     }
+
+    public function selectConductorDesocupado($fecha){
+        $this -> Conexion -> abrir();
+        $this -> Conexion -> ejecutar($this -> ConductorDAO -> selectConductorDesocupado($fecha));
+        $res = $this -> Conexion -> extraer();
+        $this -> Conexion -> cerrar();
+        return $res[0];
+        /*if($this -> Conexion -> numFilas()){
+            $res = $this -> Conexion -> extraer();
+            $this -> Conexion -> cerrar();
+            return $res[0];
+        }else{
+
+        }*/
+        
+    }
+
+    public function selectConductorCita($fecha){
+        $this -> Conexion -> abrir();
+        $this -> Conexion -> ejecutar($this -> ConductorDAO -> selectConductorCita($fecha));
+        $res = $this -> Conexion -> extraer();
+        $this -> Conexion -> cerrar();
+        return $res[0][0];
+    }
 }
-?>

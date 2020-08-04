@@ -16,12 +16,19 @@
     require_once "Negocio/Orden.php";
     require_once "Negocio/Precio.php";
     require_once "Negocio/AccionEstado.php";
+<<<<<<< HEAD
     require_once "Negocio/Estado.php";
     require_once "Negocio/EstadoCliente.php";
     require_once "Negocio/EstadoConductor.php";
     require_once "Negocio/EstadoDespachador.php";
     require_once "Negocio/ComentarioConductor.php";
     require_once "Negocio/ComentarioDespachador.php";
+=======
+    require_once "Negocio/Precio.php";
+    require_once "Negocio/Cita.php";
+    require_once "Negocio/Item.php";
+    require_once "Negocio/EstadoCliente.php";
+>>>>>>> origin/master
     
     $pid = null;
 

@@ -118,4 +118,26 @@ class Precio{
         $this -> Conexion -> cerrar();
         return $res;
     }
+
+    /**
+     * Busca precio dependiendo del peso
+     */
+    public function getPrecioPeso($peso){
+        $this -> Conexion -> abrir();
+        $this -> Conexion -> ejecutar($this -> PrecioDAO -> getPrecioPeso($peso));
+        $res = $this -> Conexion -> extraer();
+        $this -> Conexion -> cerrar();
+        return $res[0];
+    }
+
+    /**
+     * Me devuelve el ultimo peso que manejamos
+     */
+    public function getMaxPeso(){
+        $this -> Conexion -> abrir();
+        $this -> Conexion -> ejecutar($this -> PrecioDAO -> getMaxPeso());
+        $res = $this -> Conexion -> extraer();
+        $this -> Conexion -> cerrar();
+        return $res[0];
+    }
 }

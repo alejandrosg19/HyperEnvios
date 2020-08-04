@@ -116,5 +116,30 @@ class ConductorDAO{
                     foto = '" . $this -> foto . "'
                 WHERE idConductor = ". $this -> idConductor;
     }
+
+    public function selectConductorDesocupado($fecha){
+        return "SELECT idConductor 
+                FROM conductor 
+                WHERE idConductor NOT IN (SELECT FK_idConductor FROM envio WHERE fechaSalida = '" . $fecha . "') 
+                AND idConductor NOT IN (SELECT FK_idConductor FROM cita WHERE fechaCita = '" . $fecha . "') 
+                AND estado = 1;";
+    }
+
+    public function selectConductorCita($fecha){
+        return "SELECT FK_idConductor, count(FK_idConductor) AS cantidad 
+                FROM cita 
+                INNER JOIN Conductor ON FK_idConductor = idConductor 
+                WHERE FK_idConductor IN (
+                    SELECT idConductor 
+                    FROM conductor 
+                    WHERE idConductor NOT IN (
+                        SELECT FK_idConductor 
+                        FROM envio 
+                        WHERE fechaSalida = '" . $fecha . "'
+                    ) and estado = 1
+                ) and estado = 1 and fechaCita = '" . $fecha . "' 
+                GROUP BY FK_idConductor
+                ORDER BY cantidad;";
+    }
 }
 ?>

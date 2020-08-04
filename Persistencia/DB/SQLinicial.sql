@@ -27,7 +27,7 @@ create table Despachador(
     idDespachador int not null auto_increment,
     nombre varchar(50) not null,
     email varchar(80) not null unique,
-    telefono int not null,
+    telefono bigint not null,
     clave varchar(100) not null,
     foto varchar(80),
     estado int not null,
@@ -38,7 +38,7 @@ create table Conductor(
     idConductor int not null auto_increment,
     nombre varchar(50) not null,
     email varchar(80) not null unique,
-    telefono int not null,
+    telefono bigint not null,
     clave varchar(100) not null,
     foto varchar(80),
     estado int not null,
@@ -47,9 +47,9 @@ create table Conductor(
 
 create table precio(
     idPrecio int not null auto_increment,
-    pesoMinimo float not null,
-    pesoMaximo float not null,
-    precio int not null,
+    pesoMinimo double not null,
+    pesoMaximo double not null,
+    precio double not null,
     primary key(idPrecio)
 );
 
@@ -121,7 +121,7 @@ create table logDespachador(
 
 create table cita(
 	idCita int not null auto_increment,
-	fechaCita datetime not null,
+	fechaCita date not null,
 	FK_idConductor int not null,
 	primary key(idCita),
 	Foreign key(FK_idConductor) references Conductor(idConductor)
@@ -141,7 +141,7 @@ create table Orden(
 	fechaEstimacion date not null,
 	direccionDestino varchar(100) not null,
 	contacto varchar(100) not null,
-	numeroContacto int not null,
+	numeroContacto bigint not null,
 	fechaLlegada date null,
 	FK_idCliente int not null,
 	FK_idCita int not null,
@@ -156,7 +156,6 @@ create table Orden(
 create table estadoCliente(
 	idEstadoCliente int not null auto_increment,
 	fecha datetime not null,
-	comentario varchar(500) not null,
 	FK_idAccionEstado int not null,
 	FK_idOrden int not null,
 	FK_idCliente int not null,
@@ -206,6 +205,15 @@ create table comentarioConductor(
 	FK_idEstadoConductor int not null,
 	primary key(idComentarioConductor),
 	foreign key(FK_idEstadoConductor) references EstadoConductor(idEstadoConductor)
+);
+
+create table comentarioCliente(
+	idComentarioCliente int not null auto_increment,
+	fecha datetime not null,
+	comentario varchar(500) not null,
+	FK_idEstadoCliente int not null,
+	primary key(idComentarioCliente),
+	foreign key(FK_idEstadoCliente) references EstadoCliente(idEstadoCliente)
 );
 
 create table item(
