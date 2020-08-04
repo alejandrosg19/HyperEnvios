@@ -28,7 +28,6 @@ class OrdenDAO{
         $this -> idEnvio = $idEnvio;
         $this -> idDespachador = $idDespachador;
     }
-<<<<<<< HEAD
     public function getInfoOrden()
     {
         return "SELECT 
@@ -42,12 +41,11 @@ class OrdenDAO{
             INNER JOIN cita ON orden.FK_idCita = idCita
             INNER JOIN conductor ON FK_idConductor = idConductor
             WHERE orden.idOrden = '" . $this -> idOrden ."'";
-=======
+    }
 
     function insertar(){
         return "INSERT INTO Orden (fecha, fechaEstimacion, direccionDestino, contacto, numeroContacto, FK_idCliente, FK_idCita)
                 VALUES ('" . $this -> fecha . "','"  . $this -> fechaEstimacion . "','" . $this -> direccionDestino . "','" . $this -> contacto . "','"  . $this -> numeroContacto . "','" . $this -> idCliente . "','" . $this -> idCita . "')";
->>>>>>> origin/master
     }
 }
 ?>
