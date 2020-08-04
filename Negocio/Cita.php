@@ -57,7 +57,6 @@ class Cita{
      */
     public function insertar(){
         $this -> Conexion -> abrir();
-        echo $this -> CitaDAO -> insertar();
         $this -> Conexion -> ejecutar( $this -> CitaDAO -> insertar());
         $res =  $this -> Conexion -> getLastID();
         $this -> Conexion -> cerrar();

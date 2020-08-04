@@ -156,7 +156,6 @@ create table Orden(
 create table estadoCliente(
 	idEstadoCliente int not null auto_increment,
 	fecha datetime not null,
-	comentario varchar(500) not null,
 	FK_idAccionEstado int not null,
 	FK_idOrden int not null,
 	FK_idCliente int not null,
@@ -206,6 +205,15 @@ create table comentarioConductor(
 	FK_idEstadoConductor int not null,
 	primary key(idComentarioConductor),
 	foreign key(FK_idEstadoConductor) references EstadoConductor(idEstadoConductor)
+);
+
+create table comentarioCliente(
+	idComentarioCliente int not null auto_increment,
+	fecha datetime not null,
+	comentario varchar(500) not null,
+	FK_idEstadoCliente int not null,
+	primary key(idComentarioCliente),
+	foreign key(FK_idEstadoCliente) references EstadoCliente(idEstadoCliente)
 );
 
 create table item(

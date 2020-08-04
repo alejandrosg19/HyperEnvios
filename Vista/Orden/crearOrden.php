@@ -288,6 +288,12 @@ $fechaFin =  date("Y-m-d", strtotime($fecha_actual . "+ 2 month"));
                     $.post("indexAJAX.php?pid=<?php echo base64_encode("Vista/Orden/Ajax/crearOrdenAjax.php") ?>", json, function(data) {
                         console.log(data);
                         res = JSON.parse(data);
+                        if(res.status){
+                            crearAlert(res.status, res.msj);
+                            limpiarCampos();
+                        }else{
+                            crearAlert(res.status, res.msj);        
+                        }
 
                     });
 
@@ -299,6 +305,10 @@ $fechaFin =  date("Y-m-d", strtotime($fecha_actual . "+ 2 month"));
 
     });
 
+    /*
+     * Revisa si los campos han sido diligenciados,
+     * en caso contario los resalta con un borde rojo
+     */
     function checkFillInputs() {
         bool = true;
         $('.needed').each(function() {
@@ -310,7 +320,15 @@ $fechaFin =  date("Y-m-d", strtotime($fecha_actual . "+ 2 month"));
         return bool;
     }
 
+    /*
+     * Limpia los datos después de realizar la inserción correctamente
+     */
 
+    function limpiarCampos(){
+        $('.needed').each(function(){
+            $(this).val("");
+        });
+    }
 
     /*
      * Obtener un array con la informacion de todos los items

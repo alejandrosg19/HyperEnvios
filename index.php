@@ -19,6 +19,7 @@
     require_once "Negocio/Precio.php";
     require_once "Negocio/Cita.php";
     require_once "Negocio/Item.php";
+    require_once "Negocio/EstadoCliente.php";
     
     $pid = null;
 
