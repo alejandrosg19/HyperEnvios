@@ -126,7 +126,6 @@ class Orden{
         $this -> idDespachador = $idDespachador;
     }
 
-<<<<<<< HEAD
     /* 
     *   methods
     */
@@ -142,13 +141,13 @@ class Orden{
         }
         $this -> Conexion -> cerrar();
         return $resList;
-=======
+    }
+    
     function insertar(){
         $this -> Conexion -> abrir();
         $this -> Conexion -> ejecutar($this -> OrdenDAO -> insertar());
         $res =  $this -> Conexion -> getLastID();
         $this -> Conexion -> cerrar();
         return $res;
->>>>>>> origin/master
     }
 }

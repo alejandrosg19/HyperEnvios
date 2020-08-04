@@ -4,14 +4,14 @@ require_once "Persistencia/EstadoDAO.php";
 
 class Estado
 {
-    private $idEstado;
-    private $fecha;
-    private $idAccionEstado;
-    private $idOrden;
-    private $idActor;
-    private $tipo;
-    private $EstadoDAO;
-    private $Conexion;
+    protected $idEstado;
+    protected $fecha;
+    protected $idAccionEstado;
+    protected $idOrden;
+    protected $idActor;
+    protected $tipo;
+    protected $EstadoDAO;
+    protected $Conexion;
 
     public function Estado($idEstado = "", $fecha = "", $idAccionEstado = "", $idOrden = "", $idActor = "", $tipo = "")
     {
