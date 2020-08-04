@@ -5,7 +5,7 @@ require_once "Persistencia/OrdenDAO.php";
 class Orden{
     private $idOrden;
     private $fecha;
-    private $fechaEstimacion;
+    private $fechaEstimacion;   
     private $direccionDestino;
     private $contacto; #Nombre de la persona a quien le llega el pedido
     private $numeroContacto;
@@ -32,7 +32,9 @@ class Orden{
         $this -> OrdenDAO = new OrdenDAO($this -> idOrden, $this -> fecha, $this -> fechaEstimacion, $this -> direccionDestino, $this -> contacto, $this -> numeroContacto, $this -> fechaLlegada, $this -> idCliente, $this -> idCita, $this -> idEnvio, $this -> idDespachador);
         $this -> Conexion = new Conexion();
     }
-
+    /*
+    *   Getters
+    */
     public function getIdOrden(){
         return $this -> idOrden;
     }
@@ -76,6 +78,9 @@ class Orden{
     public function getIdDespachador(){
         return $this -> idDespachador;
     }
+    /*
+    *   Setters
+    */
 
     public function setIdOrden($idOrden){
         $this -> idOrden = $idOrden;
@@ -120,5 +125,21 @@ class Orden{
     public function setIdDespachador($idDespachador){
         $this -> idDespachador = $idDespachador;
     }
+
+    /* 
+    *   methods
+    */
+    /*
+    * Funcion que trae informaciòn de orden
+    */
+    public function getInfoOrden(){
+        $this -> Conexion -> abrir();
+        $this -> Conexion -> ejecutar($this -> OrdenDAO -> getInfoOrden());
+        $resList = Array();
+        while($res = $this -> Conexion -> extraer()){
+            array_push($resList,$res);
+        }
+        $this -> Conexion -> cerrar();
+        return $resList;
+    }
 }
-?>

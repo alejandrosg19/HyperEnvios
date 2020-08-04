@@ -17,6 +17,12 @@ require_once "Helpers/logHelper.php";
 require_once "Negocio/Orden.php";
 require_once "Negocio/Precio.php";
 require_once "Negocio/AccionEstado.php";
+require_once "Negocio/Estado.php";
+require_once "Negocio/EstadoCliente.php";
+require_once "Negocio/EstadoConductor.php";
+require_once "Negocio/EstadoDespachador.php";
+require_once "Negocio/ComentarioConductor.php";
+require_once "Negocio/ComentarioDespachador.php";
 
 if ($_GET['pid']) {
     $pid = base64_decode($_GET['pid']);

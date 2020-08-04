@@ -28,41 +28,19 @@ class OrdenDAO{
         $this -> idEnvio = $idEnvio;
         $this -> idDespachador = $idDespachador;
     }
-    /*
-    *   Getters
-    */
-    public function getIdOrden(){
-        return $this -> idOrden;
-    }
-    public function getFecha(){
-        return $this -> fecha;
-    }
-    public function getFechaEstimacion(){
-        return $this -> fechaEstimacion;
-    }
-    public function getDireccionDestino(){
-        return $this -> direccionDestino;
-    }
-    public function getContaco(){
-        return $this -> contacto;
-    }
-    public function getNumeroContacto(){
-        return  $this -> numeroContacto;
-    }
-    public function getFechaLlegada(){
-        return $this -> fechaLlegada;
-    }
-    public function getIdCliente(){
-        return $this -> idCliente;
-    }
-    public function getIdCita(){
-        return $this -> idCita;
-    }
-    public function getIdEnvio(){
-        return $this -> idEnvio;
-    }
-    public function getIdDespachador(){
-        return $this -> idDespachador;
+    public function getInfoOrden()
+    {
+        return "SELECT 
+            orden.fecha, orden.fechaEstimacion, orden.direccionDestino, orden.contacto, orden.numeroContacto, orden.fechaLlegada,
+            item.referencia, item.nombre, item.descripcion, item.peso, item.fabricante, item.precio,
+            cliente.nombre, cliente.email, 
+            conductor.nombre, conductor.email,conductor.telefono
+            FROM item 
+            INNER JOIN orden ON fk_idOrden = idOrden
+            INNER JOIN cliente ON fk_idCliente = idCliente
+            INNER JOIN cita ON orden.FK_idCita = idCita
+            INNER JOIN conductor ON FK_idConductor = idConductor
+            WHERE orden.idOrden = '" . $this -> idOrden ."'";
     }
 }
 ?>

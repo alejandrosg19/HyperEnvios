@@ -32,7 +32,7 @@ $despachador->getInfoNav();
                         <i class="fas fa-th-large icon-style"></i>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="index.php?pid=<?php echo base64_encode("Vista/Despachador/actualizarInfoDespachador.php")?>"><i class="fas fa-user-circle"></i> Actualizar Información</a>
+                        <a class="dropdown-item" href="index.php?pid=<?php echo base64_encode("Vista/Despachador/actualizarInfoDespachador.php") ?>"><i class="fas fa-user-circle"></i> Actualizar Información</a>
                         <a class="dropdown-item" href="index.php?cerrarSesion=1"><i class="fas fa-sign-out-alt"></i> Cerrar Sesion</a>
                     </div>
                 </div>
@@ -49,26 +49,6 @@ $despachador->getInfoNav();
             </button>
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Dashboards
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                        </div>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Apps
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                        </div>
-                    </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Pages
@@ -88,6 +68,9 @@ $despachador->getInfoNav();
                             <a class="dropdown-item" href="#">Another action</a>
                             <a class="dropdown-item" href="#">Something else here</a>
                         </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.php?pid=<?php echo base64_encode("Vista/Orden/listarOrdenDespachador.php") ?>">Ordenes</a>
                     </li>
                 </ul>
             </div>
