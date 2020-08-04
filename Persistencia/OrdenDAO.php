@@ -28,8 +28,8 @@ class OrdenDAO{
         $this -> idEnvio = $idEnvio;
         $this -> idDespachador = $idDespachador;
     }
-    public function getInfoOrden()
-    {
+
+    public function getInfoOrden(){
         return "SELECT 
             orden.fecha, orden.fechaEstimacion, orden.direccionDestino, orden.contacto, orden.numeroContacto, orden.fechaLlegada,
             item.referencia, item.nombre, item.descripcion, item.peso, item.fabricante, item.precio,

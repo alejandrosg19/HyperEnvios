@@ -142,6 +142,7 @@ class Orden{
         $this -> Conexion -> cerrar();
         return $resList;
     }
+    
     function insertar(){
         $this -> Conexion -> abrir();
         $this -> Conexion -> ejecutar($this -> OrdenDAO -> insertar());
