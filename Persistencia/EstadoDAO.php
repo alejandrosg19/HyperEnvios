@@ -8,7 +8,7 @@ class EstadoDAO
     private $idActor;
 
 
-    public function Estado($idEstado = "", $fecha = "", $idAccionEstado = "", $idOrden = "", $idActor = "")
+    public function EstadoDAO($idEstado = "", $fecha = "", $idAccionEstado = "", $idOrden = "", $idActor = "")
     {
         $this->idEstado = $idEstado;
         $this->fecha = $fecha;
@@ -16,77 +16,26 @@ class EstadoDAO
         $this->idOrden = $idOrden;
         $this->idActor = $idActor;
     }
-    public function filtroPaginado($str, $pag, $cant)
+    public function getEstados()
     {
-        return "SELECT * from (
-                    SELECT orden.idOrden as orden, orden.fecha, cliente.nombre as cliente, orden.direccionDestino, orden.contacto, conductor.nombre as conductor, estadodespachador.FK_idAccionEstado, accionestado.nombre as accionestado, estadodespachador.fecha as fechaEstado
-                    FROM estadodespachador
-                    INNER JOIN orden on fk_idOrden = idOrden 
-                    INNER JOIN cliente on FK_idCliente = idCliente 
-                    INNER JOIN cita on orden.FK_idCita = idCita 
-                    INNER JOIN conductor on cita.FK_idConductor = conductor.idConductor 
-                    INNER JOIN accionestado on estadodespachador.FK_idAccionEstado = accionestado.idAccion
-                    WHERE orden.fecha like '%" . $str . "%' OR 
-                    cliente.nombre like '%" . $str . "%' OR
-                    orden.direccionDestino like '%" . $str . "%' OR
-                    orden.contacto like '%" . $str . "%' OR
-                    conductor.nombre like '%" . $str . "%' OR
-                    estadodespachador.FK_idAccionEstado like '%" . $str . "%' OR
-                    accionestado.nombre like '%" . $str . "%'
-                    UNION ALL(
-                    SELECT orden.idOrden as orden, orden.fecha, cliente.nombre as cliente, orden.direccionDestino, orden.contacto, conductor.nombre as conductor, estadoconductor.FK_idAccionEstado, accionestado.nombre as accionestado, estadoconductor.fecha as fechaEstado
-                    FROM estadoconductor
-                    INNER JOIN orden on fk_idOrden = idOrden 
-                    INNER JOIN cliente on FK_idCliente = idCliente 
-                    INNER JOIN cita on orden.FK_idCita = idCita 
-                    INNER JOIN conductor on cita.FK_idConductor = conductor.idConductor 
-                    INNER JOIN accionestado on estadoconductor.FK_idAccionEstado = accionestado.idAccion
-                    WHERE orden.fecha like '%" . $str . "%' OR 
-                    cliente.nombre like '%" . $str . "%' OR
-                    orden.direccionDestino like '%" . $str . "%' OR
-                    orden.contacto like '%" . $str . "%' OR
-                    conductor.nombre like '%" . $str . "%' OR
-                    estadoconductor.FK_idAccionEstado like '%" . $str . "%' OR
-                    accionestado.nombre like '%" . $str . "%') 
-                    ORDER by(fechaEstado) DESC) as T
-                GROUP BY orden
-                LIMIT " . (($pag - 1) * $cant) . ", " . $cant;
+        return "SELECT 	accionestado.nombre, estadodespachador.fecha as fechaEstado, 1, despachador.nombre,  
+                        comentariodespachador.fecha as fechaComentario, comentariodespachador.comentario
+                FROM comentariodespachador
+                INNER JOIN estadodespachador ON fk_idEstadoDespachador = idEstadoDespachador
+                INNER JOIN despachador ON FK_idDespachador = idDespachador
+                INNER JOIN accionestado ON estadodespachador.fk_idAccionEstado = idAccion
+                INNER JOIN orden ON FK_idOrden = idOrden 
+                WHERE orden.idOrden = '". $this->idOrden . "'
+                UNION ALL(
+                SELECT 	accionestado.nombre, estadoconductor.fecha as fechaEstado, 2, conductor.nombre,  
+                        comentarioconductor.fecha as fechaComentario, comentarioconductor.comentario
+                FROM comentarioconductor
+                INNER JOIN estadoconductor ON fk_idEstadoConductor = idEstadoConductor
+                INNER JOIN conductor ON FK_idConductor = idConductor
+                INNER JOIN accionestado ON estadoconductor.fk_idAccionEstado = idAccion
+                INNER JOIN orden ON FK_idOrden = idOrden 
+                WHERE orden.idOrden = '". $this->idOrden. "'
+                )";
     }
 
-    public function filtroCantidad($str)
-    {
-        return "SELECT COUNT(orden) FROM(
-                    SELECT * from (
-                        SELECT orden.idOrden as orden, orden.fecha, cliente.nombre as cliente, orden.direccionDestino, orden.contacto, conductor.nombre as conductor, estadodespachador.FK_idAccionEstado, accionestado.nombre as accionestado, estadodespachador.fecha as fechaEstado
-                        FROM estadodespachador
-                        INNER JOIN orden on fk_idOrden = idOrden 
-                        INNER JOIN cliente on FK_idCliente = idCliente 
-                        INNER JOIN cita on orden.FK_idCita = idCita 
-                        INNER JOIN conductor on cita.FK_idConductor = conductor.idConductor 
-                        INNER JOIN accionestado on estadodespachador.FK_idAccionEstado = accionestado.idAccion
-                        WHERE orden.fecha like '%" . $str . "%' OR 
-                        cliente.nombre like '%" . $str . "%' OR
-                        orden.direccionDestino like '%" . $str . "%' OR
-                        orden.contacto like '%" . $str . "%' OR
-                        conductor.nombre like '%" . $str . "%' OR
-                        estadodespachador.FK_idAccionEstado like '%" . $str . "%' OR
-                        accionestado.nombre like '%" . $str . "%'
-                        UNION ALL(
-                        SELECT orden.idOrden as orden, orden.fecha, cliente.nombre as cliente, orden.direccionDestino, orden.contacto, conductor.nombre as conductor, estadoconductor.FK_idAccionEstado, accionestado.nombre as accionestado, estadoconductor.fecha as fechaEstado
-                        FROM estadoconductor
-                        INNER JOIN orden on fk_idOrden = idOrden 
-                        INNER JOIN cliente on FK_idCliente = idCliente 
-                        INNER JOIN cita on orden.FK_idCita = idCita 
-                        INNER JOIN conductor on cita.FK_idConductor = conductor.idConductor 
-                        INNER JOIN accionestado on estadoconductor.FK_idAccionEstado = accionestado.idAccion
-                        WHERE orden.fecha like '%" . $str . "%' OR 
-                        cliente.nombre like '%" . $str . "%' OR
-                        orden.direccionDestino like '%" . $str . "%' OR
-                        orden.contacto like '%" . $str . "%' OR
-                        conductor.nombre like '%" . $str . "%' OR
-                        estadoconductor.FK_idAccionEstado like '%" . $str . "%' OR
-                        accionestado.nombre like '%" . $str . "%') 
-                        ORDER by(fechaEstado) DESC) AS T
-                    GROUP BY orden) AS T2";
-    }
 }

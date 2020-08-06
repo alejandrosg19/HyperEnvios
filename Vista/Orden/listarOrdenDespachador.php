@@ -56,7 +56,7 @@
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">Información Orden</h5>
+                <h5 class="modal-title" id="staticBackdropLabel">Información</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -93,6 +93,14 @@
          */
         $("#tabla").on('click', ".moreInfoBtn", function() {
             $url = "indexAJAX.php?pid=<?php echo base64_encode("Vista/Orden/Ajax/moreInfoOrdenDespachador.php") ?>&idOrden=" + $(this).data("idorden");
+            $(".modal-body").load($url);
+        });
+
+        /*
+         * Info Estados
+         */
+        $("#tabla").on('click', ".moreStates", function() {
+            $url = "indexAJAX.php?pid=<?php echo base64_encode("Vista/Orden/Ajax/moreStatesDespachador.php") ?>&idOrden=" + $(this).data("idorden");
             $(".modal-body").load($url);
         });
 
@@ -188,7 +196,8 @@
                     <td>${data[5]}</td>
                     <td>${data[7]}</td>
                     <td style='display:flex; justify-content:center;'>
-                        <a href='#' class="moreInfoBtn" data-idorden="${data[0]}" data-toggle="modal" data-target="#moreInfo"><i class='fas fa-info-circle'></i></a>
+                        <a href='#' class="moreInfoBtn" data-idorden="${data[0]}" data-toggle="modal" data-target="#moreInfo" data-toggle="tooltip" data-placement="top" title="Mas Información"><i class='fas fa-info-circle'></i></a>
+                        <a href='#' class="moreStates" data-idorden="${data[0]}" data-toggle="modal" data-target="#moreInfo" data-toggle="tooltip" data-placement="top" title="Estados"><i class="fas fa-history"></i></a>
                     </td>
                 </tr>`
             );

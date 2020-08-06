@@ -85,12 +85,12 @@ class Estado
     *   methods
     */
     /*
-     * Función que busca por paginación, filtro de palabra y devuelve la información en un array
+     * Función que trae todos los estados asociados a una orden
      */
-    public function filtroPaginado($str, $pag, $cant)
+    public function getEstados()
     {
         $this->Conexion->abrir();
-        $this->Conexion->ejecutar($this->EstadoDAO->filtroPaginado($str, $pag, $cant));
+        $this->Conexion->ejecutar($this->EstadoDAO->getEstados());
         $resList = array();
         while ($res = $this->Conexion->extraer()) {
             array_push($resList, $res);
@@ -98,19 +98,6 @@ class Estado
         $this->Conexion->cerrar();
 
         return $resList;
-    }
-
-    /*
-     * Busca la cantidad de registros con filtro de palabra
-     */
-    public function filtroCantidad($str)
-    {
-        $this->Conexion->abrir();
-        $this->Conexion->ejecutar($this->EstadoDAO->filtroCantidad($str));
-        $res = $this->Conexion->extraer();
-        $this->Conexion->cerrar();
-
-        return $res[0]; 
     }
 
 }
