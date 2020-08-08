@@ -62,5 +62,16 @@ class ComentarioDespachador{
         $this -> Conexion -> cerrar();
         return $res;
     }
+
+    public function getComentariosActor(){
+        $this -> Conexion -> abrir();
+        $this -> Conexion -> ejecutar($this -> ComentarioDespachadorDAO -> getComentariosActor());
+        $resList = array();
+        while($res = $this -> Conexion -> extraer()){
+            array_push($resList, $res);
+        }
+        $this -> Conexion -> cerrar();
+        return $resList;
+    }
 }
 ?>

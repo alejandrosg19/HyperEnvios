@@ -100,4 +100,12 @@ class Estado
         return $resList;
     }
 
+    public function getEstadosAllOrden($strEstados){
+        $this -> Conexion -> abrir();
+        $this -> Conexion -> ejecutar( $this -> EstadoDAO -> getEstadosAllOrden($strEstados) );
+        $res = $this -> Conexion -> extraer();
+        $this -> Conexion -> cerrar();
+        return $res;
+    }
+
 }

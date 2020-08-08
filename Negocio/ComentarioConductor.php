@@ -51,5 +51,17 @@ class ComentarioConductor{
     public function setIdEstadoConductor($idEstadoConductor){
         $this -> idEstadoConductor = $idEstadoConductor;
     }
+
+    /**
+     * Methods
+     */
+
+    public function getComentariosActor(){
+        $this -> Conexion -> abrir();
+        $this -> Conexion -> ejecutar($this -> ComentarioConductorDAO -> getComentariosActor());
+        $res = $this -> Conexion -> extraer();
+        $this -> Conexion -> cerrar();
+        return $res;
+    }
 }
 ?>
