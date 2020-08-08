@@ -71,6 +71,21 @@ class ComentarioDespachador{
             array_push($resList, $res);
         }
         $this -> Conexion -> cerrar();
+
+        return $resList;
+    }
+    /*
+    * Función que trae todos los comentario asociados a un estadodespachador
+    */
+    public function getInfo(){
+        $this -> Conexion -> abrir();
+        $this -> Conexion -> ejecutar( $this -> ComentarioDespachadorDAO -> getInfo());
+        $resList = Array();
+        while($res = $this -> Conexion -> extraer()){
+            array_push($resList, $res);
+        }
+        $this -> Conexion -> cerrar();
+
         return $resList;
     }
 }

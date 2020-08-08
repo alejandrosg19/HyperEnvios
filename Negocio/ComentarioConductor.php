@@ -63,5 +63,18 @@ class ComentarioConductor{
         $this -> Conexion -> cerrar();
         return $res;
     }
+    /*
+    * Función que trae todos los comentario asociados a un estadodespachador
+    */
+    public function getInfo(){
+        $this -> Conexion -> abrir();
+        $this -> Conexion -> ejecutar($this -> ComentarioConductorDAO -> getInfo());
+        $resArray = Array();
+        while($res = $this -> Conexion -> extraer()){
+            array_push($resArray,$res);
+        }
+        $this -> Conexion -> cerrar();
+        return  $resArray;
+    }
 }
 ?>

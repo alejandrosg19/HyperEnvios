@@ -198,7 +198,7 @@
                     <td>
                         <select class='select-estado form-control' data-id='${data[0]}'>
                             <option value='1' ${(data[3] == 1)?"selected":""}>Activado</option>
-                            <option value='0' ${(data[3] == 0)?"selected":""} >Bloqueado</option>
+                            <option value='0' ${(data[3] == 0)?"selected":""}>Bloqueado</option>
                             <option value='-1' ${(data[3] == -1)?"selected":""}>Desactivado</option>
                         </select>
                     </td>

@@ -345,6 +345,14 @@
                     <td>${data[4]}</td>
                     <td>${data[5]}</td>
                     <td>${data[7]}</td>
+                    <td>
+                        <select class='select-estado form-control' data-id='${data[0]}'>
+                            <option value='1' ${(data[7] == "Recogido")?"selected":"hidden"}>Recogido</option>
+                            <option value='0' ${(data[7] == "Recogido" ? "" : (data[7] == "Recibido" ? "selected" : "hidden"))} >Recibido</option>
+                            <option value='0' ${(data[7] == "Recibido" ? "" : (data[7] == "En Bodega" ? "selected" : "hidden"))} >En Bodega</option>
+                            <option value='0' ${(data[7] == "En Bodega" ? "" : (data[7] == "Despachado" ? "selected" : "hidden"))} >Despachado</option>
+                        </select>
+                    </td>
                     <td style='display:flex; justify-content:center;'>
                         <a href='#' class="createComments" data-idorden="${data[0]}" data-toggle="modal" data-target="#moreInfoComments" data-toggle="tooltip" data-placement="top" title="Comentarios"><i class="fas fa-comments"></i></a>
                         <a href='#' class="moreInfoBtn" data-idorden="${data[0]}" data-toggle="modal" data-target="#moreInfo" ><i class='fas fa-info-circle'></i></a>

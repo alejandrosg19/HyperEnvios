@@ -24,5 +24,12 @@ class ComentarioDespachadorDAO{
                 WHERE idEstadoDespachador =" . $this -> idEstadoDespachador . "
                 ORDER BY fecha desc";
     }
+    public function getInfo(){
+        return "SELECT comentariodespachador.fecha, comentario 
+                FROM comentariodespachador
+                INNER JOIN estadodespachador ON FK_idEstadoDespachador = idEstadoDespachador
+                WHERE idEstadoDespachador = '" . $this->idEstadoDespachador . "'
+                ORDER BY fecha DESC";
+    }
 }
 ?>
