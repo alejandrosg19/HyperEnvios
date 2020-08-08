@@ -57,13 +57,13 @@ class OrdenDAO{
                     INNER JOIN cita on orden.FK_idCita = idCita 
                     INNER JOIN conductor on cita.FK_idConductor = conductor.idConductor 
                     INNER JOIN accionestado on estadodespachador.FK_idAccionEstado = accionestado.idAccion
-                    WHERE orden.fecha like '%" . $str . "%' OR 
+                    WHERE (orden.fecha like '%" . $str . "%' OR 
                     cliente.nombre like '%" . $str . "%' OR
                     orden.direccionDestino like '%" . $str . "%' OR
                     orden.contacto like '%" . $str . "%' OR
                     conductor.nombre like '%" . $str . "%' OR
                     estadodespachador.FK_idAccionEstado like '%" . $str . "%' OR
-                    accionestado.nombre like '%" . $str . "%'
+                    accionestado.nombre like '%" . $str . "%') AND estadoDespachador.FK_idDespachador = '".$this -> idDespachador."'
                     UNION ALL(
                     SELECT orden.idOrden as orden, orden.fecha, cliente.nombre as cliente, orden.direccionDestino, orden.contacto, conductor.nombre as conductor, estadoconductor.FK_idAccionEstado, accionestado.nombre as accionestado, estadoconductor.fecha as fechaEstado
                     FROM estadoconductor
@@ -72,13 +72,18 @@ class OrdenDAO{
                     INNER JOIN cita on orden.FK_idCita = idCita 
                     INNER JOIN conductor on cita.FK_idConductor = conductor.idConductor 
                     INNER JOIN accionestado on estadoconductor.FK_idAccionEstado = accionestado.idAccion
-                    WHERE orden.fecha like '%" . $str . "%' OR 
+                    WHERE (orden.fecha like '%" . $str . "%' OR 
                     cliente.nombre like '%" . $str . "%' OR
                     orden.direccionDestino like '%" . $str . "%' OR
                     orden.contacto like '%" . $str . "%' OR
                     conductor.nombre like '%" . $str . "%' OR
                     estadoconductor.FK_idAccionEstado like '%" . $str . "%' OR
-                    accionestado.nombre like '%" . $str . "%') 
+                    accionestado.nombre like '%" . $str . "%') AND estadoconductor.FK_idAccionEstado = 3
+                    AND orden.idOrden NOT IN(
+                    	SELECT orden.idOrden 
+                        FROM estadodespachador 
+                        INNER JOIN orden ON fk_idOrden = idOrden
+                    ))  
                     ORDER by(fechaEstado) DESC) as T
                 GROUP BY orden
                 ORDER BY orden DESC

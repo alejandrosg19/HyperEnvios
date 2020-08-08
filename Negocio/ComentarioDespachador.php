@@ -10,7 +10,7 @@ class ComentarioDespachador{
     private $ComentarioDespachadorDAO;
     private $Conexion;
 
-    public function ComentarioConductor($idComentarioDespachador = "", $fecha = "", $comentario = "", $idEstadoDespachador = ""){
+    public function ComentarioDespachador($idComentarioDespachador = "", $fecha = "", $comentario = "", $idEstadoDespachador = ""){
         $this -> idComentarioDespachador = $idComentarioDespachador;
         $this -> fecha = $fecha;
         $this -> comentario = $comentario;
@@ -50,6 +50,21 @@ class ComentarioDespachador{
     }
     public function setIdEstadoDespachador($idEstadoDespachador){
         $this -> idEstadoDespachador = $idEstadoDespachador;
+    }
+
+    /*
+    * Función que trae todos los comentario asociados a un estadodespachador
+    */
+    public function getInfo(){
+        $this -> Conexion -> abrir();
+        $this -> Conexion -> ejecutar( $this -> ComentarioDespachadorDAO -> getInfo());
+        $resList = Array();
+        while($res = $this -> Conexion -> extraer()){
+            array_push($resList, $res);
+        }
+        $this -> Conexion -> cerrar();
+
+        return $resList;
     }
 }
 ?>

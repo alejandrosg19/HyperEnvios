@@ -76,8 +76,8 @@
         };
 
         $.post("indexAJAX.php?pid=<?php echo base64_encode("Vista/Orden/Ajax/searchBarOrdenDespachador.php") ?>", json, function(data) {
-            console.log("eyyyyyy\n"+data);
-            res = JSON.parse(data); 
+            console.log("eyyyyyy\n" + data);
+            res = JSON.parse(data);
             // Imprime los datos de la tabla
             tablePrint(res.DataT, res.DataL);
             //Imprime la paginación
@@ -195,6 +195,14 @@
                     <td>${data[4]}</td>
                     <td>${data[5]}</td>
                     <td>${data[7]}</td>
+                    <td>
+                        <select class='select-estado form-control' data-id='${data[0]}'>
+                            <option value='1' ${(data[7] == "Recogido")?"selected":"hidden"}>Recogido</option>
+                            <option value='0' ${(data[7] == "Recogido" ? "" : (data[7] == "Recibido" ? "selected" : "hidden"))} >Recibido</option>
+                            <option value='0' ${(data[7] == "Recibido" ? "" : (data[7] == "En Bodega" ? "selected" : "hidden"))} >En Bodega</option>
+                            <option value='0' ${(data[7] == "En Bodega" ? "" : (data[7] == "Despachado" ? "selected" : "hidden"))} >Despachado</option>
+                        </select>
+                    </td>
                     <td style='display:flex; justify-content:center;'>
                         <a href='#' class="moreInfoBtn" data-idorden="${data[0]}" data-toggle="modal" data-target="#moreInfo" data-toggle="tooltip" data-placement="top" title="Mas Información"><i class='fas fa-info-circle'></i></a>
                         <a href='#' class="moreStates" data-idorden="${data[0]}" data-toggle="modal" data-target="#moreInfo" data-toggle="tooltip" data-placement="top" title="Estados"><i class="fas fa-history"></i></a>

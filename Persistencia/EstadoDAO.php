@@ -18,23 +18,19 @@ class EstadoDAO
     }
     public function getEstados()
     {
-        return "SELECT 	accionestado.nombre, estadodespachador.fecha as fechaEstado, 1, despachador.nombre,  
-                        comentariodespachador.fecha as fechaComentario, comentariodespachador.comentario
-                FROM comentariodespachador
-                INNER JOIN estadodespachador ON fk_idEstadoDespachador = idEstadoDespachador
+        return "SELECT 	accionestado.nombre, estadodespachador.fecha as fechaEstado, 1, despachador.nombre, idEstadoDespachador
+                FROM estadodespachador
                 INNER JOIN despachador ON FK_idDespachador = idDespachador
                 INNER JOIN accionestado ON estadodespachador.fk_idAccionEstado = idAccion
                 INNER JOIN orden ON FK_idOrden = idOrden 
-                WHERE orden.idOrden = '". $this->idOrden . "'
+                WHERE orden.idOrden = '" . $this->idOrden . "'
                 UNION ALL(
-                SELECT 	accionestado.nombre, estadoconductor.fecha as fechaEstado, 2, conductor.nombre,  
-                        comentarioconductor.fecha as fechaComentario, comentarioconductor.comentario
-                FROM comentarioconductor
-                INNER JOIN estadoconductor ON fk_idEstadoConductor = idEstadoConductor
+                SELECT 	accionestado.nombre, estadoconductor.fecha as fechaEstado, 2, conductor.nombre, idEstadoConductor
+                FROM estadoconductor
                 INNER JOIN conductor ON FK_idConductor = idConductor
                 INNER JOIN accionestado ON estadoconductor.fk_idAccionEstado = idAccion
                 INNER JOIN orden ON FK_idOrden = idOrden 
-                WHERE orden.idOrden = '". $this->idOrden. "'
+                WHERE orden.idOrden = '" . $this->idOrden . "'
                 )";
     }
 

@@ -11,5 +11,14 @@ class ComentarioConductorDAO{
         $this -> comentario = $comentario;
         $this -> idEstadoConductor = $idEstadoConductor;
     }
+
+    public function getInfo()
+    {
+        return "SELECT comentarioconductor.fecha, comentario 
+                FROM comentarioconductor
+                INNER JOIN estadoconductor ON FK_idEstadoConductor = idEstadoConductor
+                WHERE idEstadoConductor = '" . $this->idEstadoConductor . "'
+                ORDER BY fecha DESC";
+    }
 }
 ?>

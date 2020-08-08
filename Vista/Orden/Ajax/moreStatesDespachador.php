@@ -26,15 +26,39 @@ $data = $estado->getEstados();
                                         <tr>
                                             <th> " . ($data[$i][2] == 1 ? 'Despachador' : 'Conductor') . "</th>
                                             <td>" . $data[$i][3] . "</td>
-                                        </tr>
-                                        <tr>
-                                            <th> Fecha Comentario</th>
-                                            <td>" . ($data[$i][4] == '' ? 'No hay comentarios asociados a este estado' : $data[$i][4]) . "</td>
-                                        </tr>
-                                        <tr>
-                                            <th> Comentario</th>
-                                            <td>" . $data[$i][5] . "</td>
-                                        </tr>
+                                        </tr>";
+                                        $comentarioActor;
+                                        ($data[$i][2] == 1 ? $comentarioActor = new ComentarioDespachador("","","",$data[$i][4]) : $comentarioActor = new ComentarioConductor("","","",$data[$i][4]));
+                                        $arrayComentario = $comentarioActor -> getInfo();
+                                        if(count($arrayComentario) == 0){
+                                            echo "<tr>
+                                                    <th>Comentarios</th>
+                                                    <td>No hay comentarios asociados a este estado</td>  
+                                                </tr>";
+                                        }else{
+                                            echo "
+                                                <tr>
+                                                    <th>Comentarios</th>
+                                                    <td>";
+                                                    for ($x = 0; $x < count($arrayComentario); $x++) {
+                                                        echo "
+                                                            <table class='table'> 
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <th> Fecha Comentario</th>
+                                                                        <td>" . $arrayComentario[$x][0] . "</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th> Comentario</th>
+                                                                        <td>" . $arrayComentario[$x][1] . "</td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>";
+                                            }
+                                            echo "</td>  
+                                            </tr>";
+                                        }   
+                                        echo "
                                     </tbody>
                                 </table>
                             </div>";
