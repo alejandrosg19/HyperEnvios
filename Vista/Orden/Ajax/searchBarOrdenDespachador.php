@@ -4,9 +4,9 @@ $str = $_POST['search'];
 $pagina = $_POST['page'];
 $cantPag = $_POST['cantPag'];
 
-$Estado = new Estado();
-$data = $Estado -> filtroPaginado($str, $pagina, $cantPag);
-$resultado = $Estado->filtroCantidad($str);
+$Orden = new Orden();
+$data = $Orden -> filtroPaginado($str, $pagina, $cantPag);
+$resultado = $Orden->filtroCantidad($str);
 
 $cant = $resultado / $cantPag;
 

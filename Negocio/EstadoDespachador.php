@@ -1,5 +1,4 @@
 <?php
-require_once "Persistencia/Conexion.php";
 require_once "Persistencia/EstadoDespachadorDAO.php";
 
 class EstadoDespachador extends Estado{
