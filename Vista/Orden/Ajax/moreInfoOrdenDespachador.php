@@ -99,13 +99,13 @@ $data = $orden->getInfoOrden();
                             <tr>
                                 <th>Referencia</th>
                                 <th>Nombre</th>
-                                <th>Descripción</th>
+                                <th>Precio</th>
                                 <th>Peso</th>
                                 <th>Fabricante</th>
-                                <th>Precio</th>
+                                <th>Descripción</th>
                             </tr>
                             <?php
-                            $item=0;
+                            $item = 0;
                             for ($i = 0; $i < count($data); $i++) {
                                 echo "<tr>";
                                 echo "<td>" . $data[$i][6] . "</td>";
@@ -113,17 +113,17 @@ $data = $orden->getInfoOrden();
                                 echo "<td>" . $data[$i][9] . "</td>";
                                 echo "<td>" . $data[$i][10] . "</td>";
                                 echo "<td>" . $data[$i][11] . "</td>";
-                                echo "<td><a class='btn btn-primary' data-toggle='collapse' href='#collapseExample".$item."' role='button' aria-expanded='false' aria-controls='collapseExample'>
-                                Mostrar
-                              </a>
-                                 </td>";
+                                echo "<td>
+                                        <a class='btn btn-primary' data-toggle='collapse' href='#collapseExample" . $item . "' role='button' aria-expanded='false' aria-controls='collapseExample'>
+                                            Mostrar
+                                        </a>
+                                    </td>";
                                 echo "</tr>";
                                 echo "<tr>
-                                <div class='collapse' id='collapseExample".$item."'>
-                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
-
-                            </div>
-                                </tr>";
+                                        <td colspan='6' class='collapse' id='collapseExample" . $item . "'>";
+                                echo $data[$i][8];
+                                        "</td>
+                                    </tr>";
                                 $item++;
                             }
                             ?>

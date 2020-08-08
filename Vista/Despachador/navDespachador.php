@@ -77,3 +77,6 @@ $despachador->getInfoNav();
         </div>
     </div>
 </nav>
+<div id="alert-ajax">
+
+</div>

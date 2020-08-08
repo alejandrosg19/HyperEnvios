@@ -67,6 +67,37 @@
         </div>
     </div>
 </div>
+<div id="moreInfoComments" class="modal fade show">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Agregar comentario</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body p-5">
+                <div class="previousComments">
+                </div>
+                <div class="addComment">
+                    <div class="form-group">
+                        <label>Ingrese su comentario</label>
+                        <textarea id="inputComentario" class="form-control" rows="3"></textarea>
+                        <div class="invalid-feedback">
+                            Por favor ingrese el comentario.
+                        </div>
+                        <div class="valid-feedback">
+                            ¡Enhorabuena!
+                        </div>
+                    </div>
+                    <div>
+                        <button class="btn btn-primary w-100" id="btnCrearComentario" type="submit"> Agregar comentario </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <script type="text/javascript">
     $(function() {
         json = {
@@ -76,8 +107,7 @@
         };
 
         $.post("indexAJAX.php?pid=<?php echo base64_encode("Vista/Orden/Ajax/searchBarOrdenDespachador.php") ?>", json, function(data) {
-            console.log("eyyyyyy\n"+data);
-            res = JSON.parse(data); 
+            res = JSON.parse(data);
             // Imprime los datos de la tabla
             tablePrint(res.DataT, res.DataL);
             //Imprime la paginación
@@ -91,9 +121,62 @@
         /*
          * Info Orden
          */
+        $("#tabla").on('click', ".createComments", function() {
+            //alert($(this).data("idorden"));
+            $("#btnCrearComentario").data("idorden", $(this).data("idorden"));
+            $(".previousComments").html("");
+
+            json = {
+                "idOrden": $(this).data('idorden'),
+                "comentario": $("#inputComentario").val()
+            };
+
+            $.post("indexAJAX.php?pid=<?php echo base64_encode("Vista/Orden/Ajax/crearComentarioDespachador.php") ?>", json, function(data) {
+                console.log(data);
+                res = JSON.parse(data);
+                if (res.status) {
+                    createComment(res.data.nombre, res.data.comentario, res.data.fecha);
+                    crearAlert(res.status, res.msj)
+                    limpiarInputComment();
+                } else {
+                    crearAlert(res.status, res.msj);
+                }
+
+            });
+
+        });
+
+        /*
+         * Info Orden
+         */
         $("#tabla").on('click', ".moreInfoBtn", function() {
             $url = "indexAJAX.php?pid=<?php echo base64_encode("Vista/Orden/Ajax/moreInfoOrdenDespachador.php") ?>&idOrden=" + $(this).data("idorden");
             $(".modal-body").load($url);
+        });
+
+        /*
+         * Evento de buscar en la tabla
+         */
+
+        $("#btnCrearComentario").on('click', function() {
+
+            json = {
+                "idOrden": $(this).data('idorden'),
+                "comentario": $("#inputComentario").val()
+            };
+
+            $.post("indexAJAX.php?pid=<?php echo base64_encode("Vista/Orden/Ajax/crearComentarioDespachador.php") ?>", json, function(data) {
+                console.log(data);
+                res = JSON.parse(data);
+                if (res.status) {
+                    createComment(res.data.nombre, res.data.comentario, res.data.fecha);
+                    crearAlert(res.status, res.msj)
+                    limpiarInputComment();
+                } else {
+                    crearAlert(res.status, res.msj);
+                }
+
+            });
         });
 
         /*
@@ -165,6 +248,33 @@
 
     });
 
+    /**
+     * Limpiar input comentario
+     */
+
+    function limpiarInputComment(){
+        $("#inputComentario").val("");
+    }
+    /**
+     * Crear comentario
+     */
+
+    function createComment(nombre, comment, fecha){
+        $(".previousComments").append(`
+            <div class="comentario">
+                <div class="comentarioNombre">
+                    ${nombre}
+                </div>
+                <div class="comentarioContent">
+                    ${comment}
+                </div>
+                <div class="comentarioFecha">
+                    ${fecha}
+                </div>
+            </div>
+        `);
+    }
+
     /*
      * Update escondido
      */
@@ -189,6 +299,7 @@
                     <td>${data[7]}</td>
                     <td style='display:flex; justify-content:center;'>
                         <a href='#' class="moreInfoBtn" data-idorden="${data[0]}" data-toggle="modal" data-target="#moreInfo"><i class='fas fa-info-circle'></i></a>
+                        <a href='#' class="createComments" data-idorden="${data[0]}" data-toggle="modal" data-target="#moreInfoComments"><i class="fas fa-comments"></i></a>
                     </td>
                 </tr>`
             );

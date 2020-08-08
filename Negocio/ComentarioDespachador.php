@@ -10,7 +10,7 @@ class ComentarioDespachador{
     private $ComentarioDespachadorDAO;
     private $Conexion;
 
-    public function ComentarioConductor($idComentarioDespachador = "", $fecha = "", $comentario = "", $idEstadoDespachador = ""){
+    public function ComentarioDespachador($idComentarioDespachador = "", $fecha = "", $comentario = "", $idEstadoDespachador = ""){
         $this -> idComentarioDespachador = $idComentarioDespachador;
         $this -> fecha = $fecha;
         $this -> comentario = $comentario;
@@ -50,6 +50,17 @@ class ComentarioDespachador{
     }
     public function setIdEstadoDespachador($idEstadoDespachador){
         $this -> idEstadoDespachador = $idEstadoDespachador;
+    }
+
+    /**
+     * Methods
+     */
+    public function insertar(){
+        $this -> Conexion -> abrir();
+        $this -> Conexion -> ejecutar($this -> ComentarioDespachadorDAO -> insertar());
+        $res = $this -> Conexion -> filasAfectadas();
+        $this -> Conexion -> cerrar();
+        return $res;
     }
 }
 ?>
