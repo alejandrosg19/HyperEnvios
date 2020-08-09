@@ -67,7 +67,7 @@
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <a class="dropdown-item" href="index.php?pid=<?php echo base64_encode("Vista/Orden/crearOrden.php") ?>">Generar Orden</a>
-                            <a class="dropdown-item" href="#">Another action</a>
+                            <a class="dropdown-item" href="index.php?pid=<?php echo base64_encode("Vista/Orden/listarOrdenCliente.php") ?>">Ordenes realizadas</a>
                             <a class="dropdown-item" href="#">Something else here</a>
                         </div>
                     </li>

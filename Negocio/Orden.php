@@ -204,4 +204,34 @@ class Orden
 
         return $res[0];
     }
+
+    /*
+     * Función que busca por paginación, filtro de palabra y devuelve la información en un array
+     */
+    public function filtroPaginadoCliente($str, $pag, $cant)
+    {
+        $this->Conexion->abrir();
+        echo $this->OrdenDAO->filtroPaginadoCliente($str, $pag, $cant);
+        $this->Conexion->ejecutar($this->OrdenDAO->filtroPaginadoCliente($str, $pag, $cant));
+        $resList = array();
+        while ($res = $this->Conexion->extraer()) {
+            array_push($resList, $res);
+        }
+        $this->Conexion->cerrar();
+
+        return $resList;
+    }
+
+    /*
+     * Busca la cantidad de registros con filtro de palabra
+     */
+    public function filtroCantidadCliente($str)
+    {
+        $this->Conexion->abrir();
+        $this->Conexion->ejecutar($this->OrdenDAO->filtroCantidadCliente($str));
+        $res = $this->Conexion->extraer();
+        $this->Conexion->cerrar();
+
+        return $res[0];
+    }
 }

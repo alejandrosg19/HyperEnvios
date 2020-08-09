@@ -1,6 +1,7 @@
 <?php
 
-class OrdenDAO{
+class OrdenDAO
+{
     private $idOrden;
     private $fecha;
     private $fechaEstimacion;
@@ -15,21 +16,23 @@ class OrdenDAO{
     private $OrdenDAO;
     private $Conexion;
 
-    function OrdenDAO($idOrden = "", $fecha = "", $fechaEstimacion = "", $direccionDestino = "", $contacto = "", $numeroContacto = "", $fechaLlegada = "", $idCliente = "", $idCita = "", $idEnvio = "", $idDespachador = ""){
-        $this -> idOrden = $idOrden;
-        $this -> fecha = $fecha;
-        $this -> fechaEstimacion = $fechaEstimacion;
-        $this -> direccionDestino = $direccionDestino;
-        $this -> contacto = $contacto;
-        $this -> numeroContacto = $numeroContacto;
-        $this -> fechaLlegada = $fechaLlegada;
-        $this -> idCliente = $idCliente;
-        $this -> idCita = $idCita;
-        $this -> idEnvio = $idEnvio;
-        $this -> idDespachador = $idDespachador;
+    function OrdenDAO($idOrden = "", $fecha = "", $fechaEstimacion = "", $direccionDestino = "", $contacto = "", $numeroContacto = "", $fechaLlegada = "", $idCliente = "", $idCita = "", $idEnvio = "", $idDespachador = "")
+    {
+        $this->idOrden = $idOrden;
+        $this->fecha = $fecha;
+        $this->fechaEstimacion = $fechaEstimacion;
+        $this->direccionDestino = $direccionDestino;
+        $this->contacto = $contacto;
+        $this->numeroContacto = $numeroContacto;
+        $this->fechaLlegada = $fechaLlegada;
+        $this->idCliente = $idCliente;
+        $this->idCita = $idCita;
+        $this->idEnvio = $idEnvio;
+        $this->idDespachador = $idDespachador;
     }
 
-    public function getInfoOrden(){
+    public function getInfoOrden()
+    {
         return "SELECT 
             orden.fecha, orden.fechaEstimacion, orden.direccionDestino, orden.contacto, orden.numeroContacto, orden.fechaLlegada,
             item.referencia, item.nombre, item.descripcion, item.peso, item.fabricante, item.precio,
@@ -40,12 +43,13 @@ class OrdenDAO{
             INNER JOIN cliente ON fk_idCliente = idCliente
             INNER JOIN cita ON orden.FK_idCita = idCita
             INNER JOIN conductor ON FK_idConductor = idConductor
-            WHERE orden.idOrden = '" . $this -> idOrden ."'";
+            WHERE orden.idOrden = '" . $this->idOrden . "'";
     }
 
-    function insertar(){
+    function insertar()
+    {
         return "INSERT INTO Orden (fecha, fechaEstimacion, direccionDestino, contacto, numeroContacto, FK_idCliente, FK_idCita)
-                VALUES ('" . $this -> fecha . "','"  . $this -> fechaEstimacion . "','" . $this -> direccionDestino . "','" . $this -> contacto . "','"  . $this -> numeroContacto . "','" . $this -> idCliente . "','" . $this -> idCita . "')";
+                VALUES ('" . $this->fecha . "','"  . $this->fechaEstimacion . "','" . $this->direccionDestino . "','" . $this->contacto . "','"  . $this->numeroContacto . "','" . $this->idCliente . "','" . $this->idCita . "')";
     }
     public function filtroPaginado($str, $pag, $cant)
     {
@@ -63,7 +67,7 @@ class OrdenDAO{
                     orden.contacto like '%" . $str . "%' OR
                     conductor.nombre like '%" . $str . "%' OR
                     estadodespachador.FK_idAccionEstado like '%" . $str . "%' OR
-                    accionestado.nombre like '%" . $str . "%') AND estadoDespachador.FK_idDespachador = '".$this -> idDespachador."'
+                    accionestado.nombre like '%" . $str . "%') AND estadoDespachador.FK_idDespachador = '" . $this->idDespachador . "'
                     UNION ALL(
                     SELECT orden.idOrden as orden, orden.fecha, cliente.nombre as cliente, orden.direccionDestino, orden.contacto, conductor.nombre as conductor, estadoconductor.FK_idAccionEstado, accionestado.nombre as accionestado, estadoconductor.fecha as fechaEstado
                     FROM estadoconductor
@@ -125,5 +129,70 @@ class OrdenDAO{
                         accionestado.nombre like '%" . $str . "%') 
                         ORDER by(fechaEstado) DESC) AS T
                     GROUP BY orden) AS T2";
+    }
+
+    public function filtroPaginadoCliente($str, $pag, $cant)
+    {
+        return "SELECT * FROM (
+                    SELECT * FROM (
+                        SELECT orden.idOrden as orden, orden.fecha, orden.fechaEstimacion, orden.direccionDestino, orden.contacto, estadodespachador.FK_idAccionEstado, accionestado.nombre as accionestado
+                        FROM estadodespachador
+                        INNER JOIN orden on fk_idOrden = idOrden 
+                        INNER JOIN accionestado on estadodespachador.FK_idAccionEstado = accionestado.idAccion
+                        WHERE FK_idCliente = '" . $this->idCliente . "'
+                        union all
+                        SELECT orden.idOrden as orden, orden.fecha, orden.fechaEstimacion, orden.direccionDestino, orden.contacto, estadocliente.FK_idAccionEstado, accionestado.nombre as accionestado
+                        FROM estadocliente
+                        INNER JOIN orden on fk_idOrden = idOrden 
+                        INNER JOIN accionestado on estadocliente.FK_idAccionEstado = accionestado.idAccion
+                        WHERE orden.FK_idCliente = '" . $this->idCliente . "'
+                        union all
+                        SELECT orden.idOrden as orden, orden.fecha, orden.fechaEstimacion, orden.direccionDestino, orden.contacto, estadoconductor.FK_idAccionEstado, accionestado.nombre as accionestado
+                        FROM estadoconductor
+                        INNER JOIN orden on fk_idOrden = idOrden 
+                        INNER JOIN accionestado on estadoconductor.FK_idAccionEstado = accionestado.idAccion
+                        WHERE FK_idCliente = '" . $this->idCliente . "'
+                    ) as t
+                    GROUP BY orden
+                    ORDER BY FK_idAccionEstado desc
+                ) as b
+                WHERE 
+                fecha like '%" . $str . "%' OR
+                fechaEstimacion like '%" . $str . "%' OR
+                direccionDestino like '%" . $str . "%' OR
+                Contacto like '%" . $str . "%'
+                LIMIT " . (($pag - 1) * $cant) . ", " . $cant;
+    }
+
+    public function filtroCantidadCliente($str)
+    {
+        return "SELECT count(*) FROM (
+                    SELECT * FROM (
+                        SELECT orden.idOrden as orden, orden.fecha, orden.fechaEstimacion, orden.direccionDestino, orden.contacto, estadodespachador.FK_idAccionEstado, accionestado.nombre as accionestado
+                        FROM estadodespachador
+                        INNER JOIN orden on fk_idOrden = idOrden 
+                        INNER JOIN accionestado on estadodespachador.FK_idAccionEstado = accionestado.idAccion
+                        WHERE FK_idCliente = '" . $this->idCliente . "'
+                        union all
+                        SELECT orden.idOrden as orden, orden.fecha, orden.fechaEstimacion, orden.direccionDestino, orden.contacto, estadocliente.FK_idAccionEstado, accionestado.nombre as accionestado
+                        FROM estadocliente
+                        INNER JOIN orden on fk_idOrden = idOrden 
+                        INNER JOIN accionestado on estadocliente.FK_idAccionEstado = accionestado.idAccion
+                        WHERE FK_idCliente = '" . $this->idCliente . "'
+                        union all
+                        SELECT orden.idOrden as orden, orden.fecha, orden.fechaEstimacion, orden.direccionDestino, orden.contacto, estadoconductor.FK_idAccionEstado, accionestado.nombre as accionestado
+                        FROM estadoconductor
+                        INNER JOIN orden on fk_idOrden = idOrden 
+                        INNER JOIN accionestado on estadoconductor.FK_idAccionEstado = accionestado.idAccion
+                        WHERE FK_idCliente = '" . $this->idCliente . "'
+                    ) as t
+                    GROUP BY orden
+                    ORDER BY FK_idAccionEstado desc
+                ) as b
+                WHERE 
+                fecha like '%" . $str . "%' OR
+                fechaEstimacion like '%" . $str . "%' OR
+                direccionDestino like '%" . $str . "%' OR
+                Contacto like '%" . $str . "%'";
     }
 }
