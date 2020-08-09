@@ -5,9 +5,22 @@ $estado = $_POST['estado'];
 date_default_timezone_set('America/Bogota');
 $fecha = date("Y-m-d H:i:s");
 
+if ($estado == 7) { #Estado Depachado
+    #Creando Envio
+    $conductorDesocupado = new Conductor();
+    $idConductor = $conductorDesocupado->selectConductorDesocupado($fecha);
+    $envio = new Envio("", $fecha, $idConductor);
+    $envio->insert();
+
+    #Creando estado En Camino en estadoConductor
+    $estadoConductor = new EstadoConductor("", $fecha, 8, $idOrden, $idConductor);
+    $res1 = $estadoConductor -> insert();
+}
+
+#Creando estado en estadoDespachador  
 $estado = new EstadoDespachador("", $fecha, $estado, $idOrden, $_SESSION["id"]);
 
-$res = $estado -> insert();
+$res = $estado->insert();
 #$estado -> getInfoBasic();
 $ajax = array();
 if ($res == 1) {

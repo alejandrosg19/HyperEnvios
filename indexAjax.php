@@ -27,6 +27,7 @@ require_once "Negocio/Precio.php";
 require_once "Negocio/Cita.php";
 require_once "Negocio/Item.php";
 require_once "Negocio/EstadoCliente.php";
+require_once "Negocio/Envio.php";
 
 if ($_GET['pid']) {
     $pid = base64_decode($_GET['pid']);
