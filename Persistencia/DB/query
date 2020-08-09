@@ -279,3 +279,24 @@ require_once "Negocio/Precio.php";
 
 select precio from precio where 1.1 >= pesoMinimo and 1.1 <= pesoMaximo; 
 >>>>>>> origin/master
+
+SELECT * from (
+                    SELECT orden.idOrden as orden,estadodespachador.FK_idAccionEstado, accionestado.nombre as accionestado, estadodespachador.fecha as fechaEstado
+                    FROM estadodespachador
+                    INNER JOIN orden on fk_idOrden = idOrden 
+                    INNER JOIN cliente on FK_idCliente = idCliente 
+                    INNER JOIN cita on orden.FK_idCita = idCita 
+                    INNER JOIN conductor on cita.FK_idConductor = conductor.idConductor 
+                    INNER JOIN accionestado on estadodespachador.FK_idAccionEstado = accionestado.idAccion
+                    WHERE idorden = '1'
+                    UNION ALL(
+                    SELECT orden.idOrden as orden,estadoconductor.FK_idAccionEstado, accionestado.nombre as accionestado, estadoconductor.fecha as fechaEstado
+                    FROM estadoconductor
+                    INNER JOIN orden on fk_idOrden = idOrden 
+                    INNER JOIN cliente on FK_idCliente = idCliente 
+                    INNER JOIN cita on orden.FK_idCita = idCita 
+                    INNER JOIN conductor on cita.FK_idConductor = conductor.idConductor 
+                    INNER JOIN accionestado on estadoconductor.FK_idAccionEstado = accionestado.idAccion
+                    WHERE idorden = "1") 
+                    ORDER by(fechaEstado) DESC) as T
+                GROUP BY orden

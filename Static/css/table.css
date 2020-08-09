@@ -99,6 +99,33 @@ body{
     border-color: red;
 }
 
+/*Comentarios style*/
+.previousComments{
+    margin-bottom: 25px;
+}
+.comentario{
+    max-width: 600px;
+    width: fit-content;
+    padding: 10px 15px;
+    background-color: #DBEDF8;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    /*box-shadow: 1px 1px 5px -1px rgba(224,220,224,3);*/
+}
+.comentarioNombre{
+    font-weight: bold;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+.comentarioFecha{
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-end;
+    margin-top: 5px;
+    font-size: 12px;
+    letter-spacing: 2px;
+}
 
 @media only screen and (max-width: 992px) {
     .form-bg > .card{

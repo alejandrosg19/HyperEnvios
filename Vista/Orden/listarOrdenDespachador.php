@@ -67,6 +67,37 @@
         </div>
     </div>
 </div>
+<div id="moreInfoComments" class="modal fade show">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Agregar comentario</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body p-5">
+                <div class="previousComments" style="overflow-x: auto;">
+                </div>
+                <div class="addComment">
+                    <div class="form-group">
+                        <label>Ingrese su comentario</label>
+                        <textarea id="inputComentario" class="form-control" rows="3"></textarea>
+                        <div class="invalid-feedback">
+                            Por favor ingrese el comentario.
+                        </div>
+                        <div class="valid-feedback">
+                            ¡Enhorabuena!
+                        </div>
+                    </div>
+                    <div>
+                        <button class="btn btn-primary w-100" id="btnCrearComentario" type="submit"> Agregar comentario </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <script type="text/javascript">
     $(function() {
         json = {
@@ -90,9 +121,35 @@
         /*
          * Info Orden
          */
+        $("#tabla").on('click', ".createComments", function() {
+            //alert($(this).data("idorden"));
+            $("#btnCrearComentario").data("idorden", $(this).data("idorden"));
+            $(".previousComments").html("");
+
+            json = {
+                "idOrden": $(this).data('idorden')
+            };
+
+            $.post("indexAJAX.php?pid=<?php echo base64_encode("Vista/Orden/Ajax/getComentariosEstado.php") ?>", json, function(data) {
+                console.log(data);
+                res = JSON.parse(data);
+                if (res.status) {
+                    $(".previousComments").css({"height": "250px"});
+                    createComments(res.data);
+                }else{
+                    $(".previousComments").css({"height": "0px"});
+                }
+
+            });
+
+        });
+
+        /*
+         * Info Orden
+         */
         $("#tabla").on('click', ".moreInfoBtn", function() {
             $url = "indexAJAX.php?pid=<?php echo base64_encode("Vista/Orden/Ajax/moreInfoOrdenDespachador.php") ?>&idOrden=" + $(this).data("idorden");
-            $(".modal-body").load($url);
+            $("#moreInfo .modal-body").load($url);
         });
 
         /*
@@ -100,7 +157,39 @@
          */
         $("#tabla").on('click', ".moreStates", function() {
             $url = "indexAJAX.php?pid=<?php echo base64_encode("Vista/Orden/Ajax/moreStatesDespachador.php") ?>&idOrden=" + $(this).data("idorden");
-            $(".modal-body").load($url);
+            $("#moreInfo .modal-body").load($url);
+        });
+
+        /*
+         * Evento de buscar en la tabla
+         */
+
+        $("#btnCrearComentario").on('click', function() {
+
+            if (checkInfoComentario()) {
+                json = {
+                    "idOrden": $(this).data('idorden'),
+                    "comentario": $("#inputComentario").val()
+                };
+
+                $.post("indexAJAX.php?pid=<?php echo base64_encode("Vista/Orden/Ajax/crearComentarioDespachador.php") ?>", json, function(data) {
+                    console.log(data);
+                    res = JSON.parse(data);
+                    if (res.status) {
+                        createComment(res.data.nombre, res.data.comentario, res.data.fecha,2);
+                        crearAlert(res.status, res.msj)
+                        limpiarInputComment();
+                    } else {
+                        crearAlert(res.status, res.msj);
+                    }
+
+                });
+            } else {
+                crearAlert(false, "Por favor llene el campo del comentario");
+
+            }
+
+
         });
 
         /*
@@ -187,6 +276,68 @@
 
     });
 
+    function createComments(allData){
+        allData.forEach(function(data){
+            createComment(data[0], data[1], data[2], 1);
+        });
+    }
+
+    /* 
+     * Mira si el comentario se encuentra vacio
+     */
+    function checkInfoComentario(){
+        if($("#inputComentario").val().trim() != ""){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    /**
+     * Limpiar input comentario
+     */
+
+    function limpiarInputComment() {
+        $("#inputComentario").val("");
+    }
+    /**
+     * Crear comentario
+     */
+
+    function createComment(nombre, comment, fecha, estado) {
+        if(estado == 1){
+            $(".previousComments").append(`
+            <div class="comentario">
+                <div class="comentarioNombre">
+                    ${nombre}
+                </div>
+                <div class="comentarioContent">
+                    ${comment}
+                </div>
+                <div class="comentarioFecha">
+                    ${fecha}
+                </div>
+            </div>
+            `);
+        }else if(estado == 2){
+            $(".previousComments").prepend(`
+            <div class="comentario">
+                <div class="comentarioNombre">
+                    ${nombre}
+                </div>
+                <div class="comentarioContent">
+                    ${comment}
+                </div>
+                <div class="comentarioFecha">
+                    ${fecha}
+                </div>
+            </div>
+        `);
+        }
+    }
+
+    
+
     /*
      * Update escondido
      */
@@ -217,7 +368,8 @@
                         </select>
                     </td>
                     <td style='display:flex; justify-content:center;'>
-                        <a href='#' class="moreInfoBtn" data-idorden="${data[0]}" data-toggle="modal" data-target="#moreInfo" data-toggle="tooltip" data-placement="top" title="Mas Información"><i class='fas fa-info-circle'></i></a>
+                        <a href='#' class="createComments" data-idorden="${data[0]}" data-toggle="modal" data-target="#moreInfoComments" data-toggle="tooltip" data-placement="top" title="Comentarios"><i class="fas fa-comments"></i></a>
+                        <a href='#' class="moreInfoBtn" data-idorden="${data[0]}" data-toggle="modal" data-target="#moreInfo" ><i class='fas fa-info-circle'></i></a>
                         <a href='#' class="moreStates" data-idorden="${data[0]}" data-toggle="modal" data-target="#moreInfo" data-toggle="tooltip" data-placement="top" title="Estados"><i class="fas fa-history"></i></a>
                     </td>
                 </tr>`
@@ -276,7 +428,7 @@
             className = "alert-danger";
         }
 
-        $("#alert-ajax").html(`<div class="alert ${className} alert-dismissible fade show" role="alert" style="top: 0px;position: fixed; z-index:20; margin-top : 50px; transform: translateX(-50%); margin-left: 50%">
+        $("#alert-ajax").html(`<div class="alert ${className} alert-dismissible fade show" role="alert" style="top: 0px;position: fixed; z-index:1051; margin-top : 50px; transform: translateX(-50%); margin-left: 50%">
                         <span id="alert-ajax-msj">${msj}</span>
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>

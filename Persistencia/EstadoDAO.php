@@ -33,5 +33,26 @@ class EstadoDAO
                 WHERE orden.idOrden = '" . $this->idOrden . "'
                 ) ORDER BY fechaEstado DESC";
     }
+    public function getEstadosAllOrden($strEstados){
+        return "SELECT * from (
+                        SELECT idEstadoDespachador as idEstado, FK_idAccionEstado, 1 as actor
+                            FROM estadodespachador
+                            INNER JOIN accionestado on estadodespachador.FK_idAccionEstado = accionestado.idAccion
+                            WHERE FK_idOrden = '" . $this -> idOrden . "'
+                            UNION ALL
+                            SELECT idEstadoConductor as idEstado, FK_idAccionEstado, 2 as actor
+                            FROM estadoconductor
+                            INNER JOIN accionestado on estadoconductor.FK_idAccionEstado = accionestado.idAccion
+                            WHERE FK_idOrden = '" . $this -> idOrden . "'
+                            UNION ALL
+                            SELECT idEstadoCliente as idEstado, FK_idAccionEstado, 3 as actor
+                            FROM estadocliente
+                            INNER JOIN accionestado on estadocliente.FK_idAccionEstado = accionestado.idAccion
+                            WHERE FK_idOrden = '" . $this -> idOrden . "'
+                ) as T
+                WHERE FK_idAccionEstado in (" . $strEstados . ")
+                ORDER BY FK_idAccionEstado desc
+                LIMIT 1";
+    }
 
 }
