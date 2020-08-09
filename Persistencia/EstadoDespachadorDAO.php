@@ -14,6 +14,11 @@ class EstadoDespachadorDAO{
         $this -> idDespachador = $idDespachador;
     }
 
+    public function insert(){
+        return "INSERT INTO estadoDespachador(fecha,FK_idAccionEstado,FK_idOrden,FK_idDespachador)
+                VALUES ('" . $this ->  fecha . "','" . $this -> idAccionEstado. "','" . $this -> idOrden . "','" . $this -> idDespachador ."')";
+    }
+    
     public function getEstadoOrden(){
         return "SELECT idEstadoDespachador, fecha, FK_idAccionEstado, FK_idOrden, FK_idDespachador
                 FROM estadoDespachador

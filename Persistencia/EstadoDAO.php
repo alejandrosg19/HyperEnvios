@@ -31,7 +31,7 @@ class EstadoDAO
                 INNER JOIN accionestado ON estadoconductor.fk_idAccionEstado = idAccion
                 INNER JOIN orden ON FK_idOrden = idOrden 
                 WHERE orden.idOrden = '" . $this->idOrden . "'
-                )";
+                ) ORDER BY fechaEstado DESC";
     }
     public function getEstadosAllOrden($strEstados){
         return "SELECT * from (
