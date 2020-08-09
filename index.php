@@ -25,6 +25,7 @@
     require_once "Negocio/Cita.php";
     require_once "Negocio/Item.php";
     require_once "Negocio/EstadoCliente.php";
+    require_once "Negocio/Envio.php";
     
     $pid = null;
 

@@ -8,5 +8,15 @@ class EstadoConductor extends Estado{
         parent::Estado($idEstadoConductor,$fecha,$idAccionEstado,$idOrden,$idConductor,2);
         $this -> EstadoConductorDAO = new EstadoConductorDAO($this -> idEstado, $this -> fecha, $this -> idAccionEstado, $this -> idOrden, $this -> idActor);
     }
+    /**
+     * Inserta un nuevo estadoConductor
+     */
+    public function insert(){
+        $this -> Conexion -> abrir();
+        $this -> Conexion -> ejecutar($this -> EstadoConductorDAO -> insert());
+        $res = $this -> Conexion -> filasAfectadas();
+        $this -> Conexion -> cerrar();
+        return $res;
+    }
 }
 ?>
