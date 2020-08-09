@@ -4,7 +4,7 @@ $str = $_POST['search'];
 $pagina = $_POST['page'];
 $cantPag = $_POST['cantPag'];
 
-$Orden = new Orden("","","","","","","","","","",$_SESSION["id"]);
+$Orden = new Orden("","","","","","","", $_SESSION["id"]);
 $data = $Orden -> filtroPaginadoCliente($str, $pagina, $cantPag);
 $resultado = $Orden -> filtroCantidadCliente($str);
 

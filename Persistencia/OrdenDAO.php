@@ -182,7 +182,7 @@ class OrdenDAO
                         FROM estadocliente
                         INNER JOIN orden on fk_idOrden = idOrden 
                         INNER JOIN accionestado on estadocliente.FK_idAccionEstado = accionestado.idAccion
-                        WHERE FK_idCliente = '" . $this->idCliente . "'
+                        WHERE orden.FK_idCliente = '" . $this->idCliente . "'
                         union all
                         SELECT orden.idOrden as orden, orden.fecha, orden.fechaEstimacion, orden.direccionDestino, orden.contacto, estadoconductor.FK_idAccionEstado, accionestado.nombre as accionestado
                         FROM estadoconductor

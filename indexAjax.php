@@ -22,6 +22,7 @@ require_once "Negocio/EstadoConductor.php";
 require_once "Negocio/EstadoDespachador.php";
 require_once "Negocio/ComentarioConductor.php";
 require_once "Negocio/ComentarioDespachador.php";
+require_once "Negocio/ComentarioCliente.php";
 require_once "Negocio/Precio.php";
 require_once "Negocio/Cita.php";
 require_once "Negocio/Item.php";

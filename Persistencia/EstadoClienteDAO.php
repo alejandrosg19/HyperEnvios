@@ -20,6 +20,14 @@ class EstadoClienteDAO{
         return "INSERT INTO EstadoCliente (fecha, FK_idAccionEstado, FK_idOrden, FK_idCliente) 
                 VALUES('" . $this -> fecha. "','" . $this -> idAccionEstado . "','" . $this -> idOrden . "','" . $this -> idCliente . "')";
     }
+
+    public function getEstadoOrden(){
+        return "SELECT idEstadoCliente, fecha, FK_idAccionEstado, FK_idOrden, FK_idCliente
+                FROM estadoCliente
+                WHERE FK_idOrden = '" . $this -> idOrden . "' AND FK_idCliente = '" . $this -> idCliente . "'
+                ORDER BY fecha desc
+                LIMIT 1";
+    }
 }
 
 ?>

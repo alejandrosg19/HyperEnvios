@@ -28,7 +28,7 @@ $data = $estado->getEstados();
                                             <td>" . $data[$i][3] . "</td>
                                         </tr>";
                                         $comentarioActor;
-                                        ($data[$i][2] == 1 ? $comentarioActor = new ComentarioDespachador("","","",$data[$i][4]) : $comentarioActor = new ComentarioConductor("","","",$data[$i][4]));
+                                        ($data[$i][2] == 1 ? $comentarioActor = new ComentarioDespachador("","","",$data[$i][4]) : ($data[$i][2] == 1 ? $comentarioActor = new ComentarioConductor("","","",$data[$i][4]) : $comentarioActor = new ComentarioCliente("","","",$data[$i][4])));
                                         $arrayComentario = $comentarioActor -> getInfo();
                                         if(count($arrayComentario) == 0){
                                             echo "<tr>

@@ -87,8 +87,7 @@ class Estado
     /*
      * Función que trae todos los estados asociados a una orden
      */
-    public function getEstados()
-    {
+    public function getEstados(){
         $this->Conexion->abrir();
         $this->Conexion->ejecutar($this->EstadoDAO->getEstados());
         $resList = array();

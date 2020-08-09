@@ -208,10 +208,8 @@ class Orden
     /*
      * Función que busca por paginación, filtro de palabra y devuelve la información en un array
      */
-    public function filtroPaginadoCliente($str, $pag, $cant)
-    {
+    public function filtroPaginadoCliente($str, $pag, $cant){
         $this->Conexion->abrir();
-        echo $this->OrdenDAO->filtroPaginadoCliente($str, $pag, $cant);
         $this->Conexion->ejecutar($this->OrdenDAO->filtroPaginadoCliente($str, $pag, $cant));
         $resList = array();
         while ($res = $this->Conexion->extraer()) {

@@ -56,12 +56,45 @@ class ComentarioCliente{
      * Methods
      */
 
+    /**
+     * Función que inserta un nuevo comentario de Cliente
+     */
+    public function insertar(){
+        $this -> Conexion -> abrir();
+        $this -> Conexion -> ejecutar($this -> ComentarioClienteDAO -> insertar());
+        $res = $this -> Conexion -> filasAfectadas();
+        $this -> Conexion -> cerrar();
+        return $res;
+    }
+
+    /**
+     * Función que busca los comentarios de un estado especifico del cliente
+     */
     public function getComentariosActor(){
         $this -> Conexion -> abrir();
         $this -> Conexion -> ejecutar($this -> ComentarioClienteDAO -> getComentariosActor());
-        $res = $this -> Conexion -> extraer();
+        $resList = array();
+        while($res = $this -> Conexion -> extraer()){
+            array_push($resList, $res);
+        }
         $this -> Conexion -> cerrar();
-        return $res;
+
+        return $resList;
+    }
+
+    /*
+    * Función que trae todos los comentario asociados a un estadoCliente
+    */
+    public function getInfo(){
+        $this -> Conexion -> abrir();
+        $this -> Conexion -> ejecutar( $this -> ComentarioClienteDAO -> getInfo());
+        $resList = Array();
+        while($res = $this -> Conexion -> extraer()){
+            array_push($resList, $res);
+        }
+        $this -> Conexion -> cerrar();
+
+        return $resList;
     }
 }
 ?>

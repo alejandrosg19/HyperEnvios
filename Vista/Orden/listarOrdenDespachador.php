@@ -176,6 +176,7 @@
                     console.log(data);
                     res = JSON.parse(data);
                     if (res.status) {
+                        $(".previousComments").css({"height": "250px"});
                         createComment(res.data.nombre, res.data.comentario, res.data.fecha,2);
                         crearAlert(res.status, res.msj)
                         limpiarInputComment();
@@ -271,11 +272,32 @@
                 console.log(data);
                 res = JSON.parse(data);
                 crearAlert(res.status, res.msj);
+                cargarTabla();
             });
         });
 
     });
 
+    function cargarTabla(){
+        json = {
+            "page": $("#escondido").val(),
+            "cantPag": $("#select-cantidad").val(),
+            "search": $("#search").val()
+        };
+
+        $.post("indexAJAX.php?pid=<?php echo base64_encode("Vista/Orden/Ajax/searchBarOrdenDespachador.php") ?>", json, function(data) {
+            res = JSON.parse(data);
+            // Imprime los datos de la tabla
+            tablePrint(res.DataT, res.DataL);
+            //Imprime la paginación
+            paginationPrint(res.DataP, parseInt(res.Cpage));
+
+        });
+    } 
+
+    /*
+     * Muestra todos los comentarios que ya existen
+     */
     function createComments(allData){
         allData.forEach(function(data){
             createComment(data[0], data[1], data[2], 1);

@@ -37,10 +37,10 @@
                 <div class="card-footer d-flex flex-row justify-content-center ">
                     <nav aria-label="...">
                         <ul class="pagination">
-                            <li class="page-item page-item-list disabled" id="page-previous" data-page="<?php echo ($pagina - 1) ?>">
+                            <li class="page-item page-item-list disabled" id="page-previous" data-page="0">
                                 <span class="page-link">Previous</span>
                             </li>
-                            <li class="page-item page-item-list <?php echo ($pagination <= 1) ? "disabled" : ""; ?>" id="page-next" data-page="<?php echo ($pagina + 1) ?>">
+                            <li class="page-item page-item-list" id="page-next" data-page="2">
                                 <a class="page-link" href="#">Next</a>
                             </li>
                         </ul>
@@ -122,7 +122,7 @@
          * Info Orden
          */
         $("#tabla").on('click', ".createComments", function() {
-            //alert($(this).data("idorden"));
+            
             $("#btnCrearComentario").data("idorden", $(this).data("idorden"));
             $(".previousComments").html("");
 
@@ -130,8 +130,7 @@
                 "idOrden": $(this).data('idorden')
             };
 
-            $.post("indexAJAX.php?pid=<?php echo base64_encode("Vista/Orden/Ajax/getComentariosEstado.php") ?>", json, function(data) {
-                console.log(data);
+            $.post("indexAJAX.php?pid=<?php echo base64_encode("Vista/Orden/Ajax/getComentariosEstadoCliente.php") ?>", json, function(data) {
                 res = JSON.parse(data);
                 if (res.status) {
                     $(".previousComments").css({"height": "250px"});
@@ -148,7 +147,7 @@
          * Info Orden
          */
         $("#tabla").on('click', ".moreInfoBtn", function() {
-            $url = "indexAJAX.php?pid=<?php echo base64_encode("Vista/Orden/Ajax/moreInfoOrdenDespachador.php") ?>&idOrden=" + $(this).data("idorden");
+            $url = "indexAJAX.php?pid=<?php echo base64_encode("Vista/Orden/Ajax/moreInfoOrdenCliente.php") ?>&idOrden=" + $(this).data("idorden");
             $("#moreInfo .modal-body").load($url);
         });
 
@@ -156,7 +155,7 @@
          * Info Estados
          */
         $("#tabla").on('click', ".moreStates", function() {
-            $url = "indexAJAX.php?pid=<?php echo base64_encode("Vista/Orden/Ajax/moreStatesDespachador.php") ?>&idOrden=" + $(this).data("idorden");
+            $url = "indexAJAX.php?pid=<?php echo base64_encode("Vista/Orden/Ajax/moreStatesCliente.php") ?>&idOrden=" + $(this).data("idorden");
             $("#moreInfo .modal-body").load($url);
         });
 
@@ -172,10 +171,10 @@
                     "comentario": $("#inputComentario").val()
                 };
 
-                $.post("indexAJAX.php?pid=<?php echo base64_encode("Vista/Orden/Ajax/crearComentarioDespachador.php") ?>", json, function(data) {
-                    console.log(data);
+                $.post("indexAJAX.php?pid=<?php echo base64_encode("Vista/Orden/Ajax/crearComentarioCliente.php") ?>", json, function(data) {
                     res = JSON.parse(data);
                     if (res.status) {
+                        $(".previousComments").css({"height": "250px"});
                         createComment(res.data.nombre, res.data.comentario, res.data.fecha,2);
                         crearAlert(res.status, res.msj)
                         limpiarInputComment();
@@ -203,7 +202,7 @@
                 "search": $(this).val()
             };
 
-            $.post("indexAJAX.php?pid=<?php echo base64_encode("Vista/Orden/Ajax/searchBarOrdenDespachador.php") ?>", json, function(data) {
+            $.post("indexAJAX.php?pid=<?php echo base64_encode("Vista/Orden/Ajax/searchBarOrdenCliente.php") ?>", json, function(data) {
                 res = JSON.parse(data);
                 // Imprime los datos de la tabla
                 tablePrint(res.DataT, res.DataL);
@@ -225,7 +224,8 @@
                     "search": $("#search").val()
                 };
 
-                $.post("indexAJAX.php?pid=<?php echo base64_encode("Vista/Orden/Ajax/searchBarOrdenDespachador.php") ?>", json, function(data) {
+                $.post("indexAJAX.php?pid=<?php echo base64_encode("Vista/Orden/Ajax/searchBarOrdenCliente.php") ?>", json, function(data) {
+                    console.log(data);
                     res = JSON.parse(data);
 
                     if (res.status) {
@@ -250,7 +250,7 @@
                 "cantPag": $(this).val(),
                 "search": $("#search").val()
             };
-            $.post("indexAJAX.php?pid=<?php echo base64_encode("Vista/Orden/Ajax/searchBarOrdenDespachador.php") ?>", json, function(data) {
+            $.post("indexAJAX.php?pid=<?php echo base64_encode("Vista/Orden/Ajax/searchBarOrdenCliente.php") ?>", json, function(data) {
                 res = JSON.parse(data);
                 //imprime los datos en la tabla
                 tablePrint(res.DataT, res.DataL);
@@ -343,18 +343,11 @@
                     <td>${data[2]}</td>
                     <td>${data[3]}</td>
                     <td>${data[4]}</td>
-                    <td>${data[5]}</td>
-                    <td>${data[7]}</td>
                     <td>
-                        <select class='select-estado form-control' data-id='${data[0]}'>
-                            <option value='1' ${(data[7] == "Recogido")?"selected":"hidden"}>Recogido</option>
-                            <option value='0' ${(data[7] == "Recogido" ? "" : (data[7] == "Recibido" ? "selected" : "hidden"))} >Recibido</option>
-                            <option value='0' ${(data[7] == "Recibido" ? "" : (data[7] == "En Bodega" ? "selected" : "hidden"))} >En Bodega</option>
-                            <option value='0' ${(data[7] == "En Bodega" ? "" : (data[7] == "Despachado" ? "selected" : "hidden"))} >Despachado</option>
-                        </select>
+                        ${data[6]}
                     </td>
                     <td style='display:flex; justify-content:center;'>
-                        <a href='#' class="createComments" data-idorden="${data[0]}" data-toggle="modal" data-target="#moreInfoComments" data-toggle="tooltip" data-placement="top" title="Comentarios"><i class="fas fa-comments"></i></a>
+                    ${(data[5] != 1)? ``: `<a href='#' class="createComments" data-idorden="${data[0]}" data-toggle="modal" data-target="#moreInfoComments" data-toggle="tooltip" data-placement="top" title="Comentarios"><i class="fas fa-comments"></i></a>`}
                         <a href='#' class="moreInfoBtn" data-idorden="${data[0]}" data-toggle="modal" data-target="#moreInfo" ><i class='fas fa-info-circle'></i></a>
                         <a href='#' class="moreStates" data-idorden="${data[0]}" data-toggle="modal" data-target="#moreInfo" data-toggle="tooltip" data-placement="top" title="Estados"><i class="fas fa-history"></i></a>
                     </td>
