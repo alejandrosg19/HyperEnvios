@@ -5,7 +5,7 @@ $idDespachador = $_SESSION['id'];
 
 $estadoDes = new EstadoDespachador("", "", "", $idOrden, $idDespachador);
 
-$res = $estadoDes->getEstadoOrden();
+$res = $estadoDes->getEstadoOrdenNombre();
 
 $ajax = array(
     "status" => false,
@@ -22,6 +22,15 @@ if ($res) {
 
         $Despachador = new Despachador($idDespachador);
         $Despachador->getInfoBasic();
+
+        if ($_SESSION['rol'] == 4) {
+            $logDespachador = new LogDespachador("", getDateTime(), getBrowser(), getOS(), crearComentario($idOrden, $estadoDes->getIdAccionEstado(), $fecha, $comentario), $_SESSION['id'], 16);
+            /**
+             * Inserto el registro del log
+             */
+            $logDespachador -> insertar();
+        }
+
         $ajax['status'] = True;
         $ajax['data'] = array(
             "nombre" => $Despachador->getNombre(),

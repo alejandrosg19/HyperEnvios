@@ -247,6 +247,8 @@ insert into Accion values (10, 'Actualizar estado despachador');
 insert into Accion values (11, 'Actualizar información despachador');
 insert into Accion values (12, 'Actualizar información personal');
 insert into Accion values (13, 'Cambiar contraseña');
+insert into Accion values (14, 'Crear orden');
+insert into Accion values (15, 'Crear comentario en estado');
 
 <<<<<<< HEAD
 insert into accionEstado(nombre,descripcion) values("Recoleccion","Se recogen todos los paquetes de los clientes que se enviaran");

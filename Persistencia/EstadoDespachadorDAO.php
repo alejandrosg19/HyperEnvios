@@ -26,5 +26,14 @@ class EstadoDespachadorDAO{
                 ORDER BY fecha desc
                 LIMIT 1";
     }
+
+    public function getEstadoOrdenNombre(){
+        return "SELECT idEstadoDespachador, fecha, nombre, FK_idOrden, FK_idDespachador
+                FROM estadoDespachador
+                INNER JOIN AccionEstado on idAccion = FK_idAccionEstado
+                WHERE FK_idOrden = '" . $this -> idOrden . "' AND FK_idDespachador = '" . $this -> idDespachador . "'
+                ORDER BY fecha desc
+                LIMIT 1";
+    }
 }
 ?>

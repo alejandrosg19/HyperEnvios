@@ -105,7 +105,7 @@
             "search": $("#search").val()
         };
 
-        $.post("indexAJAX.php?pid=<?php echo base64_encode("Vista/Orden/Ajax/searchBarOrdenCliente.php") ?>", json, function(data) {
+        $.post("indexAJAX.php?pid=<?php echo base64_encode("Vista/Orden/Ajax/searchBarOrdenAdministrador.php") ?>", json, function(data) {
             console.log(data);
             res = JSON.parse(data);
             // Imprime los datos de la tabla
@@ -172,7 +172,6 @@
                 };
 
                 $.post("indexAJAX.php?pid=<?php echo base64_encode("Vista/Orden/Ajax/crearComentarioCliente.php") ?>", json, function(data) {
-                    console.log(data);
                     res = JSON.parse(data);
                     if (res.status) {
                         $(".previousComments").css({"height": "250px"});
@@ -203,7 +202,7 @@
                 "search": $(this).val()
             };
 
-            $.post("indexAJAX.php?pid=<?php echo base64_encode("Vista/Orden/Ajax/searchBarOrdenCliente.php") ?>", json, function(data) {
+            $.post("indexAJAX.php?pid=<?php echo base64_encode("Vista/Orden/Ajax/searchBarOrdenAdministrador.php") ?>", json, function(data) {
                 res = JSON.parse(data);
                 // Imprime los datos de la tabla
                 tablePrint(res.DataT, res.DataL);
@@ -225,7 +224,7 @@
                     "search": $("#search").val()
                 };
 
-                $.post("indexAJAX.php?pid=<?php echo base64_encode("Vista/Orden/Ajax/searchBarOrdenCliente.php") ?>", json, function(data) {
+                $.post("indexAJAX.php?pid=<?php echo base64_encode("Vista/Orden/Ajax/searchBarOrdenAdministrador.php") ?>", json, function(data) {
                     console.log(data);
                     res = JSON.parse(data);
 
@@ -251,7 +250,7 @@
                 "cantPag": $(this).val(),
                 "search": $("#search").val()
             };
-            $.post("indexAJAX.php?pid=<?php echo base64_encode("Vista/Orden/Ajax/searchBarOrdenCliente.php") ?>", json, function(data) {
+            $.post("indexAJAX.php?pid=<?php echo base64_encode("Vista/Orden/Ajax/searchBarOrdenAdministrador.php") ?>", json, function(data) {
                 res = JSON.parse(data);
                 //imprime los datos en la tabla
                 tablePrint(res.DataT, res.DataL);
@@ -348,9 +347,9 @@
                         ${data[6]}
                     </td>
                     <td style='display:flex; justify-content:center;'>
-                    ${(data[5] != 1)? ``: `<a href='#' class="createComments" data-idorden="${data[0]}" data-toggle="modal" data-target="#moreInfoComments" data-toggle="tooltip" data-placement="top" title="Comentarios"><i class="fas fa-comments"></i></a>`}
-                        <a href='#' class="moreInfoBtn ml-1 mr-1" data-idorden="${data[0]}" data-toggle="modal" data-target="#moreInfo" ><i class='fas fa-info-circle'></i></a>
-                        <a href='#' class="moreStates" data-idorden="${data[0]}" data-toggle="modal" data-target="#moreInfo" data-toggle="tooltip" data-placement="top" title="Estados"><i class="fas fa-history"></i></a>
+                        <a href='#' class="moreInfoBtn" data-idorden="${data[0]}" data-toggle="modal" data-target="#moreInfo" ><i class='fas fa-info-circle'></i></a>
+                        <a href='#' class="moreStates ml-1 mr-1" data-idorden="${data[0]}" data-toggle="modal" data-target="#moreInfo" data-toggle="tooltip" data-placement="top" title="Estados"><i class="fas fa-history"></i></a>
+                        <a href='#'><i class="fas fa-file-pdf"></i></a>
                     </td>
                 </tr>`
             );

@@ -28,6 +28,15 @@ class EstadoClienteDAO{
                 ORDER BY fecha desc
                 LIMIT 1";
     }
+
+    public function getEstadoOrdenNombre(){
+        return "SELECT idEstadoCliente, fecha, nombre, FK_idOrden, FK_idCliente
+                FROM estadoCliente
+                INNER JOIN AccionEstado on idAccion = FK_idAccionEstado
+                WHERE FK_idOrden = '" . $this -> idOrden . "' AND FK_idCliente = '" . $this -> idCliente . "'
+                ORDER BY fecha desc
+                LIMIT 1";
+    }
 }
 
 ?>

@@ -110,6 +110,17 @@ class Item{
         $this -> Conexion -> cerrar();
         return $res;
     }
+
+    public function getInfoBasic(){
+        $this -> Conexion -> abrir();
+        $this -> Conexion -> ejecutar( $this -> ItemDAO -> getInfoBasic());
+        $arrList = Array();
+        while($res = $this -> Conexion -> extraer()){
+            array_push($arrList, $res);
+        }
+        $this -> Conexion -> cerrar();
+        return $arrList;
+    }
 }
 
 ?>

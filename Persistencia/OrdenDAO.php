@@ -199,4 +199,65 @@ class OrdenDAO
                 direccionDestino like '%" . $str . "%' OR
                 Contacto like '%" . $str . "%'";
     }
+
+    public function filtroPaginadoAdministrador($str, $pag, $cant)
+    {
+        return "SELECT * FROM (
+                    SELECT * FROM (
+                        SELECT orden.idOrden as orden, orden.fecha, orden.fechaEstimacion, orden.direccionDestino, orden.contacto, estadodespachador.FK_idAccionEstado, accionestado.nombre as accionestado
+                        FROM estadodespachador
+                        INNER JOIN orden on fk_idOrden = idOrden 
+                        INNER JOIN accionestado on estadodespachador.FK_idAccionEstado = accionestado.idAccion
+                        union all
+                        SELECT orden.idOrden as orden, orden.fecha, orden.fechaEstimacion, orden.direccionDestino, orden.contacto, estadocliente.FK_idAccionEstado, accionestado.nombre as accionestado
+                        FROM estadocliente
+                        INNER JOIN orden on fk_idOrden = idOrden 
+                        INNER JOIN accionestado on estadocliente.FK_idAccionEstado = accionestado.idAccion
+                        union all
+                        SELECT orden.idOrden as orden, orden.fecha, orden.fechaEstimacion, orden.direccionDestino, orden.contacto, estadoconductor.FK_idAccionEstado, accionestado.nombre as accionestado
+                        FROM estadoconductor
+                        INNER JOIN orden on fk_idOrden = idOrden 
+                        INNER JOIN accionestado on estadoconductor.FK_idAccionEstado = accionestado.idAccion
+                    ) as t
+                    GROUP BY orden
+                    ORDER BY FK_idAccionEstado desc
+                ) as b
+                WHERE 
+                fecha like '%" . $str . "%' OR
+                fechaEstimacion like '%" . $str . "%' OR
+                direccionDestino like '%" . $str . "%' OR
+                Contacto like '%" . $str . "%' OR
+                accionestado like '%".$str."%'
+                LIMIT " . (($pag - 1) * $cant) . ", " . $cant;
+    }
+
+    public function filtroCantidadAdministrador($str)
+    {
+        return "SELECT count(*) FROM (
+                    SELECT * FROM (
+                        SELECT orden.idOrden as orden, orden.fecha, orden.fechaEstimacion, orden.direccionDestino, orden.contacto, estadodespachador.FK_idAccionEstado, accionestado.nombre as accionestado
+                        FROM estadodespachador
+                        INNER JOIN orden on fk_idOrden = idOrden 
+                        INNER JOIN accionestado on estadodespachador.FK_idAccionEstado = accionestado.idAccion
+                        union all
+                        SELECT orden.idOrden as orden, orden.fecha, orden.fechaEstimacion, orden.direccionDestino, orden.contacto, estadocliente.FK_idAccionEstado, accionestado.nombre as accionestado
+                        FROM estadocliente
+                        INNER JOIN orden on fk_idOrden = idOrden 
+                        INNER JOIN accionestado on estadocliente.FK_idAccionEstado = accionestado.idAccion
+                        union all
+                        SELECT orden.idOrden as orden, orden.fecha, orden.fechaEstimacion, orden.direccionDestino, orden.contacto, estadoconductor.FK_idAccionEstado, accionestado.nombre as accionestado
+                        FROM estadoconductor
+                        INNER JOIN orden on fk_idOrden = idOrden 
+                        INNER JOIN accionestado on estadoconductor.FK_idAccionEstado = accionestado.idAccion
+                    ) as t
+                    GROUP BY orden
+                    ORDER BY FK_idAccionEstado desc
+                ) as b
+                WHERE 
+                fecha like '%" . $str . "%' OR
+                fechaEstimacion like '%" . $str . "%' OR
+                direccionDestino like '%" . $str . "%' OR
+                Contacto like '%" . $str . "%' OR
+                accionestado like '%".$str."%'";
+    }
 }

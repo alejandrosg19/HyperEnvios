@@ -26,6 +26,12 @@ class ItemDAO{
                 VALUES ('" . $this -> referencia ."', '" . $this -> nombre  ."','" . $this -> descripcion  ."', '" . $this -> peso  ."', '" . $this -> fabricante . "' ,'" . $this -> precio  ."','" . $this -> idOrden . "')";
     }
 
+    public function getInfoBasic(){
+        return "SELECT referencia, nombre, descripcion, peso, fabricante, precio
+                FROM Item
+                WHERE FK_idOrden = " . $this -> idOrden;
+    }
+
 }
 
 ?>

@@ -87,7 +87,41 @@ $accion->getInfoBasic();
                                     <?php
 
                                     if ($log->getInformacion() != "") {
-                                        $strList = explode("&&&", $log->getInformacion());
+                                        if($log->getAccion() ==  14){
+                                            $strTables = explode("%%%", $log->getInformacion());
+                                            for($j = 0; $j < count($strTables); $j++){
+                                            //foreach($strTables as $strTable){
+                                                $strProd = explode("&&&", $strTables[$j]);
+
+                                                if($j == 0){
+                                                    echo "<h4 class='mt-4 mb-4'> Información de la orden</h4>";
+                                                }else if($j == 1){
+                                                    echo "<h4 class='mt-4 mb-4'> Información de la cita</h4>";
+                                                }else if($j == 2){
+                                                    echo "<h4 class='mt-4 mb-4'> Información de los items</h4>";
+                                                }
+
+                                                for($a = 0; $a < count($strProd); $a++){
+                                                    $itemLines = explode(";;;", $strProd[$a]);
+
+                                                    if($j == 2){
+                                                        echo "<h6 class='mt-4 mb-3'> <b>Item No ".($a+1)."</b></h6>";
+                                                    }
+    
+                                                    echo "<table class='mt-3 mb-3' style='min-width: 70%'>";
+                                                    for($i = 0 ; $i <  count($itemLines); $i++){
+                                                        echo "<tr>";
+                                                        $col = explode(":::", $itemLines[$i]);
+                                                        foreach($col as $info){
+                                                            echo "<td>".$info."</td>";
+                                                        }
+                                                        echo "</tr>";
+                                                    }
+                                                    echo "</table>";
+                                                }
+                                            }
+                                        }else{
+                                            $strList = explode("&&&", $log->getInformacion());
                                             $cantReg = count($strList);
                                             $x = 1;
                                             foreach($strList as $list){
@@ -112,6 +146,7 @@ $accion->getInfoBasic();
                                                 echo "</table>";
                                                 $x++;
                                             }
+                                        }
                                     }
 
 

@@ -255,6 +255,10 @@ insert into Accion values (10, 'Actualizar estado despachador');
 insert into Accion values (11, 'Actualizar información despachador');
 insert into Accion values (12, 'Actualizar información personal');
 insert into Accion values (13, 'Cambiar contraseña');
+insert into Accion values (14, 'Crear orden');
+insert into Accion values (15, 'Crear comentario cliente');
+insert into Accion values (16, 'Crear comentario despachador');
+insert into Accion values (17, 'Crear comentario conductor');
 
 insert into accionEstado values(1, 'Registro de envío','El cliente realiza el registro del envio a través de la plataforma');
 insert into accionEstado values(2, 'En recoleccion','El conductor se encuentra en proceso de recolección');

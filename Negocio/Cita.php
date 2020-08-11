@@ -21,30 +21,30 @@ class Cita{
     /**
      * Setters
      */
-    function setIdCita(){
+    function getIdCita(){
         return $this -> idCita;
     }
 
-    function setFechaCita(){
+    function getFechaCita(){
         return $this -> fechaCita;
     }
 
-    function setIdConductor(){
+    function getIdConductor(){
         return $this -> idConductor;
     }
 
     /**
      * Getters
      */
-    function getIdCita($idCita){
+    function setIdCita($idCita){
         $this -> idCita = $idCita;
     }
 
-    function getFechaCita($fechaCita){
+    function setFechaCita($fechaCita){
         $this -> fechaCita = $fechaCita;
     }
 
-    function getIdConductor($idConductor){
+    function setIdConductor($idConductor){
         $this -> idConductor = $idConductor;
     }
 
@@ -59,6 +59,16 @@ class Cita{
         $this -> Conexion -> abrir();
         $this -> Conexion -> ejecutar( $this -> CitaDAO -> insertar());
         $res =  $this -> Conexion -> getLastID();
+        $this -> Conexion -> cerrar();
+        return $res;
+    }
+
+    public function getInfoName(){
+        $this -> Conexion -> abrir();
+        $this -> Conexion -> ejecutar($this -> CitaDAO -> getInfoName());
+        $res = $this -> Conexion -> extraer();
+        $this -> fechaCita = $res[1];
+        $this -> idConductor = $res[2];
         $this -> Conexion -> cerrar();
         return $res;
     }

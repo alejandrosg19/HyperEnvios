@@ -16,4 +16,11 @@ class CitaDAO{
                 VALUES ('" . $this -> fechaCita ."', '" . $this -> idConductor  ."')";
     }
 
+    public function getInfoName(){
+        return "SELECT idCita, fechaCita, nombre
+                FROM cita
+                INNER JOIN Conductor on FK_idConductor = idConductor
+                WHERE idCita = " . $this -> idCita;
+    }
+
 }

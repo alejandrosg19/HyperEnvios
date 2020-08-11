@@ -27,8 +27,8 @@ if($idConductor <= 0){
 
 $Cita = new Cita("", $fechaRecoleccion, $idConductor);
 $idCita = $Cita -> insertar();
-
-$Orden = new Orden("", getDateTime(), $fechaEstimacion, $direccionDestino, $personaContacto, $numeroContacto, "", $idCliente, $idCita);
+$date = getDateTime();
+$Orden = new Orden("", $date, $fechaEstimacion, $direccionDestino, $personaContacto, $numeroContacto, "", $idCliente, $idCita);
 $idOrden = $Orden -> insertar();
 
 
@@ -57,6 +57,29 @@ if($idOrden > 0){
             $resEstado = $objEstadoCliente -> insertar();
 
             if($resEstado > 0){
+
+                if ($_SESSION['rol'] == 2) {
+                    /**
+                     * Busco toda la información de la cita
+                     */
+                    $citaInfo = new Cita($idCita);
+                    $citaInfo -> getInfoName();
+                    /**
+                     * Busco toda la información de los items con un idOrden especifico
+                     */
+                    $ItemLog =  new Item("", "", "", "", "", "", "", $idOrden);
+                    $resItem = $ItemLog -> getInfoBasic();
+                    /**
+                     * Creo el objeto de log
+                     */
+                    
+                    $logCliente = new LogCliente("", getDateTime(), getBrowser(), getOS(), crearOrden($date, $fechaEstimacion, $direccionDestino, $personaContacto, $numeroContacto, $citaInfo -> getIdCita(), $citaInfo -> getFechaCita(), $citaInfo -> getIdConductor(), $resItem), $_SESSION['id'], 14);
+                    /**
+                     * Inserto el registro del log
+                     */
+                    $logCliente -> insertar();
+                }
+
                 $ajax['status'] = true; 
                 $ajax['msj'] = "Orden creada satisfactoriamente.";
             }

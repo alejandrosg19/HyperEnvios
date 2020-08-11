@@ -61,35 +61,11 @@
                             <a class="dropdown-item" href="#">Something else here</a>
                         </div>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Orden
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="index.php?pid=<?php echo base64_encode("Vista/Orden/crearOrden.php") ?>">Generar Orden</a>
-                            <a class="dropdown-item" href="index.php?pid=<?php echo base64_encode("Vista/Orden/listarOrdenCliente.php") ?>">Ordenes realizadas</a>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                        </div>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.php?pid=<?php echo base64_encode("Vista/Orden/crearOrden.php") ?>">Crear Orden</a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Pages
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                        </div>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Components
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                        </div>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.php?pid=<?php echo base64_encode("Vista/Orden/listarOrdenCliente.php") ?>">Ordenes realizadas</a>
                     </li>
                 </ul>
             </div>

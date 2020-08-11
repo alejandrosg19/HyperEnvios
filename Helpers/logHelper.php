@@ -215,4 +215,39 @@ function actualizarInfoAdministrador($idAdministradorC, $nombreC, $emailC, $clav
     return $str;
 }
 
+function crearOrden($fechaOrden, $fechaEstimacion, $direccionDestino, $contacto, $numeroContacto, $idCita, $fechaRecoleccion, $Conductor, $items){
+    $str = "Fecha de creación:::" . $fechaOrden . 
+    ";;;Fecha de estimación:::" . $fechaEstimacion . 
+    ";;;Dirección de destino:::" . $direccionDestino . 
+    ";;;Persona de contacto:::" . $contacto . 
+    ";;;Número de contacto:::" . $numeroContacto .
+    "%%%idCita:::" . $idCita .
+    ";;;Fecha de recolección:::" . $fechaRecoleccion .
+    ";;;Conductor:::" . $Conductor .
+    "%%%";
+    for($i = 0; $i < count($items); $i++){
+        $str .="Referencia:::" . $items[$i][0] . 
+        ";;;Nombre:::" . $items[$i][1] .
+        ";;;Descripción:::" . $items[$i][2] .
+        ";;;Peso:::" . $items[$i][3] .
+        ";;;Fabricante:::" . $items[$i][4] .
+        ";;;Precio:::" . $items[$i][5];
+        if(count($items) != ($i+1)){
+            $str .= "&&&";
+        }
+        
+    }
+
+    return $str;
+}
+
+
+function crearComentario($idOrden, $estado, $fecha, $comentario){
+    $str = "idOrden:::" . $idOrden . 
+    ";;;Estado:::" . $estado . 
+    ";;;Fecha:::" . $fecha . 
+    ";;;Comentario:::" . $comentario;
+
+    return $str;
+}
 ?>
