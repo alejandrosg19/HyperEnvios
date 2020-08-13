@@ -73,4 +73,39 @@ class Cita{
         return $res;
     }
 
+    public function moreInfo(){
+        $this -> Conexion -> abrir();
+        $this -> Conexion -> ejecutar($this -> CitaDAO -> moreInfo());
+        $res = $this -> Conexion -> extraer();
+        $this -> Conexion -> cerrar();
+        return $res;
+    }
+
+    /*
+     * Función que busca por paginación, filtro de palabra y devuelve la información en un array
+     */
+    public function filtroPaginado($str, $pag, $cant){
+        $this -> Conexion -> abrir();
+        $this -> Conexion -> ejecutar( $this -> CitaDAO -> filtroPaginado($str, $pag, $cant));
+        $resList = Array();
+        while($res = $this -> Conexion -> extraer()){
+            array_push($resList, $res);
+        }
+        $this -> Conexion -> cerrar();
+
+        return $resList;
+    }
+
+    /*
+     * Busca la cantidad de registros con filtro de palabra
+     */
+    public function filtroCantidad($str){
+        $this -> Conexion -> abrir();
+        $this -> Conexion -> ejecutar( $this -> CitaDAO -> filtroCantidad($str));
+        $res = $this -> Conexion -> extraer();
+        $this -> Conexion -> cerrar();
+
+        return $res[0];
+    }
+
 }
