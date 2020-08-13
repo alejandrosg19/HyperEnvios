@@ -55,13 +55,28 @@ class ComentarioConductor{
     /**
      * Methods
      */
+    /**
+     * Función que inserta un nuevo comentario de Cliente
+     */
+    public function insertar(){
+        $this -> Conexion -> abrir();
+        $this -> Conexion -> ejecutar($this -> ComentarioConductorDAO -> insertar());
+        $res = $this -> Conexion -> filasAfectadas();
+        $this -> Conexion -> cerrar();
+        return $res;
+    }
+
 
     public function getComentariosActor(){
         $this -> Conexion -> abrir();
         $this -> Conexion -> ejecutar($this -> ComentarioConductorDAO -> getComentariosActor());
-        $res = $this -> Conexion -> extraer();
+        $resList = array();
+        while($res = $this -> Conexion -> extraer()){
+            array_push($resList, $res);
+        }
         $this -> Conexion -> cerrar();
-        return $res;
+
+        return $resList;
     }
     /*
     * Función que trae todos los comentario asociados a un estadodespachador
@@ -76,5 +91,6 @@ class ComentarioConductor{
         $this -> Conexion -> cerrar();
         return  $resArray;
     }
+
 }
 ?>

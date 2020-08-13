@@ -15,5 +15,8 @@ class EnvioDAO{
         return "INSERT INTO envio(fechaSalida, FK_idConductor)
                 VALUES ('" . $this -> fechaSalida . "','" . $this -> idConductor . "')";
     }
+    public function getInfoFecha(){
+        return "SELECT idEnvio FROM envio WHERE fechaSalida = '".$this -> fechaSalida."'";
+    }
 }
 ?>

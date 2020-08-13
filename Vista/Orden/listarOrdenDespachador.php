@@ -127,7 +127,8 @@
             $(".previousComments").html("");
 
             json = {
-                "idOrden": $(this).data('idorden')
+                "idOrden": $(this).data('idorden'),
+                "estados": "3,5,6,7"
             };
 
             $.post("indexAJAX.php?pid=<?php echo base64_encode("Vista/Orden/Ajax/getComentariosEstado.php") ?>", json, function(data) {

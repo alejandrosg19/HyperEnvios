@@ -101,6 +101,7 @@ class Estado
 
     public function getEstadosAllOrden($strEstados){
         $this -> Conexion -> abrir();
+        #echo $this -> EstadoDAO -> getEstadosAllOrden($strEstados);
         $this -> Conexion -> ejecutar( $this -> EstadoDAO -> getEstadosAllOrden($strEstados) );
         $res = $this -> Conexion -> extraer();
         $this -> Conexion -> cerrar();

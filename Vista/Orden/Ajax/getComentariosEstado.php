@@ -1,10 +1,11 @@
 <?php 
 $idOrden = $_POST['idOrden'];
-
+$estados = $_POST['estados'];
 $estado = new Estado("","","",$idOrden);
 
-
-$res = $estado -> getEstadosAllOrden("3,5,6,7");
+#echo "eyyyyyy ". $estados;
+#$res = $estado -> getEstadosAllOrden("3,5,6,7");
+$res = $estado -> getEstadosAllOrden($estados);
 
 $ajax = array(
     "status" => false,

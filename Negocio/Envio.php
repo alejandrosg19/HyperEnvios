@@ -17,6 +17,15 @@ class Envio{
         $this -> EnvioDAO = new EnvioDAO($this -> idEnvio, $this -> fechaSalida, $this -> idConductor);
     }
 
+    public function getIdEnvio(){
+        return $this -> idEnvio;
+    }
+    public function getFechaSalida(){
+        return $this -> fechaSalida;
+    }
+    public function getIdConductor(){
+        return $this -> idConductor;
+    }
     /**
      * Inserta un nuevo envio
      */
@@ -27,5 +36,12 @@ class Envio{
         $this -> Conexion -> cerrar();
         return $res;
     }
+
+    public function getInfoFecha(){
+        $this -> Conexion -> abrir();
+        $this -> Conexion -> ejecutar($this -> EnvioDAO -> getInfoFecha());
+        $res = $this -> Conexion -> extraer();
+        $this -> idEnvio = $res[0];
+        $this -> Conexion -> cerrar();
+    }
 }
-?>

@@ -3,31 +3,13 @@ $idOrden = $_POST['idOrden'];
 $estado = $_POST['estado'];
 
 date_default_timezone_set('America/Bogota');
-$fecha1 = date("Y-m-d");
 $fecha = date("Y-m-d H:i:s");
 
-if ($estado == 7) { #Estado Depachado
-    #Creando Envio
-    $conductorDesocupado = new Conductor();
-    $idConductor = $conductorDesocupado->selectConductorDesocupado($fecha);
-    $envio = new Envio("", $fecha1, $idConductor);
-    $envio->insert();
-    $envio->getInfoFecha();
-
-    #actualizando envio de orden
-    $orden = new Orden($idOrden,"","","","","","","","",$envio -> getIdEnvio());
-    $orden -> actualizarEnvio();
-
-    #Creando estado En Camino en estadoConductor
-    $estadoConductor = new EstadoConductor("", $fecha, 8, $idOrden, $idConductor);
-    $res1 = $estadoConductor -> insert();
-}
-
-#Creando estado en estadoDespachador  
-$estado = new EstadoDespachador("", $fecha, $estado, $idOrden, $_SESSION["id"]);
+#Creando estado en estadoDConductor 
+$estado = new EstadoConductor("", $fecha, $estado, $idOrden, $_SESSION["id"]);
 
 $res = $estado->insert();
-#$estado -> getInfoBasic();
+
 $ajax = array();
 if ($res == 1) {
 
