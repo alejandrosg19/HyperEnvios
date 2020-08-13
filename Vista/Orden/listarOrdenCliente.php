@@ -127,10 +127,11 @@
             $(".previousComments").html("");
 
             json = {
-                "idOrden": $(this).data('idorden')
+                "idOrden": $(this).data('idorden'),
+                "estados" : "1"
             };
 
-            $.post("indexAJAX.php?pid=<?php echo base64_encode("Vista/Orden/Ajax/getComentariosEstadoCliente.php") ?>", json, function(data) {
+            $.post("indexAJAX.php?pid=<?php echo base64_encode("Vista/Orden/Ajax/getComentariosEstado.php") ?>", json, function(data) {
                 res = JSON.parse(data);
                 if (res.status) {
                     $(".previousComments").css({"height": "250px"});

@@ -260,4 +260,64 @@ class Orden
 
         return $res[0];
     }
+    /*
+     * Función que busca por paginación, filtro de palabra y devuelve la información en un array
+     */
+    public function filtroPaginadoConductor1($str, $pag, $cant, $idConductor){
+        $this->Conexion->abrir();
+        $this->Conexion->ejecutar($this->OrdenDAO->filtroPaginadoConductor1($str, $pag, $cant,$idConductor));
+        $resList = array();
+        while ($res = $this->Conexion->extraer()) {
+            array_push($resList, $res);
+        }
+        $this->Conexion->cerrar();
+
+        return $resList;
+    }
+
+    /*
+     * Busca la cantidad de registros con filtro de palabra
+     */
+    public function filtroCantidadConductor1($str,$idConductor)
+    {
+        $this->Conexion->abrir();
+        $this->Conexion->ejecutar($this->OrdenDAO->filtroCantidadConductor1($str,$idConductor));
+        $res = $this->Conexion->extraer();
+        $this->Conexion->cerrar();
+
+        return $res[0];
+    }
+    /*
+     * Función que busca por paginación, filtro de palabra y devuelve la información en un array
+     */
+    public function filtroPaginadoConductor2($str, $pag, $cant){
+        $this->Conexion->abrir();
+        $this->Conexion->ejecutar($this->OrdenDAO->filtroPaginadoConductor2($str, $pag, $cant));
+        $resList = array();
+        while ($res = $this->Conexion->extraer()) {
+            array_push($resList, $res);
+        }
+        $this->Conexion->cerrar();
+
+        return $resList;
+    }
+
+    /*
+     * Busca la cantidad de registros con filtro de palabra
+     */
+    public function filtroCantidadConductor2($str)
+    {
+        $this->Conexion->abrir();
+        $this->Conexion->ejecutar($this->OrdenDAO->filtroCantidadConductor2($str));
+        $res = $this->Conexion->extraer();
+        $this->Conexion->cerrar();
+
+        return $res[0];
+    }
+
+    public function actualizarEnvio(){
+        $this->Conexion->abrir();
+        $this->Conexion->ejecutar($this->OrdenDAO->actualizarEnvio());
+        $this->Conexion->cerrar();
+    }
 }

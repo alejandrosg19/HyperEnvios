@@ -11,13 +11,15 @@ class ComentarioConductorDAO{
         $this -> comentario = $comentario;
         $this -> idEstadoConductor = $idEstadoConductor;
     }
-
+    public function insertar(){
+        return "INSERT INTO comentarioConductor (fecha, comentario, FK_idEstadoConductor) values ('" . $this -> fecha . "', '" . $this -> comentario . "', '" . $this -> idEstadoConductor . "')";
+    }
     public function getComentariosActor(){
         return "SELECT Conductor.nombre, comentario, comentarioConductor.fecha as fecha from comentarioConductor
                 INNER JOIN estadoConductor on FK_idEstadoConductor = idEstadoConductor
                 INNER JOIN Conductor on FK_idConductor = idConductor
                 WHERE idEstadoConductor = " . $this -> idEstadoConductor . "
-                ORDER BY fecha asc";
+                ORDER BY fecha desc";
     }
     public function getInfo(){
         return "SELECT comentarioconductor.fecha, comentario 

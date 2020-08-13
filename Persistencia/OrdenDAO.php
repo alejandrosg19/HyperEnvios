@@ -260,4 +260,114 @@ class OrdenDAO
                 Contacto like '%" . $str . "%' OR
                 accionestado like '%".$str."%'";
     }
+
+    public function filtroPaginadoConductor1($str, $pag, $cant, $idConductor)
+    {                                    
+        return "SELECT * from (
+                    SELECT orden.idOrden as orden, orden.fecha as fecha, cliente.nombre as cliente, orden.fechaEstimacion, orden.direccionDestino, orden.contacto, estadocliente.FK_idAccionEstado, accionestado.nombre as accionestado, estadocliente.fecha as fechaEstado
+                    FROM estadocliente
+                    INNER JOIN orden on fk_idOrden = idOrden 
+                    INNER JOIN cliente on orden.FK_idCliente = idCliente 
+                    INNER JOIN accionestado on estadocliente.FK_idAccionEstado = accionestado.idAccion
+                    WHERE (
+                        orden.fecha like '%" . $str . "%' OR 
+                        cliente.nombre like '%" . $str . "%' OR
+                        orden.fechaEstimacion like '%" . $str . "%' OR
+                        orden.direccionDestino like '%" . $str . "%' OR
+                        orden.contacto like '%" . $str . "%' OR
+                        accionestado.nombre like '%" . $str . "%'
+                        ) 
+                        AND orden.idOrden NOT IN(
+                            SELECT fk_idOrden 
+                            FROM estadoconductor)
+                    UNION ALL(
+                    SELECT orden.idOrden as orden, orden.fecha as fecha, cliente.nombre as cliente, orden.fechaEstimacion, orden.direccionDestino, orden.contacto, estadoconductor.FK_idAccionEstado, accionestado.nombre as accionestado, estadoconductor.fecha as fechaEstado
+                    FROM estadoconductor
+                    INNER JOIN orden on fk_idOrden = idOrden 
+                    INNER JOIN cliente on orden.FK_idCliente = idCliente 
+                    INNER JOIN accionestado on estadoconductor.FK_idAccionEstado = accionestado.idAccion
+                    WHERE (
+                        orden.fecha like '%" . $str . "%' OR 
+                        cliente.nombre like '%" . $str . "%' OR
+                        orden.fechaEstimacion like '%" . $str . "%' OR
+                        orden.direccionDestino like '%" . $str . "%' OR
+                        orden.contacto like '%" . $str . "%' OR
+                        accionestado.nombre like '%" . $str . "%'
+                    ) AND (idAccion = 2 or idAccion = 3 or idAccion = 4) AND estadoconductor.FK_idConductor = '" . $idConductor . "')
+                    ORDER by(fechaEstado) DESC) as T
+                GROUP BY orden
+                ORDER BY orden DESC
+                LIMIT " . (($pag - 1) * $cant) . ", " . $cant;
+    }
+    public function filtroCantidadConductor1($str,$idConductor)
+    {
+        return "SELECT  COUNT(orden) FROM (
+                    SELECT * FROM (
+                        SELECT orden.idOrden as orden, orden.fecha as fecha, cliente.nombre as cliente, orden.fechaEstimacion, orden.direccionDestino, orden.contacto, estadocliente.FK_idAccionEstado, accionestado.nombre as accionestado, estadocliente.fecha as fechaEstado
+                        FROM estadocliente
+                            INNER JOIN orden on fk_idOrden = idOrden 
+                            INNER JOIN cliente on orden.FK_idCliente = idCliente 
+                            INNER JOIN accionestado on estadocliente.FK_idAccionEstado = accionestado.idAccion
+                        WHERE (
+                            orden.fecha like '%" . $str . "%' OR 
+                            cliente.nombre like '%" . $str . "%' OR
+                            orden.fechaEstimacion like '%" . $str . "%' OR
+                            orden.direccionDestino like '%" . $str . "%' OR
+                            orden.contacto like '%" . $str . "%' OR
+                            accionestado.nombre like '%" . $str . "%'
+                            ) 
+                            AND orden.idOrden NOT IN(
+                                SELECT fk_idOrden 
+                                FROM estadoconductor)
+                        UNION ALL(
+                        SELECT orden.idOrden as orden, orden.fecha as fecha, cliente.nombre as cliente, orden.fechaEstimacion, orden.direccionDestino, orden.contacto, estadoconductor.FK_idAccionEstado, accionestado.nombre as accionestado, estadoconductor.fecha as fechaEstado
+                        FROM estadoconductor
+                            INNER JOIN orden on fk_idOrden = idOrden 
+                            INNER JOIN cliente on orden.FK_idCliente = idCliente 
+                            INNER JOIN accionestado on estadoconductor.FK_idAccionEstado = accionestado.idAccion
+                        WHERE (
+                            orden.fecha like '%" . $str . "%' OR 
+                            cliente.nombre like '%" . $str . "%' OR
+                            orden.fechaEstimacion like '%" . $str . "%' OR
+                            orden.direccionDestino like '%" . $str . "%' OR
+                            orden.contacto like '%" . $str . "%' OR
+                            accionestado.nombre like '%" . $str . "%'
+                            ) AND (idAccion = 2 or idAccion = 3 or idAccion = 4) AND estadoconductor.FK_idConductor = '" . $idConductor . "')
+                        ORDER by(fechaEstado) DESC) as T
+                    GROUP BY orden) as t2";
+    }
+    public function filtroPaginadoConductor2($str, $pag, $cant)
+    {
+        return "SELECT orden.idOrden as orden, orden.fecha, orden.fechaEstimacion, orden.direccionDestino, orden.contacto, estadocliente.FK_idAccionEstado, accionestado.nombre as accionestado
+                FROM estadocliente
+                INNER JOIN orden on fk_idOrden = idOrden 
+                INNER JOIN accionestado on estadocliente.FK_idAccionEstado = accionestado.idAccion
+                WHERE 
+                orden.fecha like '%" . $str . "%' OR
+                fechaEstimacion like '%" . $str . "%' OR
+                direccionDestino like '%" . $str . "%' OR
+                orden.contacto like '%" . $str . "%' OR
+                accionestado.nombre like '%" . $str . "%'
+                ORDER BY(orden.fecha) DESC
+                LIMIT " . (($pag - 1) * $cant) . ", " . $cant;
+    }
+    public function filtroCantidadConductor2($str)
+    {
+        return "SELECT count(*) FROM(
+                    SELECT orden.idOrden as orden, orden.fecha, orden.fechaEstimacion, orden.direccionDestino, orden.contacto, estadocliente.FK_idAccionEstado, accionestado.nombre as accionestado
+                    FROM estadocliente
+                    INNER JOIN orden on fk_idOrden = idOrden 
+                    INNER JOIN accionestado on estadocliente.FK_idAccionEstado = accionestado.idAccion
+                    WHERE 
+                    orden.fecha like '%" . $str . "%' OR
+                    fechaEstimacion like '%" . $str . "%' OR
+                    direccionDestino like '%" . $str . "%' OR
+                    orden.contacto like '%" . $str . "%' OR
+                    accionestado.nombre like '%" . $str . "%'
+                    ORDER BY(orden.fecha) DESC) as t";
+    }
+
+    public function actualizarEnvio(){
+        return "UPDATE orden SET FK_idEnvio = '".$this ->  idEnvio."' WHERE idOrden = '".$this -> idOrden."'";
+    }
 }

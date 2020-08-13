@@ -42,5 +42,9 @@ class EnvioDAO{
                 INNER JOIN Cliente on FK_idCliente = idCliente
                 WHERE idEnvio = " . $this -> idEnvio;
     }
+    
+    public function getInfoFecha(){
+        return "SELECT idEnvio FROM envio WHERE fechaSalida = '".$this -> fechaSalida."'";
+    }
 }
 ?>
