@@ -32,7 +32,7 @@ class Envio{
     public function insert(){
         $this -> Conexion -> abrir();
         $this -> Conexion -> ejecutar($this -> EnvioDAO -> insert());
-        $res = $this -> Conexion -> filasAfectadas();
+        $res = $this -> Conexion -> getLastID();
         $this -> Conexion -> cerrar();
         return $res;
     }
@@ -65,7 +65,7 @@ class Envio{
     }
 
     /**
-     * 
+     * Busca toda la información necesaria para la información de detalle en la tabla
      */
 
     public function moreInfo(){
@@ -75,12 +75,43 @@ class Envio{
         $this -> Conexion -> cerrar();
         return $res;
     }
-    
+
+    /**
+     * Funcion que busca si hay un envio que no tenga sobre 5 ordenes y devuelve la llave primaria
+     */
+    public function getEnvioDesocupado(){
+        $this -> Conexion -> abrir();
+        $this -> Conexion -> ejecutar( $this -> EnvioDAO -> getEnvioDesocupado());
+        $res = $this -> Conexion -> filasAfectadas();
+        if($res > 0){
+            $resConsulta = $this -> Conexion -> extraer();
+            $this -> idEnvio = $resConsulta[0];
+        }
+        $this -> Conexion -> cerrar();
+        return $res;
+    } 
+
+    /**
+     * 
+     */
     public function getInfoFecha(){
         $this -> Conexion -> abrir();
         $this -> Conexion -> ejecutar($this -> EnvioDAO -> getInfoFecha());
         $res = $this -> Conexion -> extraer();
         $this -> idEnvio = $res[0];
+        $this -> Conexion -> cerrar();
+    }
+
+    /**
+     * Devuelve la información toda la información relacionada a un idEnvio
+     */
+
+    public function getInfoBasic(){
+        $this -> Conexion -> abrir();
+        $this -> Conexion -> ejecutar( $this -> EnvioDAO -> getInfoBasic());
+        $res = $this -> Conexion -> extraer();
+        $this -> fechaSalida = $res[1];
+        $this -> idConductor = $res[2];
         $this -> Conexion -> cerrar();
     }
 }
