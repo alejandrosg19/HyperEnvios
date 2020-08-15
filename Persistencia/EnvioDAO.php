@@ -44,12 +44,11 @@ class EnvioDAO{
     }
 
     public function moreInfo(){
-        return "SELECT idEnvio, Envio.fechaSalida, Orden.fechaEstimacion, Orden.fechaLlegada, Orden.direccionDestino, Cliente.nombre, Cliente.email, Orden.Contacto, Orden.numeroContacto,  Conductor.nombre, Conductor.email
-                FROM Envio
-                INNER JOIN Conductor on idConductor = FK_idConductor
-                INNER JOIN Orden on FK_idEnvio = idEnvio
-                INNER JOIN Cliente on FK_idCliente = idCliente
-                WHERE idEnvio = " . $this -> idEnvio;
+        return "SELECT Envio.idEnvio, Envio.fechaSalida, Conductor.nombre
+                FROM envio
+                INNER JOIN Conductor on FK_idConductor = idConductor 
+                WHERE idEnvio = '" . $this -> idEnvio . "'
+                ORDER BY Envio.fechaSalida DESC";
     }
 
     public function getInfoFecha(){

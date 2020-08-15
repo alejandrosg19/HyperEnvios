@@ -305,8 +305,7 @@ class Orden
     /*
      * Busca la cantidad de registros con filtro de palabra
      */
-    public function filtroCantidadConductor2($str)
-    {
+    public function filtroCantidadConductor2($str){
         $this->Conexion->abrir();
         $this->Conexion->ejecutar($this->OrdenDAO->filtroCantidadConductor2($str));
         $res = $this->Conexion->extraer();
@@ -319,5 +318,17 @@ class Orden
         $this->Conexion->abrir();
         $this->Conexion->ejecutar($this->OrdenDAO->actualizarEnvio());
         $this->Conexion->cerrar();
+    }
+
+    public function getOrdenesEnvio(){
+        $this -> Conexion -> abrir();
+        $this -> Conexion -> ejecutar($this -> OrdenDAO -> getOrdenesEnvio());
+        $resList = array();
+        while ($res = $this->Conexion->extraer()) {
+            array_push($resList, $res);
+        }
+        $this->Conexion->cerrar();
+
+        return $resList;
     }
 }

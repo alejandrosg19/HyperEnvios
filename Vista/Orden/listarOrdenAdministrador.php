@@ -1,3 +1,9 @@
+<?php 
+    $idOrden = "";
+    if(isset($_GET['idOrden'])){
+        $idOrden = $_GET['idOrden'];
+    }
+?>
 <div class="container mt-5 mb-5">
     <div class="row justify-content-center">
         <h1>Buscar Orden</h1>
@@ -14,7 +20,7 @@
                         <option value="50">50</option>
                         <option value="100">100</option>
                     </select>
-                    <input id="search" type="text" placeholder="search">
+                    <input id="search" type="text" value="<?php echo ($idOrden != ""? $idOrden : "" )?>" placeholder="search">
                 </div>
                 <div class="card-body form-table">
                     <div class="table-responsive-lg">
@@ -102,7 +108,7 @@
         json = {
             "page": $("#escondido").val(),
             "cantPag": $("#select-cantidad").val(),
-            "search": $("#search").val()
+            "search" : $("#search").val()
         };
 
         $.post("indexAJAX.php?pid=<?php echo base64_encode("Vista/Orden/Ajax/searchBarOrdenAdministrador.php") ?>", json, function(data) {
