@@ -223,6 +223,7 @@ class OrdenDAO
                     ORDER BY FK_idAccionEstado desc
                 ) as b
                 WHERE 
+                orden like '%" . $str . "%' OR
                 fecha like '%" . $str . "%' OR
                 fechaEstimacion like '%" . $str . "%' OR
                 direccionDestino like '%" . $str . "%' OR
@@ -254,6 +255,7 @@ class OrdenDAO
                     ORDER BY FK_idAccionEstado desc
                 ) as b
                 WHERE 
+                orden like '%" . $str . "%' OR 
                 fecha like '%" . $str . "%' OR
                 fechaEstimacion like '%" . $str . "%' OR
                 direccionDestino like '%" . $str . "%' OR
@@ -369,5 +371,12 @@ class OrdenDAO
 
     public function actualizarEnvio(){
         return "UPDATE orden SET FK_idEnvio = '".$this ->  idEnvio."' WHERE idOrden = '".$this -> idOrden."'";
+    }
+
+    public function getOrdenesEnvio(){
+        return "SELECT idOrden ,fechaEstimacion, fechaLlegada, Cliente.nombre as remitente, Contacto as receptor, numeroContacto
+                FROM orden
+                INNER JOIN Cliente on FK_idCliente = idCliente
+                WHERE FK_idEnvio = " . $this -> idEnvio;
     }
 }
