@@ -195,11 +195,10 @@
         DataT.forEach(function(data) {
             $("#tabla").append(
                 `<tr>
-                    <td>${data[1]}</td>
-                    <td>${(data[2] != null)? data[2]: "En transito" }</td>
+                    <td>${data[0]}</td>
+                    <td>${data[1] }</td>
+                    <td>${data[2]}</td>
                     <td>${data[3]}</td>
-                    <td>${data[4]}</td>
-                    <td>${data[5]}</td>
                     <td style='display:flex; justify-content:center;'>
                         <a href='#' class="moreInfoBtn" data-idenvio="${data[0]}" data-toggle="modal" data-target="#moreInfo"><i class='fas fa-info-circle'></i></a>
                     </td>
