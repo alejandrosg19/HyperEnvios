@@ -1,9 +1,10 @@
 <?php
 $idOrden = $_POST['idOrden'];
 $comentario = $_POST['comentario'];
+$idAccionEstado = $_POST['idAccionComentario'];
 $idConductor = $_SESSION['id'];
 
-$estadoDes = new EstadoConductor("", "", "", $idOrden, $idConductor);
+$estadoDes = new EstadoConductor("", "", $idAccionEstado, $idOrden, $idConductor);
 
 $res = $estadoDes->getEstadoOrdenNombre();
 

@@ -124,6 +124,7 @@
         $("#tabla").on('click', ".createComments", function() {
             //alert($(this).data("idorden"));
             $("#btnCrearComentario").data("idorden", $(this).data("idorden"));
+            $("#btnCrearComentario").data("idaccion", $(this).data("idaccion"));
             $(".previousComments").html("");
 
             json = {
@@ -157,7 +158,7 @@
          * Info Estados
          */
         $("#tabla").on('click', ".moreStates", function() {
-            $url = "indexAJAX.php?pid=<?php echo base64_encode("Vista/Orden/Ajax/moreStatesConductor.php") ?>&idOrden=" + $(this).data("idorden");
+            $url = "indexAJAX.php?pid=<?php echo base64_encode("Vista/Orden/Ajax/moreStatesConductorEnvio.php") ?>&idOrden=" + $(this).data("idorden");
             $("#moreInfo .modal-body").load($url);
         });
 
@@ -168,9 +169,11 @@
         $("#btnCrearComentario").on('click', function() {
 
             if (checkInfoComentario()) {
+                console.log("eyyy"+$(this).data('idaccion'));
                 json = {
                     "idOrden": $(this).data('idorden'),
-                    "comentario": $("#inputComentario").val()
+                    "comentario": $("#inputComentario").val(),
+                    "idAccionComentario": $(this).data('idaccion')
                 };
 
                 $.post("indexAJAX.php?pid=<?php echo base64_encode("Vista/Orden/Ajax/crearComentarioConductor.php") ?>", json, function(data) {
@@ -385,14 +388,15 @@
                     <td>${data[5]}</td>
                     <td>
                         <select class='select-estado form-control' data-id='${data[0]}'>
-                            <option value='8' ${(data[6] == 8)?"selected hidden":"hidden"}>En Camino</option>
+                            <option value='7' ${(data[6] == 7)?"selected hidden":"hidden"}>Despachado</option>
+                            <option value='8' ${(data[6] == 7 ? "" : (data[6] == 8 ? "selected disabled" : "hidden"))} >En Camino</option>
                             <option value='9' ${(data[6] == 8 ? "" : (data[6] == 9 ? "selected disabled" : "hidden"))} >Entregado</option>
                         </select>
                     </td>
                     <td style='display:flex; justify-content:center;'>
-                        <a href='#' class="createComments" data-idorden="${data[0]}" data-toggle="modal" data-target="#moreInfoComments" data-toggle="tooltip" data-placement="top" title="Comentarios"><i class="fas fa-comments"></i></a>
-                        <a href='#' class="moreInfoBtn" data-idorden="${data[0]}" data-toggle="modal" data-target="#moreInfo" ><i class='fas fa-info-circle'></i></a>
-                        <a href='#' class="moreStates" data-idorden="${data[0]}" data-toggle="modal" data-target="#moreInfo" data-toggle="tooltip" data-placement="top" title="Estados"><i class="fas fa-history"></i></a>
+                        <a href='#' class="createComments" data-idorden="${data[0]}" data-idaccion="${data[6]}" data-toggle="modal" data-target="#moreInfoComments" data-toggle="tooltip" data-placement="top" title="Comentarios"><i class="fas fa-comments"></i></a>
+                        <a href='#' class="moreInfoBtn" data-idorden="${data[0]}"  data-toggle="modal" data-target="#moreInfo" ><i class='fas fa-info-circle'></i></a>
+                        <a href='#' ${data[6] == 7 ? "hidden" : ""} class="moreStates" data-idorden="${data[0]}" data-toggle="modal" data-target="#moreInfo" data-toggle="tooltip" data-placement="top" title="Estados"><i class="fas fa-history"></i></a>
                     </td>
                 </tr>`
             );

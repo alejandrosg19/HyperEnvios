@@ -12,7 +12,7 @@ $data = $estado->getEstados();
         <div class="row justify-content-center mt-5">
             <div class="col-12">
                     <?php for ($i = 0; $i < count($data); $i++) {
-                            if($data[$i][2] == 3 or ($data[$i][2] == 2 and ($data[$i][5] == 2 or $data[$i][5] == 3 or $data[$i][5] == 4))){
+                            if($data[$i][2] == 2 and ($data[$i][5] == 8 or $data[$i][5] == 9)){
                                 echo "
                                 <div class='row justify-content-center mt-3'>
                                     <h3>Estado " . $data[$i][0] . "</h3>
