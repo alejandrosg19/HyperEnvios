@@ -17,10 +17,6 @@ if ($estado == 7) { #Estado Depachado
     #actualizando envio de orden
     $orden = new Orden($idOrden,"","","","","","","","",$envio -> getIdEnvio());
     $orden -> actualizarEnvio();
-
-    #Creando estado En Camino en estadoConductor
-    $estadoConductor = new EstadoConductor("", $fecha, 8, $idOrden, $idConductor);
-    $res1 = $estadoConductor -> insert();
 }
 
 #Creando estado en estadoDespachador  

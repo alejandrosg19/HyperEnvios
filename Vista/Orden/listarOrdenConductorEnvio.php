@@ -106,7 +106,7 @@
             "search": $("#search").val()
         };
 
-        $.post("indexAJAX.php?pid=<?php echo base64_encode("Vista/Orden/Ajax/searchBarOrdenConductor.php") ?>", json, function(data) {
+        $.post("indexAJAX.php?pid=<?php echo base64_encode("Vista/Orden/Ajax/searchBarOrdenConductorEnvio.php") ?>", json, function(data) {
             res = JSON.parse(data);
             // Imprime los datos de la tabla
             tablePrint(res.DataT, res.DataL);
@@ -128,7 +128,7 @@
 
             json = {
                 "idOrden": $(this).data('idorden'),
-                "estados": "1,2,3,4"
+                "estados": "8,9"
             };
 
             $.post("indexAJAX.php?pid=<?php echo base64_encode("Vista/Orden/Ajax/getComentariosEstado.php") ?>", json, function(data) {
@@ -205,7 +205,7 @@
                 "search": $(this).val()
             };
 
-            $.post("indexAJAX.php?pid=<?php echo base64_encode("Vista/Orden/Ajax/searchBarOrdenConductor.php") ?>", json, function(data) {
+            $.post("indexAJAX.php?pid=<?php echo base64_encode("Vista/Orden/Ajax/searchBarOrdenConductorEnvio.php") ?>", json, function(data) {
                 res = JSON.parse(data);
                 // Imprime los datos de la tabla
                 tablePrint(res.DataT, res.DataL);
@@ -227,7 +227,7 @@
                     "search": $("#search").val()
                 };
 
-                $.post("indexAJAX.php?pid=<?php echo base64_encode("Vista/Orden/Ajax/searchBarOrdenConductor.php") ?>", json, function(data) {
+                $.post("indexAJAX.php?pid=<?php echo base64_encode("Vista/Orden/Ajax/searchBarOrdenConductorEnvio.php") ?>", json, function(data) {
                     res = JSON.parse(data);
 
                     if (res.status) {
@@ -252,7 +252,7 @@
                 "cantPag": $(this).val(),
                 "search": $("#search").val()
             };
-            $.post("indexAJAX.php?pid=<?php echo base64_encode("Vista/Orden/Ajax/searchBarOrdenConductor.php") ?>", json, function(data) {
+            $.post("indexAJAX.php?pid=<?php echo base64_encode("Vista/Orden/Ajax/searchBarOrdenConductorEnvio.php") ?>", json, function(data) {
                 res = JSON.parse(data);
                 //imprime los datos en la tabla
                 tablePrint(res.DataT, res.DataL);
@@ -286,7 +286,7 @@
             "search": $("#search").val()
         };
 
-        $.post("indexAJAX.php?pid=<?php echo base64_encode("Vista/Orden/Ajax/searchBarOrdenConductor.php") ?>", json, function(data) {
+        $.post("indexAJAX.php?pid=<?php echo base64_encode("Vista/Orden/Ajax/searchBarOrdenConductorEnvio.php") ?>", json, function(data) {
             res = JSON.parse(data);
             // Imprime los datos de la tabla
             tablePrint(res.DataT, res.DataL);
@@ -385,10 +385,8 @@
                     <td>${data[5]}</td>
                     <td>
                         <select class='select-estado form-control' data-id='${data[0]}'>
-                            <option value='1' ${(data[6] == 1)?"selected hidden":"hidden"}>Registro de Envio</option>
-                            <option value='2' ${((data[6] == 1 || data[6] == 4) ? "" : (data[6] == 2 ? "selected hidden" : "hidden"))} >En Recolección</option>
-                            <option value='3' ${(data[6] == 2 ? "" : (data[6] == 3 ? "selected disabled" : "hidden"))} >Recogido</option>
-                            <option value='4' ${(data[6] == 2 ? "" : (data[6] == 4 ? "selected hidden" : "hidden"))} >No Recogido</option>
+                            <option value='8' ${(data[6] == 8)?"selected hidden":"hidden"}>En Camino</option>
+                            <option value='9' ${(data[6] == 8 ? "" : (data[6] == 9 ? "selected disabled" : "hidden"))} >Entregado</option>
                         </select>
                     </td>
                     <td style='display:flex; justify-content:center;'>

@@ -58,7 +58,7 @@ $conductor->getInfoNav();
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <a class="dropdown-item" href="index.php?pid=<?php echo base64_encode("Vista/Orden/listarOrdenConductor.php")?>">Por Recoger</a>
-                            <a class="dropdown-item" href="#">Por Entregar</a>
+                            <a class="dropdown-item" href="index.php?pid=<?php echo base64_encode("Vista/Orden/listarOrdenConductorEnvio.php")?>">Por Entregar</a>
                         </div>
                     </li>
                 </ul>
