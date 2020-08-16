@@ -140,4 +140,15 @@ class Precio{
         $this -> Conexion -> cerrar();
         return $res[0];
     }
+
+    public function itemPeso(){
+        $this->Conexion->abrir();
+        $this->Conexion->ejecutar($this->PrecioDAO->itemPeso());
+        $resList = array();
+        while ($res = $this->Conexion->extraer()) {
+            array_push($resList, $res);
+        }
+        $this->Conexion->cerrar();
+        return $resList;
+    }
 }
