@@ -36,7 +36,7 @@ class ConductorDAO{
     }
     public function existeCorreo(){
         return "SELECT idConductor
-                FROM Conductor
+                FROM conductor
                 WHERE email = '" . $this -> correo . "'";
     }
     public function filtroPaginado($str, $pag, $cant){

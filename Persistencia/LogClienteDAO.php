@@ -32,6 +32,17 @@ class LogClienteDAO{
                 FROM logCliente 
                 WHERE idLogCliente = " . $this -> idLogCliente;
     }
+    public function Registros(){
+        return "SELECT count(*) 
+                FROM logcliente
+                INNER JOIN cliente ON FK_idCliente = idCliente
+                WHERE logcliente.FK_idAccion = 19 AND DATE_FORMAT(NOW(), '%m/%Y') = DATE_FORMAT(fecha, '%m/%Y')
+                UNION ALL
+                SELECT count(*) 
+                FROM logcliente
+                INNER JOIN cliente ON FK_idCliente = idCliente
+                WHERE logcliente.FK_idAccion = 19 AND DATE_FORMAT(DATE_SUB(NOW(),INTERVAL '1' MONTH), '%m/%Y') = DATE_FORMAT(fecha, '%m/%Y')";
+    }
 
 }
 ?>

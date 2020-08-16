@@ -64,6 +64,13 @@ function getDateTime(){
     return $date->format('Y-m-d H:i:s');
 }
 
+function registrarCliente($email,$clave,$estado){
+    $str = "Email:::" . $email .
+    ";;;Clave:::" . $clave .
+    ";;;Estado:::" . (($estado == 1)? "Activado" : (($estado == 0)? "Bloqueado" : "Desactivado"));
+    return $str;
+}
+
 function crearConductorNormal($nombre, $email, $telefono, $clave, $foto, $estado){
     $str = "Nombre:::". $nombre .
     ";;;Email:::" . $email .
@@ -255,4 +262,3 @@ function crearComentario($idOrden, $estado, $fecha, $comentario){
 
     return $str;
 }
-?>

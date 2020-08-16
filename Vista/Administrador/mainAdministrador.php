@@ -2,6 +2,7 @@
 $orden = new Orden();
 $estado = new Estado();
 $precio = new Precio();
+$logCliente = new LogCliente();
 
 /*Porcentaje de ordenes del mes actual en comparación mes anterior + cantidad de ordenes del mes*/
 $ventas  = $orden->ventas();
@@ -12,6 +13,11 @@ $cantOrdenes = $ventas[0][0];
 $ingresos = $orden->ingresos();
 $porcentajeIngresos = intval((intval($ingresos[0][0]) * 100 / intval($ingresos[1][0])) - 100);
 $valorIngresos = $ingresos[0][0];
+
+/*Porcentaje de clientes nuevos del mes actual en comparacion mes anterior*/
+$clientes = $logCliente->Registros();
+$porcentajeClientes = intval((intval($clientes[0][0]) * 100 / intval($clientes[1][0])) - 100);
+$cantidadClientes = $clientes[0][0];
 
 /*Organiza y escoge los 10 productos de mayor CANTIDAD en la bodega y suma los demas y los muestra en otros*/
 $ventasxMes = $orden->ventasxMes();
@@ -56,9 +62,9 @@ $pieChart =  $pieChart . "]";
                         <div class="card-icon"><i class="fas fa-dollar-sign"></i></div>
                     </div>
                     <div class="infoCards graphdiv graphicPercentage " style="height: 172px; margin-top:32px">
-                        <div class="cards-title"> Customers </div>
-                        <div class="cards-number">36,254</div>
-                        <div class="cards-info"><span class="card-info-up"><i class="fas fa-arrow-up"></i>5,24%</span> Desde el Mes Pasado</div>
+                        <div class="cards-title"> Clientes </div>
+                        <div class="cards-number"><?php echo $cantidadClientes?></div>
+                        <div class="cards-info"><span class="card-info-up"><i class="fas <?php echo($porcentajeClientes<0 ? "fa-arrow-down" : "fa-arrow-up") ?>"></i><?php echo $porcentajeClientes?>%</span> Desde el Mes Pasado</div>
                         <div class="card-icon"><i class="fas fa-chart-line"></i></div>
                     </div>
                 </div>
@@ -157,7 +163,7 @@ $pieChart =  $pieChart . "]";
         var data = google.visualization.arrayToDataTable(<?php echo $pieChart ?>);
 
         var options = {
-            title: 'Porcentaje de ',
+            title: 'Porcentaje de Peso Mas Vendido',
             pieHole: 0.5,
             pieSliceTextStyle: {
                 color: 'black',
