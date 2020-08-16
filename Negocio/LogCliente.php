@@ -46,6 +46,21 @@ class LogCliente extends Log{
         $this -> Conexion -> cerrar();
     }
 
+    /*
+     * Trae los clientes registrados en el mes pasado y el mes actual
+     */
+    public function Registros()
+    {
+        $this->Conexion->abrir();
+        $this->Conexion->ejecutar($this->LogClienteDAO->Registros());
+        $resList = array();
+        while ($res = $this->Conexion->extraer()) {
+            array_push($resList, $res);
+        }
+        $this->Conexion->cerrar();
+        return $resList;
+    }
+
 }
 
 ?>

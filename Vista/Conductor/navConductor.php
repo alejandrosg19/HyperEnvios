@@ -13,7 +13,7 @@ $conductor->getInfoNav();
     <div class="container-fluid d-flex flex-row justify-content-center">
         <div class="col-10 d-flex p-2">
             <div class="nav-sides nav-left">
-                <a href="#">
+                <a href="index.php?pid=<?php echo base64_encode("Vista/Conductor/mainConductor.php")?>">
                     <img src="Static/img/web/logo1.png" width="90px">
                 </a>
                 <div class="search">

@@ -117,6 +117,44 @@ class Cliente{
         
     }
 
+    public function registrar(){
+        $this -> Conexion -> abrir();
+        $codigoActivacion = rand(1000,9999);
+        $this -> Conexion -> ejecutar( $this -> ClienteDAO -> registrar($codigoActivacion));
+        $res[0] = $this -> Conexion -> filasAfectadas();
+        $res[1] = $this -> Conexion -> getLastID();
+        $this -> Conexion -> cerrar();       
+        $url = "http://127.0.0.1/proyectoFinalAplicaciones/index.php?pid=" . base64_encode("Vista/Auth/clienteActivarCuenta.php") . "&email=" . base64_encode($this -> correo) . "&cod=" . base64_encode($codigoActivacion);
+        //echo $url;
+        /*$correo = new Correo(
+            $this -> correo, 
+            "deliciasCalvo@chefBogota.com",
+            "Delicias del calvo - recuerde ingresar apara poder activar su cuenta con nosotros",
+            "Recuerde activar su cuenta con nosotros, por favor vaya a la siguiente dirección " . $url, 
+            "deliciasCalvo@chefBogota.com",
+            "deliciasCalvo@chef.com"
+        );
+        $correo -> send();*/
+        echo $url;
+        return $res;
+    }
+
+    /**
+     * Activar cuenta de cliente
+     */
+    public function verificarActivacion($codActivacion){
+        $this-> Conexion -> abrir();
+        $this -> Conexion -> ejecutar($this -> ClienteDAO -> verificarActivacion($codActivacion));
+        if($this -> Conexion -> numFilas()){
+            $this -> Conexion -> ejecutar( $this -> ClienteDAO -> activacion());
+            $this -> Conexion -> cerrar();
+            return true;
+        }else{
+            $this -> Conexion -> cerrar();
+            return false;
+        }
+    }
+
     /**
      * Actualizar Nav información
      * Busca por el nombre, el correo y la imagen que tenga el usuario
@@ -266,4 +304,3 @@ class Cliente{
     }
     
 }
-?>
