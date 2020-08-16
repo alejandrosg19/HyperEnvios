@@ -208,7 +208,8 @@ class Orden
     /*
      * Función que busca por paginación, filtro de palabra y devuelve la información en un array
      */
-    public function filtroPaginadoCliente($str, $pag, $cant){
+    public function filtroPaginadoCliente($str, $pag, $cant)
+    {
         $this->Conexion->abrir();
         $this->Conexion->ejecutar($this->OrdenDAO->filtroPaginadoCliente($str, $pag, $cant));
         $resList = array();
@@ -236,7 +237,8 @@ class Orden
     /*
      * Función que busca por paginación, filtro de palabra y devuelve la información en un array
      */
-    public function filtroPaginadoAdministrador($str, $pag, $cant){
+    public function filtroPaginadoAdministrador($str, $pag, $cant)
+    {
         $this->Conexion->abrir();
         $this->Conexion->ejecutar($this->OrdenDAO->filtroPaginadoAdministrador($str, $pag, $cant));
         $resList = array();
@@ -263,9 +265,10 @@ class Orden
     /*
      * Función que busca por paginación, filtro de palabra y devuelve la información en un array
      */
-    public function filtroPaginadoConductor1($str, $pag, $cant, $idConductor){
+    public function filtroPaginadoConductor1($str, $pag, $cant, $idConductor)
+    {
         $this->Conexion->abrir();
-        $this->Conexion->ejecutar($this->OrdenDAO->filtroPaginadoConductor1($str, $pag, $cant,$idConductor));
+        $this->Conexion->ejecutar($this->OrdenDAO->filtroPaginadoConductor1($str, $pag, $cant, $idConductor));
         $resList = array();
         while ($res = $this->Conexion->extraer()) {
             array_push($resList, $res);
@@ -278,10 +281,10 @@ class Orden
     /*
      * Busca la cantidad de registros con filtro de palabra
      */
-    public function filtroCantidadConductor1($str,$idConductor)
+    public function filtroCantidadConductor1($str, $idConductor)
     {
         $this->Conexion->abrir();
-        $this->Conexion->ejecutar($this->OrdenDAO->filtroCantidadConductor1($str,$idConductor));
+        $this->Conexion->ejecutar($this->OrdenDAO->filtroCantidadConductor1($str, $idConductor));
         $res = $this->Conexion->extraer();
         $this->Conexion->cerrar();
 
@@ -290,9 +293,10 @@ class Orden
     /*
      * Función que busca por paginación, filtro de palabra y devuelve la información en un array
      */
-    public function filtroPaginadoConductor2($str, $pag, $cant, $idConductor){
+    public function filtroPaginadoConductor2($str, $pag, $cant, $idConductor)
+    {
         $this->Conexion->abrir();
-        $this->Conexion->ejecutar($this->OrdenDAO->filtroPaginadoConductor2($str, $pag, $cant,$idConductor));
+        $this->Conexion->ejecutar($this->OrdenDAO->filtroPaginadoConductor2($str, $pag, $cant, $idConductor));
         $resList = array();
         while ($res = $this->Conexion->extraer()) {
             array_push($resList, $res);
@@ -305,7 +309,8 @@ class Orden
     /*
      * Busca la cantidad de registros con filtro de palabra
      */
-    public function filtroCantidadConductor2($str){
+    public function filtroCantidadConductor2($str)
+    {
         $this->Conexion->abrir();
         $this->Conexion->ejecutar($this->OrdenDAO->filtroCantidadConductor2($str));
         $res = $this->Conexion->extraer();
@@ -314,21 +319,65 @@ class Orden
         return $res[0];
     }
 
-    public function actualizarEnvio(){
+    public function actualizarEnvio()
+    {
         $this->Conexion->abrir();
         $this->Conexion->ejecutar($this->OrdenDAO->actualizarEnvio());
         $this->Conexion->cerrar();
     }
 
-    public function getOrdenesEnvio(){
-        $this -> Conexion -> abrir();
-        $this -> Conexion -> ejecutar($this -> OrdenDAO -> getOrdenesEnvio());
+    public function getOrdenesEnvio()
+    {
+        $this->Conexion->abrir();
+        $this->Conexion->ejecutar($this->OrdenDAO->getOrdenesEnvio());
         $resList = array();
         while ($res = $this->Conexion->extraer()) {
             array_push($resList, $res);
         }
         $this->Conexion->cerrar();
 
+        return $resList;
+    }
+    /*
+     * Trae en un consulta la cantidad de ordenes del mes actual y del mes anterior
+     */
+    public function ventas()
+    {
+        $this->Conexion->abrir();
+        $this->Conexion->ejecutar($this->OrdenDAO->ventas());
+        $resList = array();
+        while ($res = $this->Conexion->extraer()) {
+            array_push($resList, $res);
+        }
+        $this->Conexion->cerrar();
+        return $resList;
+    }
+    /*
+     * Trae en un consulta los ingresos de ordenes del mes actual y del mes anterior
+     */
+    public function ingresos()
+    {
+        $this->Conexion->abrir();
+        $this->Conexion->ejecutar($this->OrdenDAO->ingresos());
+        $resList = array();
+        while ($res = $this->Conexion->extraer()) {
+            array_push($resList, $res);
+        }
+        $this->Conexion->cerrar();
+        return $resList;
+    }
+    /*
+     * Trae la cantidad de ventas x mes de los ultimos 10 meses
+     */
+    public function ventasxMes()
+    {
+        $this->Conexion->abrir();
+        $this->Conexion->ejecutar($this->OrdenDAO->ventasxMes());
+        $resList = array();
+        while ($res = $this->Conexion->extraer()) {
+            array_push($resList, $res);
+        }
+        $this->Conexion->cerrar();
         return $resList;
     }
 }

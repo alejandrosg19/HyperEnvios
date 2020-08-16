@@ -79,4 +79,29 @@ class EstadoDAO
                 LIMIT 1";
     }
 
+    public function ordenesEstados(){
+        return "SELECT t2.estado, COUNT(t2.estado) FROM(
+                    SELECT * FROM(
+                        SELECT 	orden.idOrden as orden, accionestado.nombre as estado, estadodespachador.fecha as fechaEstado
+                            FROM estadodespachador
+                            INNER JOIN despachador ON FK_idDespachador = idDespachador
+                            INNER JOIN accionestado ON estadodespachador.fk_idAccionEstado = idAccion
+                            INNER JOIN orden ON FK_idOrden = idOrden 
+                            UNION ALL
+                            SELECT 	orden.idOrden as orden, accionestado.nombre as estado, estadoconductor.fecha as fechaEstado
+                            FROM estadoconductor
+                            INNER JOIN conductor ON FK_idConductor = idConductor
+                            INNER JOIN accionestado ON estadoconductor.fk_idAccionEstado = idAccion
+                            INNER JOIN orden ON FK_idOrden = idOrden 
+                            UNION ALL
+                            SELECT 	orden.idOrden as orden, accionestado.nombre as estado, estadoCliente.fecha as fechaEstado
+                            FROM estadoCliente
+                            INNER JOIN cliente ON FK_idCliente = idCliente
+                            INNER JOIN accionestado ON estadoCliente.fk_idAccionEstado = idAccion
+                            INNER JOIN orden ON FK_idOrden = idOrden 
+                            ORDER BY fechaEstado DESC) as t
+                    GROUP BY(t.orden)) as t2
+                GROUP BY(t2.estado)";
+    }
+
 }

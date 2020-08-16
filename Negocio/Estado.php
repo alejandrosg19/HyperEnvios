@@ -87,7 +87,8 @@ class Estado
     /*
      * Función que trae todos los estados asociados a una orden
      */
-    public function getEstados(){
+    public function getEstados()
+    {
         $this->Conexion->abrir();
         $this->Conexion->ejecutar($this->EstadoDAO->getEstados());
         $resList = array();
@@ -99,13 +100,25 @@ class Estado
         return $resList;
     }
 
-    public function getEstadosAllOrden($strEstados){
-        $this -> Conexion -> abrir();
+    public function getEstadosAllOrden($strEstados)
+    {
+        $this->Conexion->abrir();
         #echo $this -> EstadoDAO -> getEstadosAllOrden($strEstados);
-        $this -> Conexion -> ejecutar( $this -> EstadoDAO -> getEstadosAllOrden($strEstados) );
-        $res = $this -> Conexion -> extraer();
-        $this -> Conexion -> cerrar();
+        $this->Conexion->ejecutar($this->EstadoDAO->getEstadosAllOrden($strEstados));
+        $res = $this->Conexion->extraer();
+        $this->Conexion->cerrar();
         return $res;
     }
 
+    public function ordenesEstados()
+    {
+        $this->Conexion->abrir();
+        $this->Conexion->ejecutar($this->EstadoDAO->ordenesEstados());
+        $resList = array();
+        while ($res = $this->Conexion->extraer()) {
+            array_push($resList, $res);
+        }
+        $this->Conexion->cerrar();
+        return $resList;
+    }
 }

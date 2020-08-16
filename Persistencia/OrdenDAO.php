@@ -421,4 +421,24 @@ class OrdenDAO
                 INNER JOIN Cliente on FK_idCliente = idCliente
                 WHERE FK_idEnvio = " . $this -> idEnvio;
     }
+    public function ventas(){
+        return "SELECT count(*) FROM orden where DATE_FORMAT(NOW(), '%m/%Y') = DATE_FORMAT(fecha, '%m/%Y')
+        UNION ALL
+        SELECT count(*) FROM orden where DATE_FORMAT(DATE_SUB(NOW(),INTERVAL '1' MONTH), '%m/%Y') = DATE_FORMAT(fecha, '%m/%Y')";
+    }
+    public function ingresos(){
+        return "SELECT SUM(precio) FROM item 
+                INNER JOIN orden ON FK_idOrden = idOrden
+                WHERE  DATE_FORMAT(NOW(), '%m/%Y') = DATE_FORMAT(fecha, '%m/%Y')
+                UNION ALL
+                SELECT SUM(precio) FROM item 
+                INNER JOIN orden ON FK_idOrden = idOrden
+                WHERE  DATE_FORMAT(DATE_SUB(NOW(),INTERVAL '1' MONTH), '%m/%Y') = DATE_FORMAT(fecha, '%m/%Y')";
+    }
+    public function ventasxMes(){
+        return "SELECT  t.fecha, COUNT(t.fecha) FROM(
+                    SELECT DATE_FORMAT(fecha, '%M/%Y') as fecha FROM orden  ORDER by fecha desc) as t
+                GROUP BY (t.fecha)
+                LIMIT 10";
+    }
 }
