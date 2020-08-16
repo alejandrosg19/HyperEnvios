@@ -1,0 +1,61 @@
+.graphdiv{
+    border-radius: 5px;
+    background: #FFF;
+    border: 0px !important;
+}
+.infoCards{
+    padding: 30px;
+    display: flex;
+    position: relative;
+    flex-flow: column nowrap;
+    justify-content: space-around;
+}
+.cards-number{
+    font-size: 27px;
+    font-weight: bold;
+    color: #6C757D;
+}
+.cards-title{
+    font-size: 20px;
+    color: #98a6ad;
+}
+.cards-info{
+    font-size: 18px;
+    color: #6C757D;
+}
+.cards-info > span{
+    margin-right: 10px;
+}
+
+.cards-info > span > i{
+    margin-right: 5px;
+}
+.card-icon{
+    width: 40px;
+    height: 40px;
+    background-color: #DCDEFC;
+    border-radius: 3px;
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+}
+.card-icon > i{
+    color: #727CF5;
+}
+.card-info-up{
+    color: #0AD3C3;
+}
+.card-info-down{
+    color: #fa5c7c !important;
+}
+.graphdiv{
+    padding: 30px;
+}
+.chart-title{
+    color: #6c757d;
+    margin-bottom: 35px;
+}
