@@ -68,6 +68,9 @@ class PrecioDAO{
                 FROM precio 
                 ORDER BY pesoMaximo DESC LIMIT 1;";
     }
+    public function itemPeso(){
+        return "SELECT COUNT(t.precio), t.PMin, t.PMax FROM( SELECT item.idItem, precio.idPrecio as precio, precio.pesoMinimo as PMin, precio.pesoMaximo as PMax FROM item, precio WHERE item.precio = precio.precio) as t GROUP BY(t.precio)";
+    }
 
 }
 ?>

@@ -1,6 +1,7 @@
 <?php
 $orden = new Orden();
 $estado = new Estado();
+$precio = new Precio();
 
 /*Porcentaje de ordenes del mes actual en comparación mes anterior + cantidad de ordenes del mes*/
 $ventas  = $orden->ventas();
@@ -16,20 +17,27 @@ echo $porcentajeIngresos . "    " . $valorIngresos;
 
 /*Organiza y escoge los 10 productos de mayor CANTIDAD en la bodega y suma los demas y los muestra en otros*/
 $ventasxMes = $orden->ventasxMes();
-$columnChar = "[ ['Fecha', 'Cantidad Ventas'],";
+$columnChart = "[ ['Fecha', 'Cantidad Ventas'],";
 for ($i = 0; $i < count($ventasxMes); $i++) {
-    $columnChar =  $columnChar . "['" . $ventasxMes[$i][0] . "'," . $ventasxMes[$i][1] . "],";
+    $columnChart =  $columnChart . "['" . $ventasxMes[$i][0] . "'," . $ventasxMes[$i][1] . "],";
 }
-$columnChar =  $columnChar . "]";
+$columnChart =  $columnChart . "]";
 
 /*Cantidad de ordenes que se encuentran en cada uno de los estados*/
 $ordenesEstados = $estado->ordenesEstados();
-$barChar = "[ ['Estado', 'Ordenes en Estado'],";
+$barChart = "[ ['Estado', 'Ordenes en Estado'],";
 for ($i = 0; $i < count($ordenesEstados); $i++) {
-    $barChar =  $barChar . "['" . $ordenesEstados[$i][0] . "'," . $ordenesEstados[$i][1] . "],";
+    $barChart =  $barChart . "['" . $ordenesEstados[$i][0] . "'," . $ordenesEstados[$i][1] . "],";
 }
-$barChar =  $barChar . "]";
+$barChart =  $barChart . "]";
 
+/*Cantidad de items que se encuentran en el rango de pesos*/
+$itemPeso = $precio->itemPeso();
+$pieChart = "[ ['Peso', 'Cantidad Productos'],";
+for ($i = 0; $i < count($itemPeso); $i++) {
+    $pieChart =  $pieChart . "['" . $itemPeso[$i][1] . " - " . $itemPeso[$i][2] . "'," . $itemPeso[$i][0] . "],";
+}
+$pieChart =  $pieChart . "]";
 
 ?>
 <div class="container">
@@ -43,7 +51,7 @@ $barChar =  $barChar . "]";
             </div>
         </div>
         <div class="col-8">
-            <div id="columnChar_div" class="grapichSells border m-2" style="height: 60vh;">
+            <div id="columnChart_div" class="grapichSells border m-2" style="height: 60vh;">
                 Grafico de ventas por dia
             </div>
         </div>
@@ -63,8 +71,8 @@ $barChar =  $barChar . "]";
 </div>
 <div class="container-fluid">
     <div class="d-flex justify-content-center">
-        <div id="barChar_div"></div>
-        <div id="piechart" style="width: 900px; height: 500px;"></div>
+        <div id="barChart_div"></div>
+        <div id="pieChart_div" style="width: 900px; height: 500px;"></div>
     </div>
 </div>
 
@@ -78,7 +86,7 @@ $barChar =  $barChar . "]";
 
     function drawColumnChart() {
 
-        var data = new google.visualization.arrayToDataTable(<?php echo $columnChar ?>);
+        var data = new google.visualization.arrayToDataTable(<?php echo $columnChart ?>);
 
 
         var options = {
@@ -92,7 +100,7 @@ $barChar =  $barChar . "]";
         };
 
         var chart = new google.visualization.ColumnChart(
-            document.getElementById('columnChar_div'));
+            document.getElementById('columnChart_div'));
 
         chart.draw(data, options);
     }
@@ -102,7 +110,7 @@ $barChar =  $barChar . "]";
 
     function drawBarChart() {
 
-        var data = google.visualization.arrayToDataTable(<?php echo $barChar ?>);
+        var data = google.visualization.arrayToDataTable(<?php echo $barChart ?>);
         var view = new google.visualization.DataView(data);
         view.setColumns([0, 1,
             {
@@ -113,17 +121,6 @@ $barChar =  $barChar . "]";
             }
         ]);
 
-        /*var options = {
-            title: "Cantidad de Ordenes en Cada Estado",
-            width: 600,
-            height: 400,
-            bar: {
-                groupWidth: "95%"
-            },
-            legend: {
-                position: "none"
-            },
-        };*/
         var options = {
             title: 'Cantidad de Ordenes en Cada Estado',
             chartArea: {
@@ -137,7 +134,27 @@ $barChar =  $barChar . "]";
                 title: 'Ordenes'
             }
         };
-        var chart = new google.visualization.BarChart(document.getElementById("barChar_div"));
+        var chart = new google.visualization.BarChart(document.getElementById("barChart_div"));
         chart.draw(view, options);
+    }
+
+    /*Pie Chart*/
+    google.charts.setOnLoadCallback(drawPieChart);
+
+    function drawPieChart() {
+
+        var data = google.visualization.arrayToDataTable(<?php echo $pieChart ?>);
+
+        var options = {
+            title: 'Porcentaje de Cantidad de Producto en Bodega',
+            pieHole: 0.5,
+            pieSliceTextStyle: {
+                color: 'black',
+            },
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('pieChart_div'));
+
+        chart.draw(data, options);
     }
 </script>
