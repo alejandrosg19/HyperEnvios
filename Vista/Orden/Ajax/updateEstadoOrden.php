@@ -26,7 +26,7 @@ if ($estado == 7) { #Estado Depachado
     
 
     #actualizando envio de orden
-    $orden = new Orden($idOrden,"","","","","","","","",$idEnvio);
+    $orden = new Orden($idOrden,"","","","","",$fecha1,"","",$idEnvio);
     $orden -> actualizarEnvio();
 }
 

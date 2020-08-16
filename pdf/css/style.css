@@ -206,10 +206,21 @@ footer {
   text-align: left;
   font-weight: bold;
 }
+.tableTHWidth{
+  width: 200px;
+}
 .tituloEstado{
   width: 100%;
   text-align: center;
+  font-size: 1.8em;
+  line-height: 2em;
+  font-weight: normal;
+  margin: 0  0 10px 0;
 }
 .tableProductos tbody tr:nth-child(even){
+  background-color: #F5F9FC;
+}
+
+.tableOdd tbody tr:nth-child(odd){
   background-color: #F5F9FC;
 }

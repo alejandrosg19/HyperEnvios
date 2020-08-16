@@ -351,7 +351,8 @@
                     <td style='display:flex; justify-content:center;'>
                     ${(data[5] != 1)? ``: `<a href='#' class="createComments" data-idorden="${data[0]}" data-toggle="modal" data-target="#moreInfoComments" data-toggle="tooltip" data-placement="top" title="Comentarios"><i class="fas fa-comments"></i></a>`}
                         <a href='#' class="moreInfoBtn ml-1 mr-1" data-idorden="${data[0]}" data-toggle="modal" data-target="#moreInfo" ><i class='fas fa-info-circle'></i></a>
-                        <a href='#' class="moreStates" data-idorden="${data[0]}" data-toggle="modal" data-target="#moreInfo" data-toggle="tooltip" data-placement="top" title="Estados"><i class="fas fa-history"></i></a>
+                        <a href='#' class="moreStates mr-1" data-idorden="${data[0]}" data-toggle="modal" data-target="#moreInfo" data-toggle="tooltip" data-placement="top" title="Estados"><i class="fas fa-history"></i></a>
+                        <a href='reporteOrdenCliente.php?idOrden=${data[0]}' class="mr-1" target="__blank"><i class="fas fa-file-pdf"></i></a>
                     </td>
                 </tr>`
             );

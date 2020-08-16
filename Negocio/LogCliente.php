@@ -2,6 +2,7 @@
 
 require_once "Persistencia/Conexion.php";
 require_once "Persistencia/LogClienteDAO.php";
+require_once "Log.php";
 
 class LogCliente extends Log{
 
