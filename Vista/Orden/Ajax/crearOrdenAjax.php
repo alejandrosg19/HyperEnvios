@@ -35,8 +35,7 @@ $idOrden = $Orden -> insertar();
 if($idOrden > 0){
     $precio = new Precio();
     $bool = true;
-    foreach($items as $item){
-        echo "eyyyy".$item[3];
+    foreach($items as $item){   
         $resPrecio = $precio -> getPrecioPeso($item[3]);
         if(!(count($resPrecio) > 0)){
             $bool = false;

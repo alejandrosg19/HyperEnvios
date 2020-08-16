@@ -162,7 +162,7 @@
          * Info Estados
          */
         $("#tabla").on('click', ".moreStates", function() {
-            $url = "indexAJAX.php?pid=<?php echo base64_encode("Vista/Orden/Ajax/moreStatesCliente.php") ?>&idOrden=" + $(this).data("idorden");
+            $url = "indexAJAX.php?pid=<?php echo base64_encode("Vista/Orden/Ajax/moreStatesAdministrador.php") ?>&idOrden=" + $(this).data("idorden");
             $("#moreInfo .modal-body").load($url);
         });
 
@@ -356,7 +356,8 @@
                     <td style='display:flex; justify-content:center;'>
                         <a href='#' class="moreInfoBtn" data-idorden="${data[0]}" data-toggle="modal" data-target="#moreInfo" ><i class='fas fa-info-circle'></i></a>
                         <a href='#' class="moreStates ml-1 mr-1" data-idorden="${data[0]}" data-toggle="modal" data-target="#moreInfo" data-toggle="tooltip" data-placement="top" title="Estados"><i class="fas fa-history"></i></a>
-                        <a href='#'><i class="fas fa-file-pdf"></i></a>
+                        <a href='reporteOrdenAdministrador.php?idOrden=${data[0]}' class="mr-1" target="__blank"><i class="fas fa-file-pdf"></i></a>
+                        <a href='reporteOrdenProductos.php?idOrden=${data[0]}' target="__blank"><i class="far fa-file-alt"></i></a>
                     </td>
                 </tr>`
             );
