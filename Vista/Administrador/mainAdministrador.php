@@ -146,7 +146,7 @@ $pieChart =  $pieChart . "]";
         var data = google.visualization.arrayToDataTable(<?php echo $pieChart ?>);
 
         var options = {
-            title: 'Porcentaje de Cantidad de Producto en Bodega',
+            title: 'Porcentaje de ',
             pieHole: 0.5,
             pieSliceTextStyle: {
                 color: 'black',

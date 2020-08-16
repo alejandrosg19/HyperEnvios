@@ -6,6 +6,7 @@ $administrador->getInfoNav();
 ?>
 <link rel="stylesheet" href="Static/css/nav.css">
 <link rel="stylesheet" href="Static/css/table.css">
+<link rel="stylesheet" href="Static/css/charts.css">
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid d-flex flex-row justify-content-center">
         <div class="col-10 d-flex p-2">
