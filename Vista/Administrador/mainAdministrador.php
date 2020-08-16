@@ -44,21 +44,21 @@ $pieChart =  $pieChart . "]";
             <div class="row pt-5">
                 <div class="col-4" style="padding: 16px !important">
                     <div class="infoCards graphdiv graphicPercentage" style="height: 172px">
-                        <div class="cards-title"> Customers </div>
-                        <div class="cards-number">36,254</div>
-                        <div class="cards-info"><span class="card-info-up"><i class="fas fa-arrow-up"></i>5,24%</span> Since last month</div>
+                        <div class="cards-title"> Ordenes </div>
+                        <div class="cards-number"><?php echo $cantOrdenes?></div>
+                        <div class="cards-info"><span class="card-info-up"><i class="fas <?php echo($porcentajeOrdenes<0 ? "fa-arrow-down" : "fa-arrow-up") ?>"></i><?php echo $porcentajeOrdenes?>%</span> Desde el Mes Pasado</div>
                         <div class="card-icon"><i class="fas fa-users"></i></div>
                     </div>
                     <div class="infoCards graphdiv graphicPercentage" style="height: 172px; margin-top:32px">
-                        <div class="cards-title"> Customers </div>
-                        <div class="cards-number">36,254</div>
-                        <div class="cards-info"><span class="card-info-down"><i class="fas fa-arrow-down"></i>5,24%</span> Since last month</div>
+                        <div class="cards-title"> Ingresos </div>
+                        <div class="cards-number">$<?php echo $valorIngresos?></div>
+                        <div class="cards-info"><span class="card-info-down"><i class="fas <?php echo($porcentajeIngresos<0 ? "fa-arrow-down" : "fa-arrow-up") ?>"></i><?php echo $porcentajeIngresos?>%</span> Desde el Mes Pasado</div>
                         <div class="card-icon"><i class="fas fa-dollar-sign"></i></div>
                     </div>
                     <div class="infoCards graphdiv graphicPercentage " style="height: 172px; margin-top:32px">
                         <div class="cards-title"> Customers </div>
                         <div class="cards-number">36,254</div>
-                        <div class="cards-info"><span class="card-info-up"><i class="fas fa-arrow-up"></i>5,24%</span> Since last month</div>
+                        <div class="cards-info"><span class="card-info-up"><i class="fas fa-arrow-up"></i>5,24%</span> Desde el Mes Pasado</div>
                         <div class="card-icon"><i class="fas fa-chart-line"></i></div>
                     </div>
                 </div>
