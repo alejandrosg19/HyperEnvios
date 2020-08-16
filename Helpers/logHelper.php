@@ -54,6 +54,11 @@ function getBrowser(){
         return 'Otro';
 }
 
+function getJustDate(){
+    $date = new DateTime();
+    return $date->format('Y-m-d');
+}
+
 function getDateTime(){
     $date = new DateTime();
     return $date->format('Y-m-d H:i:s');

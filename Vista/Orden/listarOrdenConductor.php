@@ -170,7 +170,8 @@
             if (checkInfoComentario()) {
                 json = {
                     "idOrden": $(this).data('idorden'),
-                    "comentario": $("#inputComentario").val()
+                    "comentario": $("#inputComentario").val(),
+                    "idAccionComentario": "2,3,4,8,9"
                 };
 
                 $.post("indexAJAX.php?pid=<?php echo base64_encode("Vista/Orden/Ajax/crearComentarioConductor.php") ?>", json, function(data) {

@@ -42,7 +42,7 @@ $pieChart =  $pieChart . "]";
     <div class="row d-flex flex-row justify-content-center">
         <div class="col-10">
             <div class="row pt-5">
-                <div class="col-4" style="padding: 16px !important">
+                <div class="col-12 col-xl-4" style="padding: 16px !important">
                     <div class="infoCards graphdiv graphicPercentage" style="height: 172px">
                         <div class="cards-title"> Ordenes </div>
                         <div class="cards-number"><?php echo $cantOrdenes?></div>
@@ -62,24 +62,24 @@ $pieChart =  $pieChart . "]";
                         <div class="card-icon"><i class="fas fa-chart-line"></i></div>
                     </div>
                 </div>
-                <div class="col-8" style="padding: 16px !important">
+                <div class="col-xl-8" style="padding: 16px !important">
                     <div class="graphdiv grapichSells d-flex flex-column justify-content-center align-items-center" style="height: 580px">
                         <h5 class="chart-title">Información del envío</h5>
-                        <div id="columnChart_div" style="width: 80%; height: 400px;"></div>
+                        <div id="columnChart_div" style="width: 90%; height: 400px;"></div>
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-6" style="padding: 16px !important">
-                    <div class="graphdiv graphicState d-flex flex-column justify-content-center align-items-center" style="height: 680px; padding:30px 50px 30px 50px">
+                <div class="col-12 col-xl-6" style="padding: 16px !important">
+                    <div class="graphdiv graphicState d-flex flex-column justify-content-center align-items-center" style="height: 500px; ">
                         <h5 class="chart-title">Información del envío</h5>
-                        <div id="barChart_div" style="width: 100%; height: 440px;"></div>
+                        <div id="barChart_div" style="width: 100%; height: 400px;"></div>
                     </div>
                 </div>
-                <div class="col-6" style="padding: 16px !important">
-                    <div class="graphdiv graphicItem  d-flex flex-column justify-content-center align-items-center" style="height: 680px; overflow: hidden;">
+                <div class="col-12 col-xl-6" style="padding: 16px !important">
+                    <div class="graphdiv graphicItem  d-flex flex-column justify-content-center align-items-center" style="height: 500px; overflow: hidden;">
                         <h5 class="chart-title">Información del envío</h5>
-                        <div id="pieChart_div" style="width: 80%; height: 440px;"></div>
+                        <div id="pieChart_div" style="width: 130%; height: 400px;"></div>
                     </div>
                 </div>
             </div>
