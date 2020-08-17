@@ -145,13 +145,6 @@ if (isset($_GET['error'])) {
                     </div>
                     <div class="nav-c-right">
                         <div>
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <span class="icon-nav"><i class="fas fa-cube"></i></span> Components</a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="#"><span class="icon-dropdown"><i class="fas fa-chart-pie"></i></span>Analytics</a>
-                                <a class="dropdown-item" href="#"><span class="icon-dropdown"><i class="far fa-file"></i></span> CRM</a>
-                            </div>
-                        </div>
-                        <div>
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <span class="icon-nav"><i class="far fa-file"></i></span> Sections</a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown1">
                                 <a class="dropdown-item" href="#"><span class="icon-dropdown"><i class="fas fa-chart-pie"></i></span> Action</a>
@@ -170,23 +163,23 @@ if (isset($_GET['error'])) {
                 </div>
             </div>
             <div class="main-view">
-                <div class="main-top">
-                    <h3>A beautiful premium Bootstrap 4 UI Kit.</h3>
+                <div class="main-top pl-4 pr-4">
+                    <h3 class="mainTitle" style="text-align:center">A beautiful premium Bootstrap 4 UI Kit.</h3>
                 </div>
-                <div class="main-bottom">
-                    <h5> Design By Mateo Epalza code by Santiago Gonzalez</h5>
+                <div class="main-bottom pl-4 pr-4">
+                    <h5 class="secondTitle" style="text-align:center"> Design By Mateo Epalza code by Santiago Gonzalez</h5>
                 </div>
             </div>
         </div>
     </div>
     <div class="container-fluid">
         <div class="row d-flex flex-column align-items-center" style="background-color: black;">
-            <div class="col-10 d-flex flex-column align-items-center" style="padding-top: 250px;">
-                <h1 class="articleText article1-top-title">Impressive collection of elements</h1>
+            <div class="col-10 d-flex flex-column align-items-center dark-text" style="padding-top: 250px;">
+                <h1 class="articleText article1-top-title" style="text-align:center">Impressive collection of elements</h1>
                 <p class="articleText article1-top-title-p1">Designed to look gorgeous together</p>
                 <p class="articleText article1-top-title-p2">Now UI Kit Pro comes with a huge number of customisable elements. They are not only designed to be pixel perfect and light but they are also easy to use and combine well with other components.</p>
             </div>
-            <div class="col-6 d-flex flex-row justify-content-center ">
+            <div class="col-lg-10 col-xl-7 d-flex flex-row justify-content-center wholeEffect">
                 <div class="row" style="height: 500px; overflow: hidden">
                     <div class="col-3" style="max-width: 20%;">
                         <div class="columnEffect" style="z-index: 4;">
@@ -237,18 +230,18 @@ if (isset($_GET['error'])) {
         </div>
     </div>
     <div class="container-fluid">
-        <div class="row d-flex flex-row justify-content-center" style="margin-top: 200px;">
-            <div class="col-3 d-flex flex-column justify-content-center">
+        <div class="row d-flex flex-row justify-content-center light-text" style="margin-top: 200px;">
+            <div class="col-10 col-xl-3 d-flex flex-column justify-content-center basic-elements">
                 <h1 class="article2-title">Basic Elements</h1>
                 <span class="article2-subtitle">THE CORE ELEMENTS OF YOUR WEBSITE</span>
                 <p class="article2-p">We re-styled every Bootstrap 4 element to match the Now UI Kit style. All the Bootstrap 4 components that you need in a development have been re-design with the new look. Besides the numerous basic elements, we have also created additional classes. All these items will help you take your project to the next level.</p>
             </div>
-            <div class="col-5 d-flex flex-row justify-content-end">
-                <img src="Static/img/web/ipad.png" width="80%">
+            <div class="col-10 col-xl-5 d-flex flex-row justify-content-center mt-5 mb-5">
+                <img src="Static/img/web/ipad.png" style="width: 100%">
             </div>
         </div>
-        <div class="row d-flex flex-row justify-content-center" style="padding-top: 250px;">
-            <div class="col-5 d-flex flex-column align-items-center">
+        <div class="row d-flex flex-row justify-content-center" style="padding: 150px 0px 100px 0px;">
+            <div class="col-10 col-xl-5 d-flex flex-column align-items-center">
                 <h1 class="article2-title">Beautiful Cards</h1>
                 <span class="article2-subtitle" style="">THE CORE ELEMENTS OF YOUR WEBSITE</span>
                 <p class="article2-p" style="text-align: center;">From cards designed for blog posts, to product cards or user profiles, you will have many options to choose from. All the cards follow the Now UI Kit style principles and have a design that stands out. We have gone above and beyond with options for you to organise your information.</p>
@@ -274,7 +267,7 @@ if (isset($_GET['error'])) {
                     <img src="Static/img/web/bg10.jpg" width="150px">
                 </div>
             </div>
-            <div class="container footerContainer" style="margin-top: 350px;">
+            <div class="container footerContainer">
                 <div class="row">
                     <div class="col-md-6 col-xl-3">
                         <div>
@@ -325,3 +318,20 @@ if (isset($_GET['error'])) {
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    
+    $(window).scroll(function(){
+        if($(window).scrollTop() > 200){
+            $(".nav").css({
+                //"background-color":"rgba(168,101,58,0.8)"
+                //"background-color":"rgba(78,74,102,0.8)"
+                "background-color":"rgba(4,101,51,0.8)"
+            })
+        }else{
+            $(".nav").css({
+                "background-color":"transparent"
+            })
+        }
+    });
+</script>
