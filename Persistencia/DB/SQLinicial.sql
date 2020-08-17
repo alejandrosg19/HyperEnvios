@@ -261,6 +261,7 @@ insert into Accion values (16, 'Crear comentario despachador');
 insert into Accion values (17, 'Crear comentario conductor');
 insert into Accion values (18, 'Generar PDF');
 insert into Accion values (19, 'Registrar Cliente');
+insert into Accion values (20, 'Actualizar estado orden');
 
 insert into accionEstado values(1, 'Registro de envío','El cliente realiza el registro del envio a través de la plataforma');
 insert into accionEstado values(2, 'En recoleccion','El conductor se encuentra en proceso de recolección');

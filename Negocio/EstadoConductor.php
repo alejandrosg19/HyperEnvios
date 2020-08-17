@@ -25,6 +25,7 @@ class EstadoConductor extends Estado{
 
     public function getEstadoOrdenNombre(){
         $this -> Conexion -> abrir();
+        //echo $this -> EstadoConductorDAO -> getEstadoOrdenNombre();
         $this -> Conexion -> ejecutar( $this -> EstadoConductorDAO -> getEstadoOrdenNombre());
         if($this -> Conexion -> numFilas() > 0){
             $res = $this -> Conexion -> extraer();

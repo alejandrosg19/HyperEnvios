@@ -55,11 +55,13 @@ function getBrowser(){
 }
 
 function getJustDate(){
+    date_default_timezone_set('America/Bogota');
     $date = new DateTime();
     return $date->format('Y-m-d');
 }
 
 function getDateTime(){
+    date_default_timezone_set('America/Bogota');
     $date = new DateTime();
     return $date->format('Y-m-d H:i:s');
 }
@@ -259,6 +261,20 @@ function crearComentario($idOrden, $estado, $fecha, $comentario){
     ";;;Estado:::" . $estado . 
     ";;;Fecha:::" . $fecha . 
     ";;;Comentario:::" . $comentario;
+
+    return $str;
+}
+
+function actualizarEstadoOrdenDespachador($idOrden, $nombre){
+    $str = "idOrden:::" . $idOrden . 
+    ";;;Estado:::" . $nombre;
+
+    return $str;
+}
+
+function actualizarEstadoOrdenConductor($idOrden, $nombre){
+    $str = "idOrden:::" . $idOrden . 
+    ";;;Estado:::" . $nombre;
 
     return $str;
 }

@@ -165,6 +165,7 @@ class OrdenDAO
                 fechaEstimacion like '%" . $str . "%' OR
                 direccionDestino like '%" . $str . "%' OR
                 Contacto like '%" . $str . "%'
+                ORDER BY orden desc
                 LIMIT " . (($pag - 1) * $cant) . ", " . $cant;
     }
 
