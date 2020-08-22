@@ -101,7 +101,28 @@ class EstadoDAO
                             INNER JOIN orden ON FK_idOrden = idOrden 
                             ORDER BY fechaEstado DESC) as t
                         GROUP BY(t.orden)) as t2
-                    GROUP BY(t2.estado)  
+                GROUP BY(t2.estado)  
+                ORDER BY (t2.idestado) ASC";
+    }
+
+    public function ordenesEstadosDespachador($idDespachador){
+        return "SELECT t2.estado, COUNT(t2.estado),t2.id FROM(
+                    SELECT * FROM(
+                        SELECT 	orden.idOrden as orden, accionestado.idAccion as idestado, accionestado.nombre as estado, estadodespachador.fecha as fechaEstado,1 as id
+                            FROM estadodespachador
+                            INNER JOIN despachador ON FK_idDespachador = idDespachador
+                            INNER JOIN accionestado ON estadodespachador.fk_idAccionEstado = idAccion
+                            INNER JOIN orden ON FK_idOrden = idOrden 
+                            WHERE estadodespachador.FK_idDespachador = '". $idDespachador ."'
+                            UNION ALL
+                            SELECT 	orden.idOrden as orden, accionestado.idAccion as idestado, accionestado.nombre as estado, estadoCliente.fecha as fechaEstado,2 as id
+                            FROM estadoCliente
+                            INNER JOIN cliente ON FK_idCliente = idCliente
+                            INNER JOIN accionestado ON estadoCliente.fk_idAccionEstado = idAccion
+                            INNER JOIN orden ON FK_idOrden = idOrden 
+                            ORDER BY fechaEstado DESC) as t
+                        GROUP BY(t.orden)) as t2
+                GROUP BY(t2.estado)  
                 ORDER BY (t2.idestado) ASC";
     }
 

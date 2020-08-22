@@ -122,4 +122,17 @@ class Estado
         $this->Conexion->cerrar();
         return $resList;
     }
+    public function ordenesEstadosDespachador($idDespachador)
+    {
+        $this->Conexion->abrir();
+        $this->Conexion->ejecutar($this->EstadoDAO->ordenesEstadosDespachador($idDespachador));
+        $resList = array();
+        while ($res = $this->Conexion->extraer()) {
+            if ($res[2] == 1) {
+                array_push($resList, $res);
+            }
+        }
+        $this->Conexion->cerrar();
+        return $resList;
+    }
 }
