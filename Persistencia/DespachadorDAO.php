@@ -115,4 +115,14 @@ class DespachadorDAO{
                     foto = '" . $this -> foto . "'
                 WHERE idDespachador = ". $this -> idDespachador;
     }
+    public function despachadorLibre(){
+        return "SELECT t.FK_idDespachador, COUNT(t.FK_idDespachador) as ordenes FROM(
+                    SELECT * FROM estadoDespachador WHERE estadodespachador.FK_idAccionEstado != 7 GROUP BY(FK_idOrden) ORDER BY(FK_idOrden)) AS t
+                GROUP BY(t.FK_idDespachador) ORDER BY(ordenes) ASC LIMIT 1";
+    }
+    public function traerDespachador(){
+        return "SELECT idDespachador FROM despachador WHERE idDespachador NOT IN (
+                    SELECT FK_idDespachador FROM estadodespachador) 
+                ORDER BY(idDespachador) ASC LIMIT 1";
+    }
 }

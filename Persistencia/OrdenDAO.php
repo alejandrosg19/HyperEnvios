@@ -83,6 +83,7 @@ class OrdenDAO
                     conductor.nombre like '%" . $str . "%' OR
                     estadoconductor.FK_idAccionEstado like '%" . $str . "%' OR
                     accionestado.nombre like '%" . $str . "%') AND estadoconductor.FK_idAccionEstado = 3
+                    AND orden.FK_idDespachador = '" . $this->idDespachador . "'
                     AND orden.idOrden NOT IN(
                     	SELECT fk_idOrden 
                         FROM estadodespachador 
@@ -126,6 +127,7 @@ class OrdenDAO
                         conductor.nombre like '%" . $str . "%' OR
                         estadoconductor.FK_idAccionEstado like '%" . $str . "%' OR
                         accionestado.nombre like '%" . $str . "%') AND estadoconductor.FK_idAccionEstado = 3
+                        AND orden.FK_idDespachador = '" . $this->idDespachador . "'
                         AND orden.idOrden NOT IN(
                             SELECT orden.idOrden 
                             FROM estadodespachador 
@@ -274,6 +276,7 @@ class OrdenDAO
                     INNER JOIN orden on fk_idOrden = idOrden 
                     INNER JOIN cliente on orden.FK_idCliente = idCliente 
                     INNER JOIN accionestado on estadocliente.FK_idAccionEstado = accionestado.idAccion
+                    INNER JOIN cita on orden.FK_idCita = idCita
                     WHERE (
                         orden.fecha like '%" . $str . "%' OR 
                         cliente.nombre like '%" . $str . "%' OR
@@ -281,7 +284,7 @@ class OrdenDAO
                         orden.direccionDestino like '%" . $str . "%' OR
                         orden.contacto like '%" . $str . "%' OR
                         accionestado.nombre like '%" . $str . "%'
-                        ) 
+                        ) AND cita.FK_idConductor = '" . $idConductor . "'
                         AND orden.idOrden NOT IN(
                             SELECT fk_idOrden 
                             FROM estadoconductor)
@@ -313,6 +316,7 @@ class OrdenDAO
                             INNER JOIN orden on fk_idOrden = idOrden 
                             INNER JOIN cliente on orden.FK_idCliente = idCliente 
                             INNER JOIN accionestado on estadocliente.FK_idAccionEstado = accionestado.idAccion
+                            INNER JOIN cita on orden.FK_idCita = idCita
                         WHERE (
                             orden.fecha like '%" . $str . "%' OR 
                             cliente.nombre like '%" . $str . "%' OR
@@ -320,7 +324,7 @@ class OrdenDAO
                             orden.direccionDestino like '%" . $str . "%' OR
                             orden.contacto like '%" . $str . "%' OR
                             accionestado.nombre like '%" . $str . "%'
-                            ) 
+                            ) AND cita.FK_idConductor = '" . $idConductor . "'
                             AND orden.idOrden NOT IN(
                                 SELECT fk_idOrden 
                                 FROM estadoconductor)
@@ -341,7 +345,7 @@ class OrdenDAO
                         ORDER by(fechaEstado) DESC) as T
                     GROUP BY orden) as t2";
     }
-    public function filtroPaginadoConductor2($str, $pag, $cant)
+    public function filtroPaginadoConductor2($str, $pag, $cant, $idConductor)
     {
         return "SELECT * from (
                     SELECT orden.idOrden as orden, orden.fecha as fecha, cliente.nombre as cliente, orden.fechaEstimacion, orden.direccionDestino, orden.contacto, estadodespachador.FK_idAccionEstado, accionestado.nombre as accionestado, estadodespachador.fecha as fechaEstado
@@ -349,6 +353,7 @@ class OrdenDAO
                     INNER JOIN orden on fk_idOrden = idOrden 
                     INNER JOIN cliente on orden.FK_idCliente = idCliente 
                     INNER JOIN accionestado on estadodespachador.FK_idAccionEstado = accionestado.idAccion
+                    INNER JOIN envio on orden.FK_idEnvio = idEnvio
                     WHERE (
                         orden.fecha like '%" . $str . "%' OR 
                         cliente.nombre like '%" . $str . "%' OR
@@ -356,14 +361,15 @@ class OrdenDAO
                         orden.direccionDestino like '%" . $str . "%' OR
                         orden.contacto like '%" . $str . "%' OR
                         accionestado.nombre like '%" . $str . "%'
-                        )
+                        ) 
                         AND idAccion  = 7
+                        AND envio.FK_idConductor = '" . $idConductor . "'
                     UNION ALL(
                     SELECT orden.idOrden as orden, orden.fecha as fecha, cliente.nombre as cliente, orden.fechaEstimacion, orden.direccionDestino, orden.contacto, estadoconductor.FK_idAccionEstado, accionestado.nombre as accionestado, estadoconductor.fecha as fechaEstado
                     FROM estadoconductor
                     INNER JOIN orden on fk_idOrden = idOrden 
                     INNER JOIN cliente on orden.FK_idCliente = idCliente 
-                    INNER JOIN accionestado on estadoconductor.FK_idAccionEstado = accionestado.idAccion
+                    INNER JOIN accionestado on estadoconductor.FK_idAccionEstado = accionestado.idAccion                
                     WHERE (
                         orden.fecha like '%" . $str . "%' OR 
                         cliente.nombre like '%" . $str . "%' OR
@@ -371,13 +377,13 @@ class OrdenDAO
                         orden.direccionDestino like '%" . $str . "%' OR
                         orden.contacto like '%" . $str . "%' OR
                         accionestado.nombre like '%" . $str . "%'
-                    ) AND (idAccion = 8 or idAccion = 9) AND estadoconductor.FK_idConductor = 1)
+                    ) AND (idAccion = 8 or idAccion = 9) AND estadoconductor.FK_idConductor =  '" . $idConductor . "' ) 
                     ORDER by(fechaEstado) DESC) as T
                 GROUP BY orden
                 ORDER BY orden DESC
                 LIMIT " . (($pag - 1) * $cant) . ", " . $cant;
     }
-    public function filtroCantidadConductor2($str)
+    public function filtroCantidadConductor2($str, $idConductor)
     {
         return "SELECT COUNT(orden) FROM(
                     SELECT * from (
@@ -386,6 +392,7 @@ class OrdenDAO
                         INNER JOIN orden on fk_idOrden = idOrden 
                         INNER JOIN cliente on orden.FK_idCliente = idCliente 
                         INNER JOIN accionestado on estadodespachador.FK_idAccionEstado = accionestado.idAccion
+                        INNER JOIN envio on orden.FK_idEnvio = idEnvio
                         WHERE (
                             orden.fecha like '%" . $str . "%' OR 
                             cliente.nombre like '%" . $str . "%' OR
@@ -395,12 +402,13 @@ class OrdenDAO
                             accionestado.nombre like '%" . $str . "%'
                             )
                             AND idAccion  = 7
+                            AND envio.FK_idConductor = '" . $idConductor . "'
                         UNION ALL(
                         SELECT orden.idOrden as orden, orden.fecha as fecha, cliente.nombre as cliente, orden.fechaEstimacion, orden.direccionDestino, orden.contacto, estadoconductor.FK_idAccionEstado, accionestado.nombre as accionestado, estadoconductor.fecha as fechaEstado
                         FROM estadoconductor
                         INNER JOIN orden on fk_idOrden = idOrden 
                         INNER JOIN cliente on orden.FK_idCliente = idCliente 
-                        INNER JOIN accionestado on estadoconductor.FK_idAccionEstado = accionestado.idAccion
+                        INNER JOIN accionestado on estadoconductor.FK_idAccionEstado = accionestado.idAccion                        
                         WHERE (
                             orden.fecha like '%" . $str . "%' OR 
                             cliente.nombre like '%" . $str . "%' OR
@@ -408,7 +416,7 @@ class OrdenDAO
                             orden.direccionDestino like '%" . $str . "%' OR
                             orden.contacto like '%" . $str . "%' OR
                             accionestado.nombre like '%" . $str . "%'
-                        ) AND (idAccion = 8 or idAccion = 9) AND estadoconductor.FK_idConductor = 1)
+                        ) AND (idAccion = 8 or idAccion = 9) AND estadoconductor.FK_idConductor =  '" . $idConductor . "') 
                         ORDER by(fechaEstado) DESC) as T
                     GROUP BY orden
                     ORDER BY orden DESC) as t2";
@@ -444,5 +452,8 @@ class OrdenDAO
                 GROUP BY (t.fecha)
                 ORDER BY (fecha)  DESC
                 LIMIT 10";
+    }
+    public function asignarDespachador(){
+        return "UPDATE orden SET FK_idDespachador = '". $this -> idDespachador ."' WHERE idOrden = '". $this -> idOrden ."'";
     }
 }

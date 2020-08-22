@@ -309,10 +309,10 @@ class Orden
     /*
      * Busca la cantidad de registros con filtro de palabra
      */
-    public function filtroCantidadConductor2($str)
+    public function filtroCantidadConductor2($str, $idConductor)
     {
         $this->Conexion->abrir();
-        $this->Conexion->ejecutar($this->OrdenDAO->filtroCantidadConductor2($str));
+        $this->Conexion->ejecutar($this->OrdenDAO->filtroCantidadConductor2($str, $idConductor));
         $res = $this->Conexion->extraer();
         $this->Conexion->cerrar();
 
@@ -379,5 +379,14 @@ class Orden
         }
         $this->Conexion->cerrar();
         return $resList;
+    }
+    /*
+     * Asignar Despachador a Orden
+     */
+    public function asignarDespachador()
+    {
+        $this->Conexion->abrir();
+        $this->Conexion->ejecutar($this->OrdenDAO->asignarDespachador());
+        $this->Conexion->cerrar();
     }
 }
