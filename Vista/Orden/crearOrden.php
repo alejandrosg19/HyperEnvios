@@ -227,7 +227,7 @@ $fechaFin =  date("Y-m-d", strtotime($fecha_actual . "+ 2 month"));
                 "peso": elem.val()
             };
             $.post("indexAJAX.php?pid=<?php echo base64_encode("Vista/Orden/Ajax/getPrecioItemAjax.php") ?>", json, function(data) {
-
+                console.log("pesoEvent: "+data);
                 res = JSON.parse(data);
                 if (res.status) {
                     elem.parent().parent().children(".precioEventP").children().val(res.data);
@@ -254,6 +254,7 @@ $fechaFin =  date("Y-m-d", strtotime($fecha_actual . "+ 2 month"));
 
             $.post("indexAJAX.php?pid=<?php echo base64_encode("Vista/Orden/Ajax/getPrecioTotalAjax.php") ?>", json, function(data) {
 
+                console.log("eyyyy "+data);
                 res = JSON.parse(data);
                 if (res.status) {
                     $("#precioTotal").val("$ " + res.data);

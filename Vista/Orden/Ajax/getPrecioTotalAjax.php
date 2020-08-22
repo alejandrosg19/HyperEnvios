@@ -13,7 +13,7 @@
 
     foreach ($pesos as $peso) {
         $data = $precio->getPrecioPeso($peso);
-        if (count($data) > 0) {
+        if ($data != null){
             $sumaTotal += floatval($data);
         } else {
             $bool = false;

@@ -37,7 +37,7 @@ if($idOrden > 0){
     $bool = true;
     foreach($items as $item){   
         $resPrecio = $precio -> getPrecioPeso($item[3]);
-        if(!(count($resPrecio) > 0)){
+        if(!($resPrecio != null)){
             $bool = false;
         }
     }
