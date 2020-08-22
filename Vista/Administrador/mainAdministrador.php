@@ -70,7 +70,7 @@ $pieChart =  $pieChart . "]";
                 </div>
                 <div class="col-xl-8" style="padding: 16px !important">
                     <div class="graphdiv grapichSells d-flex flex-column justify-content-center align-items-center" style="height: 580px">
-                        <h5 class="chart-title">Información del envío</h5>
+                        <h5 class="chart-title">Información de Ventas</h5>
                         <div id="columnChart_div" style="width: 90%; height: 400px;"></div>
                     </div>
                 </div>
@@ -78,13 +78,13 @@ $pieChart =  $pieChart . "]";
             <div class="row">
                 <div class="col-12 col-xl-6" style="padding: 16px !important">
                     <div class="graphdiv graphicState d-flex flex-column justify-content-center align-items-center" style="height: 500px; ">
-                        <h5 class="chart-title">Información del envío</h5>
+                        <h5 class="chart-title">Estados de Ordenes</h5>
                         <div id="barChart_div" style="width: 100%; height: 400px;"></div>
                     </div>
                 </div>
                 <div class="col-12 col-xl-6" style="padding: 16px !important">
                     <div class="graphdiv graphicItem  d-flex flex-column justify-content-center align-items-center" style="height: 500px; overflow: hidden;">
-                        <h5 class="chart-title">Información del envío</h5>
+                        <h5 class="chart-title">Peso Vendido</h5>
                         <div id="pieChart_div" style="width: 130%; height: 400px;"></div>
                     </div>
                 </div>

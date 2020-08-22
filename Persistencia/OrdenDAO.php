@@ -437,8 +437,9 @@ class OrdenDAO
     }
     public function ventasxMes(){
         return "SELECT  t.fecha, COUNT(t.fecha) FROM(
-                    SELECT DATE_FORMAT(fecha, '%M/%Y') as fecha FROM orden  ORDER by fecha desc) as t
+                    SELECT DATE_FORMAT(fecha, '%M/%Y') as fecha FROM orden  ORDER by fecha DESC) as t
                 GROUP BY (t.fecha)
+                ORDER BY (fecha)  DESC
                 LIMIT 10";
     }
 }

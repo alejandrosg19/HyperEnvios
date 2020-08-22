@@ -250,7 +250,7 @@ if (isset($_GET['error'])) {
         <div class="row d-flex flex-row justify-content-center" style="padding-top: 250px;">
             <div class="col-5 d-flex flex-column align-items-center">
                 <h1 class="article2-title">Beautiful Cards</h1>
-                <span class="article2-subtitle" style="">THE CORE ELEMENTS OF YOUR WEBSITE</span>
+                <span class="article2-subtitle">THE CORE ELEMENTS OF YOUR WEBSITE</span>
                 <p class="article2-p" style="text-align: center;">From cards designed for blog posts, to product cards or user profiles, you will have many options to choose from. All the cards follow the Now UI Kit style principles and have a design that stands out. We have gone above and beyond with options for you to organise your information.</p>
             </div>
         </div>
