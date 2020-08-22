@@ -31,7 +31,7 @@ $despachador->getInfoNav();
                     <a class="nav-link" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fas fa-th-large icon-style"></i>
                     </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <div class="dropdown-menu downInfoPersonal" aria-labelledby="navbarDropdownMenuLink">
                         <a class="dropdown-item" href="index.php?pid=<?php echo base64_encode("Vista/Despachador/actualizarInfoDespachador.php") ?>"><i class="fas fa-user-circle"></i> Actualizar Información</a>
                         <a class="dropdown-item" href="index.php?cerrarSesion=1"><i class="fas fa-sign-out-alt"></i> Cerrar Sesion</a>
                     </div>

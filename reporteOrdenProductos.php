@@ -1,10 +1,13 @@
 <?php
 
+session_start();
+
 //Requiere estado
 require_once("Negocio/Estado.php");
 require_once("Negocio/Orden.php");
 require_once("Helpers/logHelper.php");
-
+require_once("Negocio/LogAdministrador.php");
+require_once("Negocio/Log.php");
 require_once("mpdf/vendor/autoload.php");
 
 //plantilla HTML
@@ -67,11 +70,15 @@ $plantilla = '<body>
                     <th class="tableTH">Número de contacto</th>
                     <td> ' . $OrdenInfo[0][4] . ' </td>
                 </tr>
+                <tr>
+                    <th class="tableTH"> Fecha Llegada a Bodega</th>
+                    <td> ' . ($OrdenInfo[0][5] == NULL ? "En tránsito": $OrdenInfo[0][5] ) . '</td>
+                </tr>
                 </tbody>
             </table>';
 
 $plantilla .='<div>
-                <h3>Información de Productos</h3>
+                <h3 class="tituloEstado">Información de Productos</h3>
             </div>
             <table class="tableProductos">
                 <tbody>
@@ -108,6 +115,15 @@ $plantilla .= '
 
 
 //$plantilla = "<h1>HOLA</h1>";
+
+if ($_SESSION['rol'] == 1) {
+    echo "dsdsds";
+    $logAdministrador = new LogAdministrador("", getDateTime(), getBrowser(), getOS(), "Reporte de productos de una orden" , $_SESSION['id'], 18);
+    /**
+     * Inserto el registro del log
+     */
+    $logAdministrador -> insertar();
+}
 
 $mpdf->writeHtml($css, \Mpdf\HTMLParserMode::HEADER_CSS);
 $mpdf->writeHtml($plantilla, \Mpdf\HTMLParserMode::HTML_BODY);

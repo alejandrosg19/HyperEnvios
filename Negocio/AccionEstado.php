@@ -86,7 +86,6 @@ class AccionEstado{
 
         $this -> Conexion -> ejecutar( $this -> AccionEstadoDAO -> getInfoBasic());
         $res = $this -> Conexion -> extraer();
-        
         $this -> nombre = $res[1];
         $this -> descripcion = $res[2];
 

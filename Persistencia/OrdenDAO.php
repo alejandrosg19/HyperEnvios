@@ -165,6 +165,7 @@ class OrdenDAO
                 fechaEstimacion like '%" . $str . "%' OR
                 direccionDestino like '%" . $str . "%' OR
                 Contacto like '%" . $str . "%'
+                ORDER BY orden desc
                 LIMIT " . (($pag - 1) * $cant) . ", " . $cant;
     }
 
@@ -229,6 +230,7 @@ class OrdenDAO
                 direccionDestino like '%" . $str . "%' OR
                 Contacto like '%" . $str . "%' OR
                 accionestado like '%".$str."%'
+                ORDER BY orden desc
                 LIMIT " . (($pag - 1) * $cant) . ", " . $cant;
     }
 
@@ -260,7 +262,8 @@ class OrdenDAO
                 fechaEstimacion like '%" . $str . "%' OR
                 direccionDestino like '%" . $str . "%' OR
                 Contacto like '%" . $str . "%' OR
-                accionestado like '%".$str."%'";
+                accionestado like '%".$str."%'
+                ";
     }
 
     public function filtroPaginadoConductor1($str, $pag, $cant, $idConductor)
@@ -412,7 +415,7 @@ class OrdenDAO
     }
 
     public function actualizarEnvio(){
-        return "UPDATE orden SET FK_idEnvio = '".$this ->  idEnvio."' WHERE idOrden = '".$this -> idOrden."'";
+        return "UPDATE orden SET FK_idEnvio = '".$this ->  idEnvio."', fechaLlegada = '" . $this -> fechaLlegada . "' WHERE idOrden = '".$this -> idOrden."'";
     }
 
     public function getOrdenesEnvio(){

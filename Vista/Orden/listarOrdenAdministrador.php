@@ -154,7 +154,7 @@
          * Info Orden
          */
         $("#tabla").on('click', ".moreInfoBtn", function() {
-            $url = "indexAJAX.php?pid=<?php echo base64_encode("Vista/Orden/Ajax/moreInfoOrdenCliente.php") ?>&idOrden=" + $(this).data("idorden");
+            $url = "indexAJAX.php?pid=<?php echo base64_encode("Vista/Orden/Ajax/moreInfoOrdenAdministrador.php") ?>&idOrden=" + $(this).data("idorden");
             $("#moreInfo .modal-body").load($url);
         });
 

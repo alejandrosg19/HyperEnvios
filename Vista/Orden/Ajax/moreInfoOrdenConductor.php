@@ -36,7 +36,7 @@ $data = $orden->getInfoOrden();
                             </tr>
                             <tr>
                                 <th> Fecha Llegada a Bodega</th>
-                                <td> <?php echo $data[0][5] ?></td>
+                                <td> <?php echo ($data[0][5] == NULL ? "En tránsito": $data[0][5] ) ?></td>
                             </tr>
                         </tbody>
                     </table>

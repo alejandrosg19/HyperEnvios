@@ -120,6 +120,8 @@ $accion->getInfoBasic();
                                                     echo "</table>";
                                                 }
                                             }
+                                        }else if($log->getAccion() ==  18){
+                                            echo $log->getInformacion();
                                         }else{
                                             $strList = explode("&&&", $log->getInformacion());
                                             $cantReg = count($strList);

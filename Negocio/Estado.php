@@ -84,6 +84,7 @@ class Estado
     /* 
     *   methods
     */
+
     /*
      * Función que trae todos los estados asociados a una orden
      */

@@ -109,3 +109,22 @@ body{
     font-size: 13px;
     height: 13px;
 }
+.downInfoPersonal{
+    top: 30px;
+    left: -200px;
+}
+
+@media only screen and (max-width: 992px) {
+    .search{
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 576px) {
+    .nav-left{
+        width: 30%;
+    }
+    .nav-right{
+        width: 70%;
+    }
+}

@@ -1,10 +1,9 @@
 <?php
 $idOrden = $_POST['idOrden'];
 $comentario = $_POST['comentario'];
-$idAccionEstado = $_POST['idAccionComentario'];
 $idConductor = $_SESSION['id'];
 
-$estadoDes = new EstadoConductor("", "", $idAccionEstado, $idOrden, $idConductor);
+$estadoDes = new EstadoConductor("", "", "", $idOrden, $idConductor);
 
 $res = $estadoDes->getEstadoOrdenNombre();
 
@@ -24,13 +23,13 @@ if ($res) {
         $Conductor = new Conductor($idConductor);
         $Conductor->getInfoBasic();
 
-        /*if ($_SESSION['rol'] == 4) {
-            $logConductor = new LogConductor("", getDateTime(), getBrowser(), getOS(), crearComentario($idOrden, $estadoDes->getIdAccionEstado(), $fecha, $comentario), $_SESSION['id'], 16);
+        if ($_SESSION['rol'] == 3) {
+            $logConductor = new LogConductor("", getDateTime(), getBrowser(), getOS(), crearComentario($idOrden, $estadoDes->getIdAccionEstado(), $fecha, $comentario), $_SESSION['id'], 17);
             /**
              * Inserto el registro del log
-             *//*
+             */
             $logConductor -> insertar();
-        }*/
+        }
 
         $ajax['status'] = True;
         $ajax['data'] = array(

@@ -28,11 +28,11 @@ $administrador->getInfoNav();
                         <span class="user-info-rol">Administrador</span>
                     </div>
                 </div>
-                <div class="dropdown">
-                    <a class="nav-link" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <div class="menu-right nav-item dropdown show">
+                    <a class="nav-link" href="#" id="navbarDropdown"  role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                         <i class="fas fa-th-large icon-style"></i>
                     </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <div class="dropdown-menu downInfoPersonal" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="index.php?pid=<?php echo base64_encode("Vista/Administrador/actualizarInfoAdministrador.php") ?>"><i class="fas fa-user-circle"></i> Actualizar Información</a>
                         <a class="dropdown-item" href="index.php?cerrarSesion=1"><i class="fas fa-sign-out-alt"></i> Cerrar Sesion</a>
                     </div>
@@ -50,32 +50,28 @@ $administrador->getInfoNav();
             </button>
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <li class="nav-item ">
+                        <a class="nav-link " href="index.php?pid=<?php echo base64_encode("Vista/Administrador/mainAdministrador.php") ?>" >
                             Dashboards
                         </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                        </div>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Order
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="index.php?pid=<?php echo base64_encode("Vista/Orden/listarOrdenAdministrador.php") ?>">Orders</a>
+                            <a class="dropdown-item" href="index.php?pid=<?php echo base64_encode("Vista/Orden/listarOrdenAdministrador.php") ?>">Listar ordenes</a>
                         </div>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Security
+                            States
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="index.php?pid=<?php echo base64_encode("Vista/Security/listarLog.php") ?>">Log</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <a class="dropdown-item" href="#">Something else here</a>
+                            <a class="dropdown-item" href="index.php?pid=<?php echo base64_encode("Vista/Precio/listarPrecio.php") ?>">Precios</a>
+                            <a class="dropdown-item" href="index.php?pid=<?php echo base64_encode("Vista/AccionEstado/listarAccionEstado.php") ?>">Acción</a>
+                            <a class="dropdown-item" href="index.php?pid=<?php echo base64_encode("Vista/Envio/listarEnvioAdministrador.php") ?>">Envios</a>
+                            <a class="dropdown-item" href="index.php?pid=<?php echo base64_encode("Vista/Cita/listarCitaAdministrador.php") ?>">Citas</a>
                         </div>
                     </li>
                     <li class="nav-item dropdown">
@@ -91,13 +87,10 @@ $administrador->getInfoNav();
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            States
+                            Security
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="index.php?pid=<?php echo base64_encode("Vista/Precio/listarPrecio.php") ?>">Precios</a>
-                            <a class="dropdown-item" href="index.php?pid=<?php echo base64_encode("Vista/AccionEstado/listarAccionEstado.php") ?>">Acción</a>
-                            <a class="dropdown-item" href="index.php?pid=<?php echo base64_encode("Vista/Envio/listarEnvioAdministrador.php") ?>">Envios</a>
-                            <a class="dropdown-item" href="index.php?pid=<?php echo base64_encode("Vista/Cita/listarCitaAdministrador.php") ?>">Citas</a>
+                            <a class="dropdown-item" href="index.php?pid=<?php echo base64_encode("Vista/Security/listarLog.php") ?>">Log</a>
                         </div>
                     </li>
                 </ul>

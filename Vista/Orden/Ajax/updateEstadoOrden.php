@@ -26,28 +26,30 @@ if ($estado == 7) { #Estado Depachado
     
 
     #actualizando envio de orden
-    $orden = new Orden($idOrden,"","","","","","","","",$idEnvio);
+    $orden = new Orden($idOrden,"","","","","",$fecha1,"","",$idEnvio);
     $orden -> actualizarEnvio();
 }
 
 #Creando estado en estadoDespachador  
-$estado = new EstadoDespachador("", $fecha, $estado, $idOrden, $_SESSION["id"]);
+$estadoObj = new EstadoDespachador("", $fecha, $estado, $idOrden, $_SESSION["id"]);
 
-$res = $estado->insert();
+$res = $estadoObj->insert();
 #$estado -> getInfoBasic();
 $ajax = array();
 if ($res == 1) {
 
-    /*if ($_SESSION['rol'] == 1) {
+    if ($_SESSION['rol'] == 4) {
         /**
          * Creo el objeto de log
-         *//*
-        $logAdministrador = new LogAdministrador("", getDateTime(), getBrowser(), getOS(), actualizarEstado("Cliente", $cliente -> getIdCliente(), $cliente -> getNombre(), $cliente -> getEstado()), $_SESSION['id'], 4);
+         */
+        $logEstado = new AccionEstado($estado);
+        $logEstado -> getInfoBasic();
+        $logDespachador = new LogDespachador("", getDateTime(), getBrowser(), getOS(), actualizarEstadoOrdenDespachador($idOrden, $logEstado -> getNombre()), $_SESSION['id'], 20);
         /**
          * Inserto el registro del log
-         *//*
-        $logAdministrador -> insertar();
-    }*/
+         */
+        $logDespachador -> insertar();
+    }
 
     $ajax['status'] = true;
     $ajax['msj'] = "El estado ha sido actualizado correctamente";

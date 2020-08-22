@@ -9,13 +9,11 @@ require_once("Negocio/ComentarioCliente.php");
 require_once("Negocio/ComentarioConductor.php");
 require_once("Negocio/ComentarioDespachador.php");
 require_once("Helpers/logHelper.php");
-require_once("Negocio/LogAdministrador.php");
+require_once("Negocio/LogCliente.php");
 require_once("Negocio/Log.php");
 
 require_once("mpdf/vendor/autoload.php");
 
-//plantilla HTML
-//require_once("pdf/plantilla/index.php");
 
 //Codigo CSS
 $css = file_get_contents("pdf/css/style.css");
@@ -95,18 +93,13 @@ for ($i = 0; $i < count($data); $i++) {
                             <td>' . $data[$i][1] . '</td>
                         </tr>
                         <tr>
-                            <th class="tableTHEstados"> ' . ($data[$i][2] == 1 ? 'Despachador' : ($data[$i][2] == 2? 'Conductor': 'Cliente')) . '</th>
+                            <th class="tableTHEstados "> ' . ($data[$i][2] == 1 ? 'Despachador' : ($data[$i][2] == 2? 'Conductor': 'Cliente')) . '</th>
                             <td>' . $data[$i][3] . '</td>
                         </tr>';
 
                         $arrayComentario = Array();
-                        if ($data[$i][2] == 1) {
-                            $comentarioActor = new ComentarioDespachador("", "", "", $data[$i][4]);
-                            $arrayComentario = $comentarioActor->getInfo();
-                        } else if ($data[$i][2] == 2) {
-                            $comentarioActor = new ComentarioConductor("", "", "", $data[$i][4]);
-                            $arrayComentario = $comentarioActor->getInfo();
-                        } else if ($data[$i][2] == 3) {
+
+                        if ($data[$i][2] == 3) {
                             $comentarioActor = new ComentarioCliente("", "", "", $data[$i][4]);
                             $arrayComentario = $comentarioActor->getInfo();
                         }
@@ -154,17 +147,17 @@ $plantilla .= '
 
 //$plantilla = "<h1>HOLA</h1>";
 
-$mpdf->writeHtml($css, \Mpdf\HTMLParserMode::HEADER_CSS);
-$mpdf->writeHtml($plantilla, \Mpdf\HTMLParserMode::HTML_BODY);
-
-if ($_SESSION['rol'] == 1) {
+if ($_SESSION['rol'] == 2) {
     echo "dsdsds";
-    $logAdministrador = new LogAdministrador("", getDateTime(), getBrowser(), getOS(), "Reporte de estado de orden" , $_SESSION['id'], 18);
+    $logCliente = new LogCliente("", getDateTime(), getBrowser(), getOS(), "Reporte de estados de una orden" , $_SESSION['id'], 18);
     /**
      * Inserto el registro del log
      */
-    $logAdministrador -> insertar();
+    $logCliente -> insertar();
 }
+
+$mpdf->writeHtml($css, \Mpdf\HTMLParserMode::HEADER_CSS);
+$mpdf->writeHtml($plantilla, \Mpdf\HTMLParserMode::HTML_BODY);
 
 
 $mpdf->Output();
