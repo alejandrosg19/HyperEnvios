@@ -24,7 +24,7 @@ $areaChart =  $areaChart . "]";
 <div class="container-fluid">
     <div class="row d-flex flex-row justify-content-center">
         <div class="col-10">
-            <div class="row" style="padding: 16px 0px">
+            <div class="row pt-5">
                 <div class="col-12 " style="padding: 16px !important">
                     <div class="graphdiv graphicState d-flex flex-column justify-content-center align-items-center" style="height: 500px; ">
                         <h5 class="chart-title">Estados de Ordenes</h5>
@@ -32,7 +32,7 @@ $areaChart =  $areaChart . "]";
                     </div>
                 </div>
             </div>
-            <div class="row" style="padding: 16px 0px">
+            <div class="row" style="padding: 0px 0px; margin-bottom: 32px">
                 <div class="col-12 " style="padding: 16px !important">
                     <div class="graphdiv graphicState d-flex flex-column justify-content-center align-items-center" style="height: 500px; ">
                         <h5 class="chart-title">Ordenes Despachadas</h5>
