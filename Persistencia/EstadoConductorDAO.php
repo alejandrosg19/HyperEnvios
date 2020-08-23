@@ -39,4 +39,16 @@ class EstadoConductorDAO{
                 ORDER BY fecha desc
                 LIMIT 1";
     }
+
+    public function ordenesConductor(){
+        return "SELECT  DATE_FORMAT(NOW(), '%M/%Y') as fecha, count(*) FROM estadoConductor WHERE DATE_FORMAT(NOW(), '%m/%Y') = DATE_FORMAT(fecha, '%m/%Y') 
+                AND FK_idAccionEstado = 9 AND FK_idConductor = '". $this -> idConductor ."'
+                UNION ALL
+                SELECT DATE_FORMAT(DATE_SUB(NOW(),INTERVAL '1' MONTH), '%M/%Y') as fecha, count(*) FROM estadoConductor WHERE  DATE_FORMAT(DATE_SUB(NOW(),INTERVAL '1' MONTH), '%m/%Y') =  DATE_FORMAT(fecha, '%m/%Y')
+                AND FK_idAccionEstado = 9 AND FK_idConductor = '". $this -> idConductor ."'
+                UNION ALL
+                SELECT DATE_FORMAT(DATE_SUB(NOW(),INTERVAL '2' MONTH), '%M/%Y') as fecha, count(*) FROM estadoConductor WHERE  DATE_FORMAT(DATE_SUB(NOW(),INTERVAL '2' MONTH), '%m/%Y') =  DATE_FORMAT(fecha, '%m/%Y')
+                AND FK_idAccionEstado = 9 AND FK_idConductor = '". $this -> idConductor ."'
+                ORDER BY fecha  DESC";
+    }
 }
