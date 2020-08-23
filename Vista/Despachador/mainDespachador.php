@@ -1,7 +1,7 @@
 <?php
 
 $estado = new Estado();
-$precio = new Precio();
+$orden = new Orden("","","","","","","","","","",$_SESSION["id"]);
 
 /*Cantidad de ordenes que se encuentran en cada uno de los estados*/
 $ordenesEstados = $estado->ordenesEstadosDespachador($_SESSION["id"]);
@@ -12,12 +12,12 @@ for ($i = 0; $i < count($ordenesEstados); $i++) {
 $barChart =  $barChart . "]";
 
 /*Cantidad de items que se encuentran en el rango de pesos*/
-$itemPeso = $precio->itemPeso();
-$pieChart = "[ ['Peso', 'Cantidad Productos'],";
-for ($i = 0; $i < count($itemPeso); $i++) {
-    $pieChart =  $pieChart . "['" . $itemPeso[$i][1] . " - " . $itemPeso[$i][2] . "'," . $itemPeso[$i][0] . "],";
+$ordenes = $orden->ordenesDespachador();
+$areaChart = "[ ['Mes', 'Ordenes Despachadas'],";
+for ($i = 0; $i < count($ordenes); $i++) {
+    $areaChart =  $areaChart . "['" . $ordenes[$i][0] . "'," . $ordenes[$i][1] . "],";
 }
-$pieChart =  $pieChart . "]";
+$areaChart =  $areaChart . "]";
 
 ?>
 <div class="container-fluid">
@@ -32,8 +32,8 @@ $pieChart =  $pieChart . "]";
                 </div>
                 <div class="col-12 col-xl-6" style="padding: 16px !important">
                     <div class="graphdiv graphicItem  d-flex flex-column justify-content-center align-items-center" style="height: 500px; overflow: hidden;">
-                        <h5 class="chart-title">Peso Vendido</h5>
-                        <div id="pieChart_div" style="width: 130%; height: 400px;"></div>
+                        <h5 class="chart-title">Ordenes Despachadas</h5>
+                        <div id="areaChart_div" style="width: 130%; height: 400px;"></div>
                     </div>
                 </div>
             </div>
@@ -79,23 +79,26 @@ $pieChart =  $pieChart . "]";
         chart.draw(view, options);
     }
 
-    /*Pie Chart*/
-    /*google.charts.setOnLoadCallback(drawPieChart);
+    /*Area Chart*/
+    google.charts.setOnLoadCallback(drawAreaChart);
 
-    function drawPieChart() {
-
-        var data = google.visualization.arrayToDataTable(<?php echo $pieChart ?>);
+    function drawAreaChart() {
+        var data = google.visualization.arrayToDataTable(<?php echo $areaChart ?>);
 
         var options = {
-            title: 'Porcentaje de Peso Mas Vendido',
-            pieHole: 0.5,
-            pieSliceTextStyle: {
-                color: 'black',
+            title: 'Cantidad de Ordenes Despachadas',
+            hAxis: {
+                title: 'Mes',
+                titleTextStyle: {
+                    color: '#333'
+                }
             },
+            vAxis: {
+                minValue: 0
+            }
         };
 
-        var chart = new google.visualization.PieChart(document.getElementById('pieChart_div'));
-
+        var chart = new google.visualization.AreaChart(document.getElementById('areaChart_div'));
         chart.draw(data, options);
-    }*/
+    }
 </script>

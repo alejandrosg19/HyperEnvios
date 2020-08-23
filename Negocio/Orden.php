@@ -439,4 +439,18 @@ class Orden
         $this -> Conexion -> cerrar();
         return $res[0];
     }
+    /*
+     * Cantidad de ordenes despachadas por mes
+     */
+    public function ordenesDespachador()
+    {
+        $this->Conexion->abrir();
+        $this->Conexion->ejecutar($this->OrdenDAO->ordenesDespachador());
+        $resList = array();
+        while ($res = $this->Conexion->extraer()) {
+            array_push($resList, $res);
+        }
+        $this->Conexion->cerrar();
+        return $resList;
+    }
 }
