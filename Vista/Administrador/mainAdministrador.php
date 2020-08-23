@@ -6,17 +6,17 @@ $logCliente = new LogCliente();
 
 /*Porcentaje de ordenes del mes actual en comparación mes anterior + cantidad de ordenes del mes*/
 $ventas  = $orden->ventas();
-$porcentajeOrdenes = intval((intval($ventas[0][0]) * 100 / intval($ventas[1][0])) - 100);
+$porcentajeOrdenes = intval((intval($ventas[0][0]) * 100 / ($ventas[1][0]==0?1:intval($ventas[1][0])) - 100));
 $cantOrdenes = $ventas[0][0];
 
 /*Porcentaje de ingresos del mes actual en comparación mes anterior + valor en pesos de mes actual*/
 $ingresos = $orden->ingresos();
-$porcentajeIngresos = intval((intval($ingresos[0][0]) * 100 / intval($ingresos[1][0])) - 100);
+$porcentajeIngresos = intval((intval($ingresos[0][0]) * 100 / ($ingresos[1][0]==0?1:intval($ingresos[1][0])) - 100));
 $valorIngresos = $ingresos[0][0];
 
 /*Porcentaje de clientes nuevos del mes actual en comparacion mes anterior*/
 $clientes = $logCliente->Registros();
-$porcentajeClientes = intval((intval($clientes[0][0]) * 100 / intval($clientes[1][0])) - 100);
+$porcentajeClientes = intval((intval($clientes[0][0]) * 100 / ($clientes[1][0]==0?1:intval($clientes[1][0])) - 100));
 $cantidadClientes = $clientes[0][0];
 
 /*Organiza y escoge los 10 productos de mayor CANTIDAD en la bodega y suma los demas y los muestra en otros*/
@@ -52,19 +52,19 @@ $pieChart =  $pieChart . "]";
                     <div class="infoCards graphdiv graphicPercentage" style="height: 172px">
                         <div class="cards-title"> Ordenes </div>
                         <div class="cards-number"><?php echo $cantOrdenes?></div>
-                        <div class="cards-info"><span class="card-info-up"><i class="fas <?php echo($porcentajeOrdenes<0 ? "fa-arrow-down" : "fa-arrow-up") ?>"></i><?php echo $porcentajeOrdenes?>%</span> Desde el Mes Pasado</div>
+                        <div class="cards-info"><span class="<?php echo($porcentajeOrdenes<0 ? "card-info-down" : "card-info-up") ?>"><i class="fas <?php echo($porcentajeOrdenes<0 ? "fa-arrow-down" : "fa-arrow-up") ?>"></i><?php echo $porcentajeOrdenes?>%</span> Desde el Mes Pasado</div>
                         <div class="card-icon"><i class="fas fa-users"></i></div>
                     </div>
                     <div class="infoCards graphdiv graphicPercentage" style="height: 172px; margin-top:32px">
                         <div class="cards-title"> Ingresos </div>
                         <div class="cards-number">$<?php echo $valorIngresos?></div>
-                        <div class="cards-info"><span class="card-info-down"><i class="fas <?php echo($porcentajeIngresos<0 ? "fa-arrow-down" : "fa-arrow-up") ?>"></i><?php echo $porcentajeIngresos?>%</span> Desde el Mes Pasado</div>
+                        <div class="cards-info"><span class="<?php echo($porcentajeIngresos<0 ? "card-info-down" : "card-info-up") ?>"><i class="fas <?php echo($porcentajeIngresos<0 ? "fa-arrow-down" : "fa-arrow-up") ?>"></i><?php echo $porcentajeIngresos?>%</span> Desde el Mes Pasado</div>
                         <div class="card-icon"><i class="fas fa-dollar-sign"></i></div>
                     </div>
                     <div class="infoCards graphdiv graphicPercentage " style="height: 172px; margin-top:32px">
                         <div class="cards-title"> Clientes </div>
                         <div class="cards-number"><?php echo $cantidadClientes?></div>
-                        <div class="cards-info"><span class="card-info-up"><i class="fas <?php echo($porcentajeClientes<0 ? "fa-arrow-down" : "fa-arrow-up") ?>"></i><?php echo $porcentajeClientes?>%</span> Desde el Mes Pasado</div>
+                        <div class="cards-info"><span class="<?php echo($porcentajeClientes<0 ? "card-info-down" : "card-info-up") ?>"><i class="fas <?php echo($porcentajeClientes<0 ? "fa-arrow-down" : "fa-arrow-up") ?>"></i><?php echo $porcentajeClientes?>%</span> Desde el Mes Pasado</div>
                         <div class="card-icon"><i class="fas fa-chart-line"></i></div>
                     </div>
                 </div>

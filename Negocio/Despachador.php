@@ -260,4 +260,19 @@ class Despachador{
         $this -> Conexion -> cerrar();
         return $res;
     }
+
+    /*
+     * Actualiza la información básica del objeto sin actualizar la contraseña
+     */
+    public function despachadorLibre(){
+        $this -> Conexion -> abrir();
+        $this -> Conexion -> ejecutar( $this -> DespachadorDAO -> traerDespachador());
+        $res = $this -> Conexion -> extraer();
+        if($res[0]==null){
+            $this -> Conexion -> ejecutar( $this -> DespachadorDAO -> despachadorLibre());
+            $res = $this -> Conexion -> extraer();
+        }
+        $this -> Conexion -> cerrar();
+        $this ->  idDespachador = $res[0];
+    }
 }

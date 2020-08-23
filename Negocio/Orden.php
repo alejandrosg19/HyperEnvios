@@ -309,10 +309,10 @@ class Orden
     /*
      * Busca la cantidad de registros con filtro de palabra
      */
-    public function filtroCantidadConductor2($str)
+    public function filtroCantidadConductor2($str, $idConductor)
     {
         $this->Conexion->abrir();
-        $this->Conexion->ejecutar($this->OrdenDAO->filtroCantidadConductor2($str));
+        $this->Conexion->ejecutar($this->OrdenDAO->filtroCantidadConductor2($str, $idConductor));
         $res = $this->Conexion->extraer();
         $this->Conexion->cerrar();
 
@@ -381,11 +381,23 @@ class Orden
         return $resList;
     }
 
+    /**
+     * Obtiene la ultima orden de un cliente 
+     */
     public function getLastOrdenCliente(){
         $this -> Conexion -> abrir();
         $this -> Conexion -> ejecutar($this -> OrdenDAO -> getLastOrdenCliente());
         $res = $this -> Conexion -> extraer();
         $this -> idOrden = $res[0];
         $this -> Conexion -> cerrar();
+    }
+    /*
+     * Asignar Despachador a Orden
+     */
+    public function asignarDespachador()
+    {
+        $this->Conexion->abrir();
+        $this->Conexion->ejecutar($this->OrdenDAO->asignarDespachador());
+        $this->Conexion->cerrar();
     }
 }
