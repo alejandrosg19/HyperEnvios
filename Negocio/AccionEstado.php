@@ -32,6 +32,21 @@ class AccionEstado{
     *   methods
     */
 
+    /**
+     * Funcion que obtiene toda la lista de estados
+     */
+    public function getAllestados(){
+        $this -> Conexion -> abrir();
+        $this -> Conexion -> ejecutar($this -> AccionEstadoDAO -> getAllestados());
+        $resList =  Array();
+        while($res = $this -> Conexion -> extraer()){
+            array_push($resList, $res);
+        }
+
+        $this -> Conexion -> cerrar();
+        return $resList;
+    }
+
     /*
      * Busca si ya existe algun nombre de accion registrado
      */

@@ -46,6 +46,14 @@ class OrdenDAO
             WHERE orden.idOrden = '" . $this->idOrden . "'";
     }
 
+    public function getLastOrdenCliente(){
+        return "SELECT idOrden
+                FROM orden
+                WHERE FK_idCliente = " . $this -> idCliente . "
+                ORDER BY idOrden desc
+                LIMIT 1";
+    }
+
     function insertar()
     {
         return "INSERT INTO Orden (fecha, fechaEstimacion, direccionDestino, contacto, numeroContacto, FK_idCliente, FK_idCita)

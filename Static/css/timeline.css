@@ -1,0 +1,97 @@
+.linetimeInfoCard{
+    height: 400px;
+}
+.timeLineCard{
+    overflow: hidden;
+    width: 90%;
+}
+.timeline{
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+}
+
+.li{
+    transition: all 200ms ease-in;
+    height: 186px;
+    display:flex;
+    flex-flow: column nowrap;
+    justify-content: flex-end;
+}
+
+.timestamp{
+    margin-bottom: 20px;
+    padding: 0px 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #98a6ad;
+    font-weight: 100;
+}
+
+.status{
+    height: 80px;
+    width: 250px;
+    text-align: center;
+    padding: 15px 40px;
+    display: flex;
+    justify-content: center;
+    font-size: 18px;
+    color : #6C757D;
+    border-top: 2px solid #D6DCE0;
+    position: relative;
+    transition: all 200ms ease-in;
+}
+    
+h4:before{
+    content: '';
+    width: 25px;
+    height: 25px;
+    background-color: white;
+    border-radius: 25px;
+    border: 1px solid #ddd;
+    position: absolute;
+    top: -15px;
+    left: 42%;
+    transition: all 200ms ease-in;
+}
+
+.li.complete .status{
+    border-top: 2px solid /*#66DC71*/ #0AD3C3;
+}
+
+.li.complete h4:before{
+    /*background-color: #66DC71;*/
+    background-color: #0AD3C3;
+    border: none;
+    transition: all 200ms ease-in;
+}
+
+.li.complete h4{
+    /*color: #66DC71;*/
+    color: #0AD3C3;
+}
+
+
+@media (min-device-width: 320px) and (max-device-width: 700px){
+    .timeline{
+        list-style-type: none;
+        display: block;
+    }
+    
+    .li{
+        transition: all 200ms ease-in;
+        display: flex;
+        width: inherit;
+    }
+    
+    .timestamp{
+        width: 100px
+    }
+    
+    .status:before{
+        left: -8%;
+        top: 30%;
+        transition: all 200ms ease-in ;
+    }
+}

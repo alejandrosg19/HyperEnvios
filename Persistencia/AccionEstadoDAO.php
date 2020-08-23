@@ -11,13 +11,18 @@ class AccionEstadoDAO{
         $this -> descripcion = $descripcion;
     }
 
-    function existeAccion(){
+    public function getAllestados(){
+        return "SELECT idAccion, nombre, descripcion
+                FROM accionestado";
+    }
+
+    public function existeAccion(){
         return "SELECT * 
                 FROM accionEstado
                 WHERE 
                     nombre = '" . $this -> nombre . "'";
     }
-    function insertar(){
+    public function insertar(){
         return "INSERT INTO accionEstado (nombre, descripcion)
                 VALUES ('" . $this -> nombre . "','" . $this -> descripcion . "')";
     }

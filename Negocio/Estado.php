@@ -101,10 +101,34 @@ class Estado
         return $resList;
     }
 
+    public function getEstadosAsc()
+    {
+        $this->Conexion->abrir();
+        $this->Conexion->ejecutar($this->EstadoDAO->getEstadosAsc());
+        $resList = array();
+        while ($res = $this->Conexion->extraer()) {
+            array_push($resList, $res);
+        }
+        $this->Conexion->cerrar();
+
+        return $resList;
+    }
+
+    public function getLastEstado(){
+        $this->Conexion->abrir();
+        $this->Conexion->ejecutar($this->EstadoDAO->getLastEstado());
+        $resList = array();
+        while ($res = $this->Conexion->extraer()) {
+            array_push($resList, $res);
+        }
+        $this->Conexion->cerrar();
+
+        return $resList;
+    }
+
     public function getEstadosAllOrden($strEstados)
     {
         $this->Conexion->abrir();
-        #echo $this -> EstadoDAO -> getEstadosAllOrden($strEstados);
         $this->Conexion->ejecutar($this->EstadoDAO->getEstadosAllOrden($strEstados));
         $res = $this->Conexion->extraer();
         $this->Conexion->cerrar();

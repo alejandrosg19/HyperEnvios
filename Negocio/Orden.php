@@ -380,4 +380,12 @@ class Orden
         $this->Conexion->cerrar();
         return $resList;
     }
+
+    public function getLastOrdenCliente(){
+        $this -> Conexion -> abrir();
+        $this -> Conexion -> ejecutar($this -> OrdenDAO -> getLastOrdenCliente());
+        $res = $this -> Conexion -> extraer();
+        $this -> idOrden = $res[0];
+        $this -> Conexion -> cerrar();
+    }
 }
