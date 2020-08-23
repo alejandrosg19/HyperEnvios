@@ -6,6 +6,12 @@ date_default_timezone_set('America/Bogota');
 $fecha1 = date("Y-m-d");
 $fecha = date("Y-m-d H:i:s");
 
+if($estado == 5){
+    #actualizando fecha de llegada a la bodega
+    $orden = new Orden($idOrden,"","","","","",$fecha1,"","","");
+    $orden -> actualizarFechaLlegada();
+}
+
 if ($estado == 7) { #Estado Depachado
 
     #Buscar el envío que aun no tenga 5
@@ -26,7 +32,7 @@ if ($estado == 7) { #Estado Depachado
     
 
     #actualizando envio de orden
-    $orden = new Orden($idOrden,"","","","","",$fecha1,"","",$idEnvio);
+    $orden = new Orden($idOrden,"","","","","","","","",$idEnvio);
     $orden -> actualizarEnvio();
 }
 

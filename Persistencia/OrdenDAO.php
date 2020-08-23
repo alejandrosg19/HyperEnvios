@@ -431,7 +431,11 @@ class OrdenDAO
     }
 
     public function actualizarEnvio(){
-        return "UPDATE orden SET FK_idEnvio = '".$this ->  idEnvio."', fechaLlegada = '" . $this -> fechaLlegada . "' WHERE idOrden = '".$this -> idOrden."'";
+        return "UPDATE orden SET FK_idEnvio = '".$this ->  idEnvio."' WHERE idOrden = '".$this -> idOrden."'";
+    }
+
+    public function actualizarFechaLlegada(){
+        return "UPDATE orden SET fechaLlegada = '" . $this ->fechaLlegada . "' WHERE idOrden = '" . $this -> idOrden . "'";
     }
 
     public function getOrdenesEnvio(){
@@ -481,10 +485,14 @@ class OrdenDAO
     }
 
     public function getOrdenesProceso(){
-        return "SELECT count(idOrden)
-                FROM orden 
-                WHERE FK_idCliente = " . $this -> idCliente ." AND fechaLlegada IS NULL
-                GROUP BY FK_idCliente";
+        return "SELECT count(idOrden) 
+                FROM Orden 
+                INNER JOIN envio ON FK_idEnvio = idEnvio 
+                WHERE FK_idCliente = '" . $this -> idCliente . "' AND idOrden not in (
+                    SELECT FK_idOrden
+                    FROM EstadoConductor
+                    WHERE FK_idAccionEstado in (9)
+                )";
     }
 
     
