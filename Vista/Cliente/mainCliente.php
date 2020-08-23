@@ -7,7 +7,12 @@ $estado = new Estado("", "", "", $Orden -> getIdOrden());
 $data = $estado->getEstadosAsc();
 //
 //var_dump($data);
-$last = $data[count($data) - 1][5];
+if(count($data) > 0){
+    $last = $data[count($data) - 1][5];
+}else{
+    $last = 0;
+}
+
 //echo "<br>" . $last . "<br>";
 //
 $accionEstado = new AccionEstado();
@@ -16,40 +21,47 @@ $all = $accionEstado->getAllestados();
 //
 //$posArray = array_search($last, $all[0]);
 $posArray = array_search($last, array_column($all, 0));
-//echo "<br>" . $posArray . "<br>";
+
+/**
+ * Ordenes realizadas
+ */
+
+$totalOrdenes = $Orden -> getTotalOrdenes();
+$fechaPrimeraOrden = explode(" ", $Orden -> getFechaPrimeraOrden());
+
+/**
+ * Ordenes en progreso
+ */
+
+$TotalOrdenesProceso = $Orden -> getOrdenesProceso();
+
+
 ?>
 <div class="container-fluid">
     <div class="row d-flex flex-row justify-content-center">
         <div class="col-10">
             <div class="row pt-5">
-                <div class="col-4" style="padding: 16px !important">
+                <div class="col-12 col-xl-6" style="padding: 16px !important">
                     <div class="infoCards graphdiv graphicPercentage" style="height: 172px">
-                        <div class="cards-title"> Ordenes entregadas </div>
-                        <div class="cards-number"><?php echo "30000" ?></div>
-                        <div class="cards-info"><span class="card-info-up"><i class="fas <?php echo "fa-arrow-down"  ?>"></i><?php echo "80" ?>%</span> Desde el Mes Pasado</div>
+                        <div class="cards-title"> Número de ordenes realizadas </div>
+                        <div class="cards-number"><?php echo ($totalOrdenes != NULL ? $totalOrdenes : 0) ?></div>
+                        <div class="cards-info"><?php echo ($totalOrdenes != NULL ? "Apartir del <span class='card-info-up'>". $fechaPrimeraOrden[0] . " </span>" : "Realiza tu primera orden <span class='card-info-up'><a class='card-info-up' href='index.php?pid=".base64_encode("Vista/Orden/crearOrden.php")."'>aquí</a></span>") ?></div>
                         <div class="card-icon"><i class="fas fa-users"></i></div>
                     </div>
                 </div>
-                <div class="col-4" style="padding: 16px !important">
+                <div class="col-12 col-xl-6" style="padding: 16px !important">
                     <div class="infoCards graphdiv graphicPercentage" style="height: 172px">
-                        <div class="cards-title"> Ordenes en proceso </div>
-                        <div class="cards-number">$<?php echo "150.000" ?></div>
-                        <div class="cards-info"><span class="card-info-down"><i class="fas <?php echo "fa-arrow-up" ?>"></i><?php echo "30" ?>%</span> Desde el Mes Pasado</div>
+                        <div class="cards-title"> Número de ordenes en proceso </div>
+                        <div class="cards-number"><?php echo ($TotalOrdenesProceso != NULL ? $TotalOrdenesProceso : "0" ) ?></div>
+                        <div class="cards-info"><a class="cards-link" href="index.php?pid=<?php echo base64_encode("Vista/Orden/listarOrdenCliente.php") ?>">Ver más <span class="card-info-up"><i class="fas fa-plus"></i></span> </a></div>
                         <div class="card-icon"><i class="fas fa-dollar-sign"></i></div>
                     </div>
                 </div>
-                <div class="col-4" style="padding: 16px !important">
-                    <div class="infoCards graphdiv graphicPercentage " style="height: 172px">
-                        <div class="cards-title"> Clientes </div>
-                        <div class="cards-number"><?php echo "40" ?></div>
-                        <div class="cards-info"><span class="card-info-up"><i class="fas <?php echo "fa-arrow-up" ?>"></i><?php echo "30" ?>%</span> Desde el Mes Pasado</div>
-                        <div class="card-icon"><i class="fas fa-chart-line"></i></div>
-                    </div>
-                </div>
             </div>
-            <div class="row">
+            <div class="row" style="padding: 16px 0px">
                 <div class="col-12">
-                    <div class="infoCards linetimeInfoCard graphdiv d-flex flex-row justify-content-center align-items-center">
+                    <div class="infoCards linetimeInfoCard graphdiv d-flex flex-column justify-content-center align-items-center">
+                    <h5 class="chart-title">Última orden realizada</h5>
                         <div class="timeLineCard">
                             <ul class="timeline" id="timeline">
                                 <?php
@@ -86,20 +98,6 @@ $posArray = array_search($last, array_column($all, 0));
                                 ?>
                             </ul>
                         </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-12 col-xl-6" style="padding: 16px !important">
-                    <div class="graphdiv graphicState d-flex flex-column justify-content-center align-items-center" style="height: 500px; ">
-                        <h5 class="chart-title">Estados de Ordenes</h5>
-                        <div id="barChart_div" style="width: 100%; height: 400px;"></div>
-                    </div>
-                </div>
-                <div class="col-12 col-xl-6" style="padding: 16px !important">
-                    <div class="graphdiv graphicItem  d-flex flex-column justify-content-center align-items-center" style="height: 500px; overflow: hidden;">
-                        <h5 class="chart-title">Peso Vendido</h5>
-                        <div id="pieChart_div" style="width: 130%; height: 400px;"></div>
                     </div>
                 </div>
             </div>

@@ -166,9 +166,9 @@ class OrdenDAO
                         INNER JOIN orden on fk_idOrden = idOrden 
                         INNER JOIN accionestado on estadoconductor.FK_idAccionEstado = accionestado.idAccion
                         WHERE FK_idCliente = '" . $this->idCliente . "'
+                        ORDER BY FK_idAccionEstado DESC
                     ) as t
                     GROUP BY orden
-                    ORDER BY FK_idAccionEstado desc
                 ) as b
                 WHERE 
                 fecha like '%" . $str . "%' OR
@@ -200,9 +200,9 @@ class OrdenDAO
                         INNER JOIN orden on fk_idOrden = idOrden 
                         INNER JOIN accionestado on estadoconductor.FK_idAccionEstado = accionestado.idAccion
                         WHERE FK_idCliente = '" . $this->idCliente . "'
+                        ORDER BY FK_idAccionEstado DESC
                     ) as t
                     GROUP BY orden
-                    ORDER BY FK_idAccionEstado desc
                 ) as b
                 WHERE 
                 fecha like '%" . $str . "%' OR
@@ -464,4 +464,28 @@ class OrdenDAO
     public function asignarDespachador(){
         return "UPDATE orden SET FK_idDespachador = '". $this -> idDespachador ."' WHERE idOrden = '". $this -> idOrden ."'";
     }
+
+    public function getTotalOrdenes(){
+        return "SELECT count(idOrden)
+                FROM orden
+                WHERE FK_idCliente = " . $this -> idCliente . "
+                GROUP BY FK_idCliente";
+    }
+
+    public function getFechaPrimeraOrden(){
+        return "SELECT fecha
+                FROM orden
+                WHERE FK_idCliente = " . $this -> idCliente . "
+                ORDER BY fecha ASC
+                LIMIT 1";
+    }
+
+    public function getOrdenesProceso(){
+        return "SELECT count(idOrden)
+                FROM orden 
+                WHERE FK_idCliente = " . $this -> idCliente ." AND fechaLlegada IS NULL
+                GROUP BY FK_idCliente";
+    }
+
+    
 }

@@ -114,4 +114,27 @@ class Envio{
         $this -> idConductor = $res[2];
         $this -> Conexion -> cerrar();
     }
+
+    /**
+     * Busca la cantidad de ordenes que no se han entregado
+     */
+
+    public function getOrdenesxEntregar(){
+        $this -> Conexion -> abrir();
+        $this -> Conexion -> ejecutar($this -> EnvioDAO -> getOrdenesxEntregar());
+        $res = $this -> Conexion -> extraer();
+        $this -> Conexion -> cerrar();
+        return $res[0];
+    }
+
+    /**
+     * Busca la cantidad de ordenes entregadas en el ultimo mes
+     */
+    public function getOrdenesEntregadas(){
+        $this -> Conexion -> abrir();
+        $this -> Conexion -> ejecutar($this -> EnvioDAO -> getOrdenesEntregadas());
+        $res = $this -> Conexion -> extraer(); 
+        $this -> Conexion -> cerrar();
+        return $res[0];
+    }
 }

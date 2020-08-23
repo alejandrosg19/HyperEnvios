@@ -52,4 +52,26 @@ class CitaDAO{
                 WHERE idCita = " . $this -> idCita;
     }
 
+    public function getOrdenesXRecoger(){
+        return "SELECT count(idOrden) 
+                FROM Orden 
+                INNER JOIN Cita on FK_idCita = idCita 
+                WHERE FK_idConductor = '" . $this -> idConductor . "' AND idOrden not in (
+                    SELECT FK_idOrden
+                    FROM estadoConductor
+                    WHERE FK_idAccionEstado = '3'
+                )";
+    }
+
+    public function getOrdenesRecogidas(){
+        return "SELECT count(idOrden) 
+                FROM Orden 
+                INNER JOIN cita on FK_idCita = idCita
+                WHERE FK_idConductor = '" . $this -> idConductor . "' and idOrden in ( 
+                    SELECT FK_idOrden 
+                    FROM estadoConductor
+                    WHERE FK_idAccionEstado in (3) AND DATE_FORMAT(NOW(), '%m/%Y') = DATE_FORMAT(fecha, '%m/%Y')
+                )";
+    }
+
 }

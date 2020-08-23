@@ -23,6 +23,13 @@
     font-size: 18px;
     color: #6C757D;
 }
+.cards-link a:hover{
+    text-decoration: none !important;
+}
+.cards-link{
+    color: #6C757D !important;
+    text-decoration: none;
+}
 .cards-info > span{
     margin-right: 10px;
 }

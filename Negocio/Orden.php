@@ -400,4 +400,37 @@ class Orden
         $this->Conexion->ejecutar($this->OrdenDAO->asignarDespachador());
         $this->Conexion->cerrar();
     }
+
+    /**
+     * Retorna la cantidad de ordenes realizadas por el usuario
+     */
+    public function getTotalOrdenes(){
+        $this -> Conexion -> abrir();
+        $this -> Conexion -> ejecutar($this -> OrdenDAO -> getTotalOrdenes());
+        $res = $this -> Conexion -> extraer();
+        $this -> Conexion -> cerrar();
+        return $res[0];
+    }
+
+    /**
+     * Devuelve la fecha de la primera orden realizada
+     */
+    public function getFechaPrimeraOrden(){
+        $this -> Conexion -> abrir();
+        $this -> Conexion -> ejecutar($this -> OrdenDAO -> getFechaPrimeraOrden());
+        $res = $this -> Conexion -> extraer();
+        $this -> Conexion -> cerrar();
+        return $res[0];
+    }
+
+    /**
+     * 
+     */
+    public function getOrdenesProceso(){
+        $this -> Conexion -> abrir();
+        $this -> Conexion -> ejecutar($this -> OrdenDAO -> getOrdenesProceso());
+        $res = $this -> Conexion -> extraer();
+        $this -> Conexion -> cerrar();
+        return $res[0];
+    }
 }

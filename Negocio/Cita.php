@@ -108,4 +108,27 @@ class Cita{
         return $res[0];
     }
 
+    /**
+     * Devuelve el numero de ordenes activas por recoger
+     */
+
+    public function getOrdenesXRecoger(){
+        $this -> Conexion -> abrir();
+        $this -> Conexion -> ejecutar($this -> CitaDAO -> getOrdenesXRecoger());
+        $res = $this -> Conexion -> extraer();
+        $this -> Conexion -> cerrar();
+        return $res[0];
+    }
+
+    /**
+     * Devuelve el total de ordenes recogidas en el mes
+     */
+    public function getOrdenesRecogidas(){
+        $this -> Conexion -> abrir();
+        $this -> Conexion -> ejecutar($this -> CitaDAO -> getOrdenesRecogidas());
+        $res = $this -> Conexion -> extraer();
+        $this -> Conexion -> cerrar();
+        return $res[0];
+    }   
+
 }

@@ -73,5 +73,27 @@ class EnvioDAO{
                 WHERE idEnvio = " . $this -> idEnvio;
     }
 
+    public function getOrdenesxEntregar(){
+        return "SELECT count(idOrden) 
+                FROM Orden 
+                INNER JOIN envio on FK_idEnvio = idEnvio
+                WHERE FK_idConductor = '" . $this -> idConductor . "' and idOrden not in (
+                    SELECT FK_idOrden 
+                    FROM estadoConductor
+                    WHERE FK_idAccionEstado in (9)
+                );";
+    }
+
+    public function getOrdenesEntregadas(){
+        return "SELECT count(idOrden) 
+                FROM Orden 
+                INNER JOIN envio on FK_idEnvio = idEnvio 
+                WHERE FK_idConductor = '" . $this -> idConductor . "' and idOrden in ( 
+                    SELECT FK_idOrden 
+                    FROM estadoConductor
+                    WHERE FK_idAccionEstado in (9) AND DATE_FORMAT(NOW(), '%m/%Y') = DATE_FORMAT(fecha, '%m/%Y')
+                )";
+    }
+
 }
 ?>
