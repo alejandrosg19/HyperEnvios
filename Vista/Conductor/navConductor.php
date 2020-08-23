@@ -14,7 +14,7 @@ $conductor->getInfoNav();
     <div class="container-fluid d-flex flex-row justify-content-center">
         <div class="col-10 d-flex p-2">
             <div class="nav-sides nav-left">
-                <a href="index.php?pid=<?php echo base64_encode("Vista/Conductor/mainConductor.php")?>">
+                <a href="index.php?pid=<?php echo base64_encode("Vista/Conductor/mainConductor.php") ?>">
                     <img src="Static/img/web/logo1.png" width="90px">
                 </a>
                 <div class="search">
@@ -53,14 +53,14 @@ $conductor->getInfoNav();
             </button>
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Ordenes
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="index.php?pid=<?php echo base64_encode("Vista/Orden/listarOrdenConductor.php")?>">Por Recoger</a>
-                            <a class="dropdown-item" href="index.php?pid=<?php echo base64_encode("Vista/Orden/listarOrdenConductorEnvio.php")?>">Por Entregar</a>
-                        </div>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.php?pid=<?php echo base64_encode("Vista/Conductor/mainConductor.php") ?>">Dashboards</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.php?pid=<?php echo base64_encode("Vista/Orden/listarOrdenConductor.php") ?>">Orders to Collect</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.php?pid=<?php echo base64_encode("Vista/Orden/listarOrdenConductorEnvio.php") ?>">Orders to Deliver</a>
                     </li>
                 </ul>
             </div>

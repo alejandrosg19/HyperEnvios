@@ -10,7 +10,7 @@ $despachador->getInfoNav();
     <div class="container-fluid d-flex flex-row justify-content-center">
         <div class="col-10 d-flex p-2">
             <div class="nav-sides nav-left">
-                <a href="index.php?pid=<?php echo base64_encode("Vista/Despachador/mainDespachador.php")?>">
+                <a href="index.php?pid=<?php echo base64_encode("Vista/Despachador/mainDespachador.php") ?>">
                     <img src="Static/img/web/logo1.png" width="90px">
                 </a>
                 <div class="search">
@@ -49,28 +49,11 @@ $despachador->getInfoNav();
             </button>
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Pages
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                        </div>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Components
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                        </div>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.php?pid=<?php echo base64_encode("Vista/Despachador/mainDespachador.php") ?>">Dashboards</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="index.php?pid=<?php echo base64_encode("Vista/Orden/listarOrdenDespachador.php") ?>">Ordenes</a>
+                        <a class="nav-link" href="index.php?pid=<?php echo base64_encode("Vista/Orden/listarOrdenDespachador.php") ?>">Orders</a>
                     </li>
                 </ul>
             </div>

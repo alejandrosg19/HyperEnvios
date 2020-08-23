@@ -53,21 +53,14 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Dashboards
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                        </div>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.php?pid=<?php echo base64_encode("Vista/Cliente/mainCliente.php")?>">Dashboards</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="index.php?pid=<?php echo base64_encode("Vista/Orden/crearOrden.php") ?>">Crear Orden</a>
+                        <a class="nav-link" href="index.php?pid=<?php echo base64_encode("Vista/Orden/crearOrden.php") ?>">Create Order</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="index.php?pid=<?php echo base64_encode("Vista/Orden/listarOrdenCliente.php") ?>">Ordenes realizadas</a>
+                        <a class="nav-link" href="index.php?pid=<?php echo base64_encode("Vista/Orden/listarOrdenCliente.php") ?>">My Orders</a>
                     </li>
                 </ul>
             </div>
