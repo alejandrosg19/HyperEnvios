@@ -486,6 +486,15 @@ class OrdenDAO
                 WHERE FK_idCliente = " . $this -> idCliente ." AND fechaLlegada IS NULL
                 GROUP BY FK_idCliente";
     }
-
-    
+    public function ordenesDespachador(){
+        return "SELECT  DATE_FORMAT(NOW(), '%M/%Y') as fecha, count(*) FROM estadodespachador WHERE DATE_FORMAT(NOW(), '%m/%Y') = DATE_FORMAT(fecha, '%m/%Y') 
+                AND FK_idAccionEstado = 7 AND FK_idDespachador = '". $this -> idDespachador ."'
+                UNION ALL
+                SELECT DATE_FORMAT(DATE_SUB(NOW(),INTERVAL '1' MONTH), '%M/%Y') as fecha, count(*) FROM estadodespachador WHERE  DATE_FORMAT(DATE_SUB(NOW(),INTERVAL '1' MONTH), '%m/%Y') =  DATE_FORMAT(fecha, '%m/%Y')
+                AND FK_idAccionEstado = 7 AND FK_idDespachador = '". $this -> idDespachador ."'
+                UNION ALL
+                SELECT DATE_FORMAT(DATE_SUB(NOW(),INTERVAL '2' MONTH), '%M/%Y') as fecha, count(*) FROM estadodespachador WHERE  DATE_FORMAT(DATE_SUB(NOW(),INTERVAL '2' MONTH), '%m/%Y') =  DATE_FORMAT(fecha, '%m/%Y')
+                AND FK_idAccionEstado = 7 AND FK_idDespachador = '". $this -> idDespachador ."'
+                ORDER BY fecha  DESC";
+    }    
 }
