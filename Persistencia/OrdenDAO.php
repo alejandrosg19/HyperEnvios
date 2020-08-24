@@ -487,13 +487,13 @@ class OrdenDAO
     public function getOrdenesProceso(){
         return "SELECT count(idOrden) 
                 FROM Orden 
-                INNER JOIN envio ON FK_idEnvio = idEnvio 
                 WHERE FK_idCliente = '" . $this -> idCliente . "' AND idOrden not in (
                     SELECT FK_idOrden
                     FROM EstadoConductor
                     WHERE FK_idAccionEstado in (9)
                 )";
     }
+
     public function ordenesDespachador(){
         return "SELECT  DATE_FORMAT(NOW(), '%M/%Y') as fecha, count(*) FROM estadodespachador WHERE DATE_FORMAT(NOW(), '%m/%Y') = DATE_FORMAT(fecha, '%m/%Y') 
                 AND FK_idAccionEstado = 7 AND FK_idDespachador = '". $this -> idDespachador ."'
