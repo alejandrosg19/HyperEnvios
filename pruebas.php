@@ -174,6 +174,18 @@ $arrayCDE3 = array(
     "En retraso",
     "Paquete no revisado",
 );
+$arrayCCE8 = array(
+    "Retraso por trafico en la via",
+    "Retraso por accidente en la vida",
+    "Retraso por marchas",
+    "Retraso por averia mecanica"
+);
+$arrayCCE9 = array(
+    "Paquete se dejo en la puerta trasera",
+    "Paquete recibido por familiar",
+    "Paquete se dejo en puerta principal",
+    "Paquete se dejo en bandeja de correo"
+);
 
 $info = "";
 $citas = "";
@@ -181,7 +193,9 @@ $estadoCliente = "";
 $comentarioCliente = "";
 $envio = "";
 $estadoConductor = "";
+$estadoConductor2 = "";
 $comentarioConductor = "";
+$comentarioConductor2 = "";
 $estadoDespachador = "";
 $comentarioDespachador = "";
 
@@ -230,7 +244,7 @@ for ($i = 1; $i <= 63; $i++) {
         $minutos = rand(1, 59);
         $segundos = rand(1, 59);
         $fechaComentario = "2020-0" . (($arraydia[1] + $cantFecha) >= 28 ? $mes + 1 : $mes) . "-" . (($arraydia[1] + $cantFecha) < 10 ? "0" : "") . "" . (($arraydia[1] + $cantFecha) > 28 ? (($arraydia[1] + $cantFecha) - 28) : ($arraydia[1] + $cantFecha)) . " " . $hora . ":" . $minutos . ":" . $segundos;
-        $comentarioCliente = $comentarioCliente . "INSERT INTO comentarioCliente('" . $comentario . "','" . $fechaComentario . "','" . $arrayComentarios[$AC] . "','" . $i . "'); <br>";
+        $comentarioCliente = $comentarioCliente . "INSERT INTO comentarioCliente VALUES('" . $comentario . "','" . $fechaComentario . "','" . $arrayComentarios[$AC] . "','" . $i . "'); <br>";
         $comentario++;
     }
 
@@ -246,7 +260,7 @@ for ($i = 1; $i <= 63; $i++) {
     $bandEstado = rand(1, 2);
     if ($bandEstado == 1) {
         $AC = rand(0, 4);
-        $comentarioConductor = $comentarioConductor . "INSERT INTO comentarioConductor('','" . $fechaEC . "','" . $arrayCCE1[$AC] . "','" . $idEstadoCOnductor . "'); <br>";
+        $comentarioConductor = $comentarioConductor . "INSERT INTO comentarioConductor VALUES('','" . $fechaEC . "','" . $arrayCCE1[$AC] . "','" . $idEstadoCOnductor . "'); <br>";
     }
 
     $idEstadoCOnductor++;
@@ -261,7 +275,7 @@ for ($i = 1; $i <= 63; $i++) {
     $bandEstado = rand(1, 2);
     if ($bandEstado == 1) {
         $AC = rand(0, 4);
-        $comentarioConductor = $comentarioConductor . "INSERT INTO comentarioConductor('','" . $fechaEC . "','" . $arrayCCE2[$AC] . "','" . $idEstadoCOnductor . "'); <br>";
+        $comentarioConductor = $comentarioConductor . "INSERT INTO comentarioConductor VALUES('','" . $fechaEC . "','" . $arrayCCE2[$AC] . "','" . $idEstadoCOnductor . "'); <br>";
     }
     $idEstadoCOnductor++;
 
@@ -275,7 +289,7 @@ for ($i = 1; $i <= 63; $i++) {
     $bandEstado = rand(1, 2);
     if ($bandEstado == 1) {
         $AC = rand(0, 4);
-        $comentarioDespachador = $comentarioDespachador . "INSERT INTO comentarioDespachador('','" . $fechaED . "','" . $arrayCDE1[$AC] . "','" . $idEstadoDespachador . "'); <br>";
+        $comentarioDespachador = $comentarioDespachador . "INSERT INTO comentarioDespachador VALUES('','" . $fechaED . "','" . $arrayCDE1[$AC] . "','" . $idEstadoDespachador . "'); <br>";
     }
 
     $idEstadoDespachador++;
@@ -288,7 +302,7 @@ for ($i = 1; $i <= 63; $i++) {
     $bandEstado = rand(1, 2);
     if ($bandEstado == 1) {
         $AC = rand(0, 4);
-        $comentarioDespachador = $comentarioDespachador . "INSERT INTO comentarioDespachador('','" . $fechaED . "','" . $arrayCDE2[$AC] . "','" . $idEstadoDespachador . "'); <br>";
+        $comentarioDespachador = $comentarioDespachador . "INSERT INTO comentarioDespachador VALUES('','" . $fechaED . "','" . $arrayCDE2[$AC] . "','" . $idEstadoDespachador . "'); <br>";
     }
 
     $idEstadoDespachador++;
@@ -304,10 +318,43 @@ for ($i = 1; $i <= 63; $i++) {
     $bandEstado = rand(1, 2);
     if ($bandEstado == 1) {
         $AC = rand(0, 1);
-        $comentarioDespachador = $comentarioDespachador . "INSERT INTO comentarioDespachador('','" . $fechaED . "','" . $arrayCDE3[$AC] . "','" . $idEstadoDespachador . "'); <br>";
+        $comentarioDespachador = $comentarioDespachador . "INSERT INTO comentarioDespachador VALUES('','" . $fechaED . "','" . $arrayCDE3[$AC] . "','" . $idEstadoDespachador . "'); <br>";
     }
 
     $idEstadoDespachador++;
+
+    /**CONDUCTOR DOS*/
+    #estadoConductor8
+    $hora = 8;
+    $minutos = rand(1, 59);
+    $segundos = rand(1, 59);
+    $fechaEC2 = "2020-0" . (($arraydia[1] + $valorFecha + 2) > 28 ? ($mes + 1) : $mes) . "-" . (($arraydia[1] + $valorFecha + 2) < 10 ? "0" : "") . "" . (($arraydia[1] + $valorFecha + 2) > 28 ? "0".(($arraydia[1] + $valorFecha + 2) - 28) : ($arraydia[1] + $valorFecha + 2)) . "  0" . $hora . ":" . $minutos . ":" . $segundos;
+    $estadoConductor2 .= "INSERT INTO estadoConductor VALUES('" . $idEstadoCOnductor . "','" . $fechaEC2 . "','8','" . $i . "','" . $idDespachador . "');<br>";
+
+    /**comentarioConductor8 */
+    $bandEstado = rand(1, 2);
+    if ($bandEstado == 1) {
+        $AC = rand(0, 3);
+        $comentarioConductor2 = $comentarioConductor2 . "INSERT INTO comentarioConductor VALUES('','" . $fechaEC2 . "','" . $arrayCCE8[$AC] . "','" . $idEstadoCOnductor . "'); <br>";
+    }
+
+    $idEstadoCOnductor++;
+
+    #estadoConductor9
+    $hora = rand(10,20);
+    $minutos = rand(1, 59);
+    $segundos = rand(1, 59);
+    $fechaEC2 = "2020-0" . (($arraydia[1] + $valorFecha + 2) > 28 ? ($mes + 1) : $mes) . "-" . (($arraydia[1] + $valorFecha + 2) < 10 ? "0" : "") . "" . (($arraydia[1] + $valorFecha + 2) > 28 ? "0".(($arraydia[1] + $valorFecha + 2) - 28) : ($arraydia[1] + $valorFecha + 2)) . "  " . $hora . ":" . $minutos . ":" . $segundos;
+    $estadoConductor2 .= "INSERT INTO estadoConductor VALUES('" . $idEstadoCOnductor . "','" . $fechaEC2 . "','9','" . $i . "','" . $idDespachador . "');<br>";
+
+    /**comentarioConductor9 */
+    $bandEstado = rand(1, 2);
+    if ($bandEstado == 1) {
+        $AC = rand(0, 3);
+        $comentarioConductor2 = $comentarioConductor2 . "INSERT INTO comentarioConductor  VALUES('','" . $fechaEC2 . "','" . $arrayCCE9[$AC] . "','" . $idEstadoCOnductor . "'); <br>";
+    }
+
+    $idEstadoCOnductor++;
 
     /*AUNMENTO DIA */
     if ($arraydia[0] == 1 and $arraydia[1] == 18) {
@@ -330,4 +377,6 @@ echo $estadoConductor;
 echo $comentarioConductor;
 echo $estadoDespachador;
 echo $comentarioDespachador;
+echo $estadoConductor2;
+echo $comentarioConductor2;
 
