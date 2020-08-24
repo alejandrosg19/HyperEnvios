@@ -431,7 +431,11 @@ class OrdenDAO
     }
 
     public function actualizarEnvio(){
-        return "UPDATE orden SET FK_idEnvio = '".$this ->  idEnvio."', fechaLlegada = '" . $this -> fechaLlegada . "' WHERE idOrden = '".$this -> idOrden."'";
+        return "UPDATE orden SET FK_idEnvio = '".$this ->  idEnvio."' WHERE idOrden = '".$this -> idOrden."'";
+    }
+
+    public function actualizarFechaLlegada(){
+        return "UPDATE orden SET fechaLlegada = '" . $this ->fechaLlegada . "' WHERE idOrden = '" . $this -> idOrden . "'";
     }
 
     public function getOrdenesEnvio(){
@@ -481,11 +485,15 @@ class OrdenDAO
     }
 
     public function getOrdenesProceso(){
-        return "SELECT count(idOrden)
-                FROM orden 
-                WHERE FK_idCliente = " . $this -> idCliente ." AND fechaLlegada IS NULL
-                GROUP BY FK_idCliente";
+        return "SELECT count(idOrden) 
+                FROM Orden 
+                WHERE FK_idCliente = '" . $this -> idCliente . "' AND idOrden not in (
+                    SELECT FK_idOrden
+                    FROM EstadoConductor
+                    WHERE FK_idAccionEstado in (9)
+                )";
     }
+
     public function ordenesDespachador(){
         return "SELECT  DATE_FORMAT(NOW(), '%M/%Y') as fecha, count(*) FROM estadodespachador WHERE DATE_FORMAT(NOW(), '%m/%Y') = DATE_FORMAT(fecha, '%m/%Y') 
                 AND FK_idAccionEstado = 7 AND FK_idDespachador = '". $this -> idDespachador ."'
@@ -496,5 +504,5 @@ class OrdenDAO
                 SELECT DATE_FORMAT(DATE_SUB(NOW(),INTERVAL '2' MONTH), '%M/%Y') as fecha, count(*) FROM estadodespachador WHERE  DATE_FORMAT(DATE_SUB(NOW(),INTERVAL '2' MONTH), '%m/%Y') =  DATE_FORMAT(fecha, '%m/%Y')
                 AND FK_idAccionEstado = 7 AND FK_idDespachador = '". $this -> idDespachador ."'
                 ORDER BY fecha  DESC";
-    }    
+    }
 }

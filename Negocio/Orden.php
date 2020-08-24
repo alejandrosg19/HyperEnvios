@@ -326,6 +326,12 @@ class Orden
         $this->Conexion->cerrar();
     }
 
+    public function actualizarFechaLlegada(){
+        $this->Conexion->abrir();
+        $this->Conexion->ejecutar($this -> OrdenDAO -> actualizarFechaLlegada());
+        $this->Conexion->cerrar();
+    }
+
     public function getOrdenesEnvio()
     {
         $this->Conexion->abrir();

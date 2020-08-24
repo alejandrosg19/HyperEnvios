@@ -5,8 +5,8 @@ class Conexion{
     private $result;
 
     public function abrir(){
-        //$this -> mysqli = new mysqli("localhost","root","background=FFF","proyectoFinalAplicaciones","3306");
-        $this -> mysqli = new mysqli("localhost","root","","proyectoFinalAplicaciones");
+        $this -> mysqli = new mysqli("localhost","root","background=FFF","proyectoFinalAplicaciones","3306");
+        //$this -> mysqli = new mysqli("localhost","root","","proyectoFinalAplicaciones");
         $this -> mysqli -> set_charset("utf-8");
     }
 
