@@ -208,6 +208,8 @@ $idEnvio = 1;
 $idEstadoCOnductor = 1;
 $idDespachador = 1;
 $idEstadoDespachador = 1;
+$cond2 = rand(1, 3);
+
 for ($i = 1; $i <= 63; $i++) {
     $fecha = "2020-0" . $mes . "-" . ($arraydia[1] < 10 ? "0" : "") . "" . $arraydia[1] . " 12:26:19";
     $fechaEstimacion = "2020-0" . (($arraydia[1] + 6) > 28 ? $mes + 1 : $mes) . "-" . (($arraydia[1] + 6) < 10 ? "0" : "") . "" . (($arraydia[1] + 6) > 28 ? (($arraydia[1] + 6) - 28) : ($arraydia[1] + 6));
@@ -221,10 +223,10 @@ for ($i = 1; $i <= 63; $i++) {
     $contEnvio++;
     $fechaSalida = "2020-0" . (($arraydia[1] + 6) > 28 ? $mes + 1 : $mes) . "-" . (($arraydia[1] + 5) < 10 ? "0" : "") . "" . (($arraydia[1] + 5) > 28 ? (($arraydia[1] + 5) - 28) : ($arraydia[1] + 5));
     if ($contEnvio == 3) {
-        $cond2 = rand(1, 3);
         $envio .= "INSERT INTO envio VALUES('" . $idEnvio . "','" . $fechaSalida . "','" . $cond2 . "'); <br>";
         $contEnvio = 1;
         $idEnvio++;
+        $cond2 = rand(1, 3);
     }
     
 
@@ -329,7 +331,7 @@ for ($i = 1; $i <= 63; $i++) {
     $minutos = rand(1, 59);
     $segundos = rand(1, 59);
     $fechaEC2 = "2020-0" . (($arraydia[1] + $valorFecha + 2) > 28 ? ($mes + 1) : $mes) . "-" . (($arraydia[1] + $valorFecha + 2) < 10 ? "0" : "") . "" . (($arraydia[1] + $valorFecha + 2) > 28 ? "0".(($arraydia[1] + $valorFecha + 2) - 28) : ($arraydia[1] + $valorFecha + 2)) . "  0" . $hora . ":" . $minutos . ":" . $segundos;
-    $estadoConductor2 .= "INSERT INTO estadoConductor VALUES('" . $idEstadoCOnductor . "','" . $fechaEC2 . "','8','" . $i . "','" . $idDespachador . "');<br>";
+    $estadoConductor2 .= "INSERT INTO estadoConductor VALUES('" . $idEstadoCOnductor . "','" . $fechaEC2 . "','8','" . $i . "','" . $cond2 . "');<br>";
 
     /**comentarioConductor8 */
     $bandEstado = rand(1, 2);
@@ -345,7 +347,7 @@ for ($i = 1; $i <= 63; $i++) {
     $minutos = rand(1, 59);
     $segundos = rand(1, 59);
     $fechaEC2 = "2020-0" . (($arraydia[1] + $valorFecha + 2) > 28 ? ($mes + 1) : $mes) . "-" . (($arraydia[1] + $valorFecha + 2) < 10 ? "0" : "") . "" . (($arraydia[1] + $valorFecha + 2) > 28 ? "0".(($arraydia[1] + $valorFecha + 2) - 28) : ($arraydia[1] + $valorFecha + 2)) . "  " . $hora . ":" . $minutos . ":" . $segundos;
-    $estadoConductor2 .= "INSERT INTO estadoConductor VALUES('" . $idEstadoCOnductor . "','" . $fechaEC2 . "','9','" . $i . "','" . $idDespachador . "');<br>";
+    $estadoConductor2 .= "INSERT INTO estadoConductor VALUES('" . $idEstadoCOnductor . "','" . $fechaEC2 . "','9','" . $i . "','" . $cond2 . "');<br>";
 
     /**comentarioConductor9 */
     $bandEstado = rand(1, 2);

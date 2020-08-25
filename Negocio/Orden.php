@@ -453,4 +453,15 @@ class Orden
         $this->Conexion->cerrar();
         return $resList;
     }
+
+    /**
+     * Se obtiene el ultimo estado de una orden
+     */
+    public function lastEstado(){
+        $this -> Conexion -> abrir();
+        $this -> Conexion -> ejecutar($this -> OrdenDAO -> lastEstado());
+        $res = $this -> Conexion -> extraer();
+        $this -> Conexion -> cerrar();
+        return $res[1];
+    }
 }

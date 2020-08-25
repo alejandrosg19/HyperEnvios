@@ -107,6 +107,7 @@
         };
 
         $.post("indexAJAX.php?pid=<?php echo base64_encode("Vista/Orden/Ajax/searchBarOrdenDespachador.php") ?>", json, function(data) {
+            console.log(data);
             res = JSON.parse(data);
             // Imprime los datos de la tabla
             tablePrint(res.DataT, res.DataL);

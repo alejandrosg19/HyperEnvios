@@ -176,7 +176,7 @@
                     "idAccionComentario": $(this).data('idaccion')
                 };
 
-                $.post("indexAJAX.php?pid=<?php echo base64_encode("Vista/Orden/Ajax/crearComentarioConductor.php") ?>", json, function(data) {
+                $.post("indexAJAX.php?pid=<?php echo base64_encode("Vista/Orden/Ajax/crearComentarioConductorEnvio.php") ?>", json, function(data) {
                     console.log(data);
                     res = JSON.parse(data);
                     if (res.status) {
