@@ -252,19 +252,19 @@ if (isset($_GET['error'])) {
         <div class="row d-flex flex-row justify-content-center" style="background-color: black; position: relative;">
             <div class="col-8 d-flex flex-row justify-content-center align-items-center" style="position: absolute; top:-204px">
                 <div class="footerEffect footerImageLeft" style="z-index: 1;">
-                    <img src="Static/img/web/bg9.jpg" width="150px">
+                    <img src="Static/img/web/bg9.png" width="150px">
                 </div>
                 <div class="footerEffect footerImageLeft" style="z-index: 2;">
-                    <img src="Static/img/web/bg7.jpg" width="230px">
+                    <img src="Static/img/web/bg7.png" width="230px">
                 </div>
                 <div class="footerEffect" style="z-index: 3;">
-                    <img src="Static/img/web/bg6.jpg" width="250px">
+                    <img src="Static/img/web/bg6.png" width="250px">
                 </div>
                 <div class="footerEffect footerImageRight" style="z-index: 2;">
-                    <img src="Static/img/web/bg8.jpg" width="230px">
+                    <img src="Static/img/web/bg8.png" width="230px">
                 </div>
                 <div class="footerEffect footerImageRight" style="z-index: 1;">
-                    <img src="Static/img/web/bg10.jpg" width="150px">
+                    <img src="Static/img/web/bg10.png" width="150px">
                 </div>
             </div>
             <div class="container footerContainer">
@@ -275,7 +275,7 @@ if (isset($_GET['error'])) {
                         </div>
                         <div>
                             <p>
-                                El mejor servicio de Delivery de Santiago, más de 150 productos para que escojas. calidad garantizada en todos nuestros productos. Despachos en 24 horas, pides hoy y recibes mañana, así de simple.
+                                El mejor servicio de envíos de Colombia, con más de 50 años de trayectoria entregando sueños y esperanzas de nuestros clientes. Despachos en 6 días sin importar donde te encuentres.
                             </p>
                         </div>
                     </div>
@@ -285,7 +285,7 @@ if (isset($_GET['error'])) {
                         </div>
                         <div>
                             <span>
-                                lasDeliciasDelCalvo@gmail.com
+                                contactocliente@hyperenvios.com
                             </span>
                             <span>
                                 +57 3194607736
