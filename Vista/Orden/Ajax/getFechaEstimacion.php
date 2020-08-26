@@ -2,7 +2,7 @@
 
     $fecha = $_POST['fechaR'];
 
-    $alea = rand(5,10);
+    $alea = rand(5,6);
     
     $fechaEstimacion = date("Y-m-d" ,strtotime($fecha."+ ".$alea." days"));
 
